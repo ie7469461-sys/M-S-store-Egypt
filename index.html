@@ -28,7 +28,6 @@
             font-family: inherit;
         }
 
-        /* الهيدر */
         header {
             background-color: #111111;
             color: #ffffff;
@@ -360,7 +359,6 @@
             box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
         }
 
-        /* تنسيق صندوق اختيار طريقة الدفع */
         .payment-method-box {
             background: #fdfbf7;
             border: 2px dashed #d4af37;
@@ -607,7 +605,6 @@
                     <input type="text" id="custSize" class="form-control" readonly style="background-color: #f1f1f1; cursor: not-allowed; font-weight: bold;">
                 </div>
 
-                <!-- اختيار طريقة الدفع -->
                 <div class="payment-method-box">
                     <div class="form-group" style="margin-bottom: 0;">
                         <label data-ar="طريقة الدفع:" data-en="Payment Method:">طريقة الدفع:</label>
@@ -624,13 +621,12 @@
         </div>
     </div>
 
-    <!-- نافذة نجاح الطلب ورسالة التأكيد -->
+    <!-- نافذة نجاح الطلب ورسالة التأكيد مع المقاس والعنوان بوضوح وعبارة الوداع -->
     <div id="successOrderModal" class="modal">
-        <div class="modal-content" style="text-align: center; max-width: 420px;">
+        <div class="modal-content" style="text-align: center; max-width: 440px;">
             <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
             <h3 style="color: #111111; margin-bottom: 12px;" data-ar="تم تأكيد طلبك بنجاح!" data-en="Order Confirmed Successfully!">تم تأكيد طلبك بنجاح!</h3>
-            <div style="background: #fdfbf7; border: 1px solid #d4af37; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: bold; color: #222; font-size: 1.05rem; line-height: 1.7;" id="successMsgText">
-                تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام، وسيتم التواصل معك خلال أقرب وقت.
+            <div style="background: #fdfbf7; border: 2px solid #d4af37; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-weight: bold; color: #111; font-size: 1.05rem; line-height: 1.8; text-align: right;" id="successMsgText">
             </div>
             <button class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModal('successOrderModal')" data-ar="حسناً" data-en="OK">حسناً</button>
         </div>
@@ -650,7 +646,7 @@
                     <label data-ar="الكمية (عدد القطع):" data-en="Quantity:">الكمية (عدد القطع):</label>
                     <input type="number" id="editProdQty" class="form-control" min="1" max="50" required>
                 </div>
-                <div class: "form-group">
+                <div class="form-group">
                     <label data-ar="السعر الإجمالي النهائي (ج.م):" data-en="Total Price (EGP):">السعر الإجمالي النهائي (ج.م):</label>
                     <input type="number" id="editProdPrice" class="form-control" required>
                 </div>
@@ -1189,12 +1185,20 @@
                 if(res.ok) {
                     closeModal('orderModal');
                     
-                    // إظهار رسالة التأكيد بحيث يظهر فيها المقاس، العنوان، وطريقة الدفع مع الوداع المطلوب
+                    // إظهار رسالة النجاح بحيث يكون المقاس والعنوان ظاهرين بوضوح مع عبارة الوداع المطلوبة
                     const successText = currentLang === 'ar' ? 
-                        `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام.\n📏 المقاس: ${custSize}\n📍 العنوان: ${custAddress}\n\nوسيتم التواصل معك خلال أقرب وقت.\nإلى اللقاء نراك المرة القادمة إن شاء الله.` :
-                        `Your order has been successfully placed, Cash on Delivery.\nSize: ${custSize}\nAddress: ${custAddress}\n\nWe will contact you shortly.\nGoodbye, see you next time, Inshallah.`;
+                        `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام.<br><br>` +
+                        `<span style="color:#d4af37; font-size:1.15rem;">📏 المقاس: ${custSize}</span><br>` +
+                        `<span style="color:#d4af37; font-size:1.05rem;">📍 العنوان: ${custAddress}</span><br><br>` +
+                        `وسيتم التواصل معك خلال أقرب وقت.<br>` +
+                        `وإلى اللقاء نراك المرة القادمة إن شاء الله.` :
+                        `Your order has been successfully placed, Cash on Delivery.<br><br>` +
+                        `Size: ${custSize}<br>` +
+                        `Address: ${custAddress}<br><br>` +
+                        `We will contact you shortly.<br>` +
+                        `Goodbye, see you next time, Inshallah.`;
                     
-                    document.getElementById('successMsgText').innerText = successText;
+                    document.getElementById('successMsgText').innerHTML = successText;
                     document.getElementById('successOrderModal').classList.add('active');
 
                     if(isAdmin) fetchOrders();
