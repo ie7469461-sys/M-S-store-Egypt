@@ -359,6 +359,15 @@
             text-align: center;
             box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
         }
+
+        /* تنسيق صندوق اختيار طريقة الدفع */
+        .payment-method-box {
+            background: #fdfbf7;
+            border: 2px dashed #d4af37;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 <body>
@@ -597,11 +606,33 @@
                     <label><span data-ar="المقاس" data-en="Size">المقاس</span> <span class="gold-subtext" data-ar="(المقاس المسجل بحسابك وغير قابل للتعديل)" data-en="(Account size locked)">(المقاس المسجل بحسابك وغير قابل للتعديل)</span>:</label>
                     <input type="text" id="custSize" class="form-control" readonly style="background-color: #f1f1f1; cursor: not-allowed; font-weight: bold;">
                 </div>
+
+                <!-- اختيار طريقة الدفع -->
+                <div class="payment-method-box">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label data-ar="طريقة الدفع:" data-en="Payment Method:">طريقة الدفع:</label>
+                        <select id="paymentMethod" class="form-control" required style="background: #fff;">
+                            <option value="الدفع نقدا عند الاستلام" data-ar="💵 الدفع نقدا عند الاستلام" data-en="💵 Cash on Delivery">💵 الدفع نقدا عند الاستلام</option>
+                        </select>
+                    </div>
+                </div>
                 
                 <button type="submit" class="btn btn-gold" style="width:100%; padding: 14px; font-size: 1.05rem;" data-ar="تأكيد الطلب بالسعر النهائي (Submit)" data-en="Confirm Order (Submit)">
                     تأكيد الطلب بالسعر النهائي (Submit) 🛍️
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- نافذة نجاح الطلب ورسالة التأكيد -->
+    <div id="successOrderModal" class="modal">
+        <div class="modal-content" style="text-align: center; max-width: 420px;">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
+            <h3 style="color: #111111; margin-bottom: 12px;" data-ar="تم تأكيد طلبك بنجاح!" data-en="Order Confirmed Successfully!">تم تأكيد طلبك بنجاح!</h3>
+            <div style="background: #fdfbf7; border: 1px solid #d4af37; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: bold; color: #222; font-size: 1.05rem; line-height: 1.7;" id="successMsgText">
+                تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام، وسيتم التواصل معك خلال أقرب وقت.
+            </div>
+            <button class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModal('successOrderModal')" data-ar="حسناً" data-en="OK">حسناً</button>
         </div>
     </div>
 
@@ -642,6 +673,10 @@
                 <div class="form-group">
                     <label data-ar="العنوان:" data-en="Address:">العنوان:</label>
                     <input type="text" id="editCustAddress" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label data-ar="طريقة الدفع:" data-en="Payment Method:">طريقة الدفع:</label>
+                    <input type="text" id="editPaymentMethod" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label data-ar="حالة الطلب:" data-en="Order Status:">حالة الطلب:</label>
@@ -1077,7 +1112,6 @@
                 if(currentUser.gmail) document.getElementById('custGmail').value = currentUser.gmail;
                 if(currentUser.phone) document.getElementById('custPhone').value = currentUser.phone;
                 
-                // كتابة العنوان والمقاس تلقائياً من الحساب وتثبيتهما بحيث لا يمكن تعديلهما
                 document.getElementById('custAddress').value = currentUser.address || 'غير محدد';
                 document.getElementById('custSize').value = currentUser.size || selectedProduct.size;
             } else {
@@ -1128,17 +1162,19 @@
 
             const unitPrice = parseFloat(selectedProduct.price);
             const totalPrice = unitPrice * qty;
+            const paymentMethod = document.getElementById('paymentMethod').value;
 
             const orderData = {
                 productName: document.getElementById('orderProdName').value,
                 custName: document.getElementById('custName').value.trim(),
                 custGmail: document.getElementById('custGmail').value.trim() || currentUser.gmail,
                 custPhone: document.getElementById('custPhone').value.trim() || currentUser.phone,
-                custAddress: currentUser.address, // أخذ العنوان الثابت مباشرة من الحساب لمنع أي تلاعب
-                custSize: currentUser.size,       // أخذ المقاس الثابت مباشرة من الحساب لمنع أي تلاعب
+                custAddress: currentUser.address,
+                custSize: currentUser.size,
                 quantity: qty,
                 unitPrice: unitPrice,
                 price: totalPrice,
+                paymentMethod: paymentMethod,
                 status: 'قيد الانتظار',
                 date: new Date().toLocaleString('ar-EG')
             };
@@ -1149,8 +1185,16 @@
                     body: JSON.stringify(orderData)
                 });
                 if(res.ok) {
-                    alert(currentLang === 'ar' ? 'تم إرسال طلبك بنجاح Submit! 🚀\n\n📍 عنوان التوصيل الثابت: ' + orderData.custAddress + '\n📏 المقاس الثابت: ' + orderData.custSize + '\n💰 السعر النهائي المطلوب سداده: ' + totalPrice + ' ج.م (' + qty + ' قطعة)' : 'Order submitted successfully! 🚀');
                     closeModal('orderModal');
+                    
+                    // إظهار نافذة رسالة التأكيد بعد الـ Submit
+                    const successText = currentLang === 'ar' ? 
+                        `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام، وسيتم التواصل معك خلال أقرب وقت.` :
+                        `Your order has been successfully placed, Cash on Delivery, and we will contact you shortly.`;
+                    
+                    document.getElementById('successMsgText').innerText = successText;
+                    document.getElementById('successOrderModal').classList.add('active');
+
                     if(isAdmin) fetchOrders();
                 }
             } catch(e) {
@@ -1181,11 +1225,13 @@
 
                     const isAccepted = o.status === ADMIN_CONFIRM_MSG;
                     const qty = o.quantity || 1;
+                    const payMethod = o.paymentMethod || 'الدفع نقدا عند الاستلام';
 
                     item.innerHTML = `
                         <div style="font-weight:bold; color:#111; font-size:1.05rem;">📦 ${o.productName}</div>
                         <div style="color:#d4af37; font-weight:bold;">🔢 <b>${currentLang === 'ar' ? 'الكمية:' : 'Qty:'}</b> ${qty} ${currentLang === 'ar' ? 'قطعة' : 'pcs'}</div>
                         <div style="color:#16a34a; font-weight:bold; font-size:1.15rem;">💰 <b>${currentLang === 'ar' ? 'السعر النهائي الإجمالي:' : 'Total Price:'}</b> ${o.price} ج.م</div>
+                        <div>💳 <b>${currentLang === 'ar' ? 'طريقة الدفع:' : 'Payment:'}</b> ${payMethod}</div>
                         <div>👤 <b>${currentLang === 'ar' ? 'العميل:' : 'Customer:'}</b> ${o.custName}</div>
                         <div>📧 <b>${currentLang === 'ar' ? 'الجيميل:' : 'Gmail:'}</b> ${o.custGmail}</div>
                         <div>📱 <b>${currentLang === 'ar' ? 'الهاتف:' : 'Phone:'}</b> ${o.custPhone}</div>
@@ -1220,6 +1266,7 @@
             document.getElementById('editCustGmail').value = o.custGmail || '';
             document.getElementById('editCustPhone').value = o.custPhone || '';
             document.getElementById('editCustAddress').value = o.custAddress || '';
+            document.getElementById('editPaymentMethod').value = o.paymentMethod || 'الدفع نقدا عند الاستلام';
             document.getElementById('editCustStatus').value = o.status || 'قيد الانتظار';
 
             document.getElementById('editOrderModal').classList.add('active');
@@ -1239,6 +1286,7 @@
                 custGmail: document.getElementById('editCustGmail').value.trim(),
                 custPhone: document.getElementById('editCustPhone').value.trim(),
                 custAddress: document.getElementById('editCustAddress').value.trim(),
+                paymentMethod: document.getElementById('editPaymentMethod').value.trim(),
                 status: document.getElementById('editCustStatus').value.trim()
             };
 
@@ -1318,6 +1366,7 @@
                 foundOrders.reverse().forEach(o => {
                     const isAccepted = o.status === ADMIN_CONFIRM_MSG;
                     const qty = o.quantity || 1;
+                    const payMethod = o.paymentMethod || 'الدفع نقدا عند الاستلام';
 
                     const item = document.createElement('div');
                     item.style.cssText = `background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:10px; border-right:4px solid ${isAccepted ? '#16a34a' : '#d4af37'}; border:1px solid #eee;`;
@@ -1326,6 +1375,7 @@
                         <div>🔢 <b>الكمية المطلوبة:</b> ${qty} قطعة</div>
                         <div>📍 <b>العنوان الثابت:</b> ${o.custAddress}</div>
                         <div>📏 <b>المقاس الثابت:</b> ${o.custSize}</div>
+                        <div>💳 <b>طريقة الدفع:</b> ${payMethod}</div>
                         <div style="color:#d4af37; font-weight:800; font-size:1.1rem; margin:4px 0;">💰 السعر النهائي الإجمالي: ${o.price} ج.م</div>
                         <div style="margin-top:4px; font-weight:bold; color:${isAccepted ? '#16a34a' : '#856404'};">
                             🔔 حالة الطلب: ${o.status}
