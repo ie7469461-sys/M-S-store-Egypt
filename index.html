@@ -14,8 +14,8 @@
         }
 
         html, body {
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: #fcfcfc;
+            color: #1a1a1a;
             line-height: 1.6;
             overflow-x: hidden;
             overflow-y: auto;
@@ -29,27 +29,29 @@
             font-family: inherit;
         }
 
+        /* الهيدر الملكي */
         header {
-            background-color: #0f172a;
+            background-color: #111111;
             color: #ffffff;
             padding: max(15px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 15px max(20px, env(safe-area-inset-left));
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 2px solid #d4af37;
         }
 
         .logo {
             font-size: 1.35rem;
             font-weight: 800;
-            color: #ffffff;
+            color: #d4af37;
             display: flex;
             align-items: center;
-            gap: 8px;
-            letter-spacing: -0.5px;
+            gap: 6px;
+            letter-spacing: 0.5px;
         }
 
         .header-btns {
@@ -60,37 +62,42 @@
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.88rem;
+            font-weight: bold;
+            font-size: 0.85rem;
             transition: all 0.2s ease;
         }
 
-        .btn-primary {
-            background-color: #2563eb;
-            color: #ffffff;
+        .btn-gold {
+            background-color: #d4af37;
+            color: #111111;
         }
 
-        .btn-primary:active {
-            background-color: #1d4ed8;
+        .btn-gold:active {
+            background-color: #b89628;
             transform: scale(0.98);
         }
 
-        .btn-outline {
+        .btn-outline-gold {
             background: transparent;
-            color: #ffffff;
-            border: 1px solid #334155;
+            color: #d4af37;
+            border: 1px solid #d4af37;
         }
 
-        .btn-outline:active {
-            background: #1e293b;
+        .btn-outline-gold:active {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .btn-dark {
+            background-color: #111111;
+            color: #ffffff;
         }
 
         .btn-danger {
-            background-color: #ef4444;
+            background-color: #dc2626;
             color: white;
         }
 
@@ -102,11 +109,11 @@
 
         .card {
             background: #ffffff;
-            padding: 24px;
+            padding: 22px;
             border-radius: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            margin-bottom: 24px;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
         }
 
         .form-group {
@@ -116,27 +123,55 @@
         .form-group label {
             display: block;
             margin-bottom: 6px;
-            font-weight: 600;
+            font-weight: bold;
             font-size: 0.92rem;
-            color: #334155;
+            color: #222222;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 0.98rem;
             outline: none;
-            transition: all 0.2s;
+            transition: border-color 0.2s;
             background: #ffffff;
         }
 
         .form-control:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: #d4af37;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
         }
 
+        /* حقل الباسورد مع زر العين */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .input-eye-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-eye-container input {
+            padding-left: 45px;
+        }
+
+        .eye-btn {
+            position: absolute;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            color: #666;
+            user-select: none;
+        }
+
+        /* شبكة المنتجات */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -148,18 +183,18 @@
             background: #ffffff;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             position: relative;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #f0f0f0;
         }
 
         .product-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            background: #f1f5f9;
+            background: #f5f5f5;
         }
 
         .product-details {
@@ -172,56 +207,59 @@
 
         .product-title {
             font-size: 1.1rem;
-            font-weight: 700;
+            font-weight: bold;
             margin-bottom: 6px;
-            color: #0f172a;
+            color: #111111;
         }
 
         .product-price {
             font-size: 1.25rem;
-            color: #16a34a;
+            color: #d4af37;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .product-size, .product-color {
             font-size: 0.85rem;
-            color: #475569;
+            color: #333333;
             margin-bottom: 6px;
-            background: #f1f5f9;
-            padding: 4px 10px;
+            background: #f4f4f4;
+            padding: 4px 8px;
             border-radius: 6px;
             display: inline-block;
             width: fit-content;
         }
 
         .product-color {
-            background: #e0f2fe;
-            color: #0369a1;
+            background: #fef9e7;
+            color: #8a6d0b;
+            border: 1px solid #f3e5ab;
             font-weight: 600;
         }
 
         .btn-order {
             width: 100%;
-            padding: 12px;
-            background: #0f172a;
-            color: #ffffff;
-            border: none;
+            padding: 11px;
+            background: #111111;
+            color: #d4af37;
+            border: 1px solid #d4af37;
             border-radius: 8px;
-            font-weight: 700;
+            font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: background-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-order:active {
-            background: #1e293b;
+            background: #d4af37;
+            color: #111111;
         }
 
+        /* النوافذ المنبثقة Modal */
         .modal {
             display: none;
             position: fixed;
@@ -229,8 +267,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(3px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -250,30 +288,56 @@
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #d4af37;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .close-modal {
             position: absolute;
-            top: 16px;
-            left: 16px;
+            top: 15px;
+            left: 15px;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #94a3b8;
+            color: #888888;
             line-height: 1;
         }
 
+        /* تبويبات التسجيل (تسجيل دخول / حساب جديد) */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #777777;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .auth-tab-btn.active {
+            color: #111111;
+            border-bottom-color: #d4af37;
+        }
+
         .admin-badge {
-            background: #2563eb;
-            color: white;
+            background: #d4af37;
+            color: #111111;
             font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
         }
 
         .badge {
-            background: #ef4444;
+            background: #dc2626;
             color: white;
             border-radius: 50%;
             padding: 2px 7px;
@@ -281,7 +345,7 @@
         }
 
         .order-item {
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #eeeeee;
             padding: 14px 0;
         }
 
@@ -294,18 +358,19 @@
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: bold;
             margin-top: 5px;
         }
 
         .status-pending {
-            background-color: #fef3c7;
-            color: #92400e;
+            background-color: #fff3cd;
+            color: #856404;
         }
 
         .status-accepted {
-            background-color: #dcfce7;
-            color: #166534;
+            background-color: #fef9e7;
+            color: #8a6d0b;
+            border: 1px solid #d4af37;
         }
     </style>
 </head>
@@ -317,18 +382,18 @@
             <span id="adminBadge" class="admin-badge" style="display:none;">مدير</span>
         </div>
         <div class="header-btns">
-            <button class="btn btn-outline" onclick="openTrackModal()">🔍 متابعة طلبي</button>
-            <button id="ordersBtn" class="btn btn-outline" onclick="openOrdersModal()" style="display:none;">
+            <button class="btn btn-outline-gold" onclick="openTrackModal()">🔍 متابعة طلبي</button>
+            <button id="ordersBtn" class="btn btn-outline-gold" onclick="openOrdersModal()" style="display:none;">
                 📦 الطلبات <span id="ordersCount" class="badge">0</span>
             </button>
-            <button id="loginBtn" class="btn btn-primary" onclick="toggleLogin()">تسجيل دخول</button>
+            <button id="loginBtn" class="btn btn-gold" onclick="openAuthModal()">تسجيل دخول / حساب جديد</button>
         </div>
     </header>
 
     <div class="container">
-        <!-- قسم إضافة منتج (للمدير فقط) -->
+        <!-- لوحة التحكم لإضافة منتج (للمدير فقط) -->
         <div id="adminPanel" class="card" style="display:none;">
-            <h2 style="margin-bottom: 15px; color: #0f172a;">إضافة منتج جديد</h2>
+            <h2 style="margin-bottom: 15px; color: #111111;">إضافة منتج جديد</h2>
             <form id="productForm" onsubmit="saveProduct(event)">
                 <div class="form-group">
                     <label>اسم المنتج:</label>
@@ -347,43 +412,75 @@
                     <input type="text" id="pColor" class="form-control" placeholder="مثال: أسود، كحلي، رمادي (أو اتركه فارغاً)">
                 </div>
                 <div class="form-group">
-                    <label>صورة المنتج (اختر صورة من جهازك):</label>
+                    <label>صورة المنتج (رفع ملف من الجهاز):</label>
                     <input type="file" id="pFile" class="form-control" accept="image/*" required>
+                    <small style="color: #666; font-size: 0.8rem;">* اختر صورة من ألبوم الصور الخاص بجهازك</small>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px;">إضافة المنتج</button>
+                <button type="submit" class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px;">إضافة المنتج 🚀</button>
             </form>
         </div>
 
         <!-- قائمة المنتجات -->
-        <h2 style="margin-bottom: 15px; color: #0f172a;" id="productsTitle">المنتجات المتاحة</h2>
+        <h2 style="margin-bottom: 15px; color: #111111;" id="productsTitle">المنتجات المتاحة</h2>
         <div id="productsGrid" class="products-grid">
-            <p style="grid-column: 1/-1; text-align: center; color: #64748b;">جاري تحميل المنتجات...</p>
+            <p style="grid-column: 1/-1; text-align: center; color: #888888;">جاري تحميل المنتجات...</p>
         </div>
     </div>
 
-    <!-- مودال تسجيل الدخول -->
-    <div id="loginModal" class="modal">
+    <!-- نافذة تسجيل الدخول + إنشاء حساب (دمج مع زر العين للباسورد) -->
+    <div id="authModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #0f172a;">تسجيل دخول المدير</h3>
-            <div class="form-group">
-                <label>اسم المستخدم:</label>
-                <input type="text" id="userIn" class="form-control">
+            <span class="close-modal" onclick="closeModal('authModal')">&times;</span>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="loginTabBtn" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+                <button class="auth-tab-btn" id="registerTabBtn" onclick="switchAuthTab('register')">إنشاء حساب جديد</button>
             </div>
-            <div class="form-group">
-                <label>كلمة المرور:</label>
-                <input type="password" id="passIn" class="form-control">
+
+            <!-- نموذج تسجيل الدخول -->
+            <div id="loginFormSection">
+                <div class="form-group">
+                    <label>اسم المستخدم أو الجيميل:</label>
+                    <input type="text" id="userIn" class="form-control" placeholder="أدخل اسم المستخدم أو Gmail">
+                </div>
+                <div class="form-group password-wrapper">
+                    <label>كلمة المرور:</label>
+                    <div class="input-eye-container">
+                        <input type="password" id="passIn" class="form-control" placeholder="أدخل كلمة المرور">
+                        <button type="button" class="eye-btn" onclick="togglePassword('passIn', this)">👁️</button>
+                    </div>
+                </div>
+                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()">تسجيل الدخول</button>
             </div>
-            <button class="btn btn-primary" style="width:100%; padding: 12px;" onclick="doLogin()">دخول</button>
+
+            <!-- نموذج إنشاء حساب جديد -->
+            <div id="registerFormSection" style="display:none;">
+                <div class="form-group">
+                    <label>الاسم بالكامل:</label>
+                    <input type="text" id="regName" class="form-control" placeholder="مثال: أحمد محمد">
+                </div>
+                <div class="form-group">
+                    <label>بريد الجيميل (Gmail):</label>
+                    <input type="email" id="regGmail" class="form-control" placeholder="example@gmail.com">
+                </div>
+                <div class="form-group password-wrapper">
+                    <label>كلمة المرور:</label>
+                    <div class="input-eye-container">
+                        <input type="password" id="regPass" class="form-control" placeholder="أنشئ كلمة مرور قوية">
+                        <button type="button" class="eye-btn" onclick="togglePassword('regPass', this)">👁️</button>
+                    </div>
+                </div>
+                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doRegister()">إنشاء حساب جديد ✨</button>
+            </div>
         </div>
     </div>
 
-    <!-- مودال عمل طلب زبون -->
+    <!-- نافذة طلب المنتج للزبون -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
-            <h3 style="margin-bottom: 10px; color: #0f172a;" id="modalProdTitle">طلب المنتج</h3>
-            <p style="color: #16a34a; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;" id="modalProdPrice"></p>
+            <h3 style="margin-bottom: 10px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
+            <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;" id="modalProdPrice"></p>
             <form onsubmit="submitOrder(event)">
                 <input type="hidden" id="orderProdId">
                 <input type="hidden" id="orderProdName">
@@ -394,7 +491,7 @@
                 <div class="form-group">
                     <label>بريد الجيميل (Gmail):</label>
                     <input type="email" id="custGmail" class="form-control" required placeholder="مثال: name@gmail.com">
-                    <small style="color: #64748b; font-size: 0.78rem;">* يجب كتابة حساب Gmail حقيقي للتحقق</small>
+                    <small style="color: #666; font-size: 0.78rem;">* يجب كتابة حساب Gmail حقيقي للتحقق</small>
                 </div>
                 <div class="form-group">
                     <label>رقم الموبايل:</label>
@@ -412,32 +509,32 @@
                     <label>المقاس المطلوب:</label>
                     <input type="text" id="custSize" class="form-control" placeholder="اكتب المقاس المطلوب">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%; padding: 12px; font-size: 1rem;">تأكيد إرسال الطلب 🛍️</button>
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">تأكيد إرسال الطلب 🛍️</button>
             </form>
         </div>
     </div>
 
-    <!-- مودال متابعة الطلب للعميل -->
+    <!-- نافذة متابعة الطلب للعميل -->
     <div id="trackModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('trackModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #0f172a;">متابعة حالة الطلب 🔍</h3>
+            <h3 style="margin-bottom: 15px; color: #111111;">متابعة حالة الطلب 🔍</h3>
             <div class="form-group">
                 <label>أدخل رقم الموبايل أو الجيميل المستخدم في الطلب:</label>
                 <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
             </div>
-            <button class="btn btn-primary" style="width:100%; padding: 12px;" onclick="trackMyOrder()">بحث عن طلبي</button>
+            <button class="btn btn-gold" style="width:100%; padding: 12px;" onclick="trackMyOrder()">بحث عن طلبي</button>
             <div id="trackResult" style="margin-top: 15px;"></div>
         </div>
     </div>
 
-    <!-- مودال مشاهدة الطلبات (للمدير) -->
+    <!-- نافذة قائمة الطلبات الواردة (للمدير) -->
     <div id="ordersModal" class="modal">
         <div class="modal-content" style="max-width: 650px;">
             <span class="close-modal" onclick="closeModal('ordersModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #0f172a;">قائمة الطلبات الواردة 📦</h3>
+            <h3 style="margin-bottom: 15px; color: #111111;">قائمة الطلبات الواردة 📦</h3>
             <div id="ordersList">
-                <p style="text-align:center; color:#64748b;">جاري تحميل الطلبات...</p>
+                <p style="text-align:center; color:#888;">جاري تحميل الطلبات...</p>
             </div>
         </div>
     </div>
@@ -445,6 +542,7 @@
     <script>
         const DB_URL = "https://ms-store-26105-default-rtdb.firebaseio.com";
         let isAdmin = false;
+        let currentUser = null;
         let productsData = {};
         let selectedProduct = null;
 
@@ -453,6 +551,7 @@
             fetchProducts();
         };
 
+        // التحقق من حالة أدمن المحفوظة
         function checkSavedAdmin() {
             if(localStorage.getItem('m_s_admin') === 'true') {
                 isAdmin = true;
@@ -460,27 +559,110 @@
             }
         }
 
-        function toggleLogin() {
-            if(isAdmin) {
-                isAdmin = false;
-                localStorage.removeItem('m_s_admin');
-                location.reload();
+        // إظهار/إخفاء كلمة المرور بزر العين
+        function togglePassword(inputId, eyeBtn) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeBtn.innerText = '🙈';
             } else {
-                document.getElementById('loginModal').classList.add('active');
+                input.type = 'password';
+                eyeBtn.innerText = '👁️';
             }
         }
 
+        // فتح نافذة الحسابات
+        function openAuthModal() {
+            if(isAdmin || currentUser) {
+                if(confirm('هل تريد تسجيل الخروج؟')) {
+                    isAdmin = false;
+                    currentUser = null;
+                    localStorage.removeItem('m_s_admin');
+                    location.reload();
+                }
+            } else {
+                document.getElementById('authModal').classList.add('active');
+            }
+        }
+
+        // التبديل بين الدخول وإنشاء الحساب
+        function switchAuthTab(tab) {
+            const loginBtn = document.getElementById('loginTabBtn');
+            const regBtn = document.getElementById('registerTabBtn');
+            const loginSection = document.getElementById('loginFormSection');
+            const regSection = document.getElementById('registerFormSection');
+
+            if(tab === 'login') {
+                loginBtn.classList.add('active');
+                regBtn.classList.remove('active');
+                loginSection.style.display = 'block';
+                regSection.style.display = 'none';
+            } else {
+                regBtn.classList.add('active');
+                loginBtn.classList.remove('active');
+                regSection.style.display = 'block';
+                loginSection.style.display = 'none';
+            }
+        }
+
+        // تنفيذ تسجيل الدخول
         function doLogin() {
             const u = document.getElementById('userIn').value.trim();
             const p = document.getElementById('passIn').value.trim();
+
+            if(!u || !p) {
+                alert('يرجى كتابة اسم المستخدم/الجيميل وكلمة المرور!');
+                return;
+            }
+
+            // التحقق من حساب المدير
             if(u === 'fatma store' && p === 'FATMA2M&S store') {
                 isAdmin = true;
                 localStorage.setItem('m_s_admin', 'true');
-                closeModal('loginModal');
+                closeModal('authModal');
                 showAdminUI();
-                alert('تم تسجيل الدخول كـ مدير بنجاح!');
+                alert('تم تسجيل الدخول كـ مدير بنجاح! 👑');
             } else {
-                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+                // تسجيل دخول مستخدم عادي
+                currentUser = u;
+                closeModal('authModal');
+                document.getElementById('loginBtn').innerText = '👤 مرحباً: ' + u;
+                document.getElementById('loginBtn').className = 'btn btn-dark';
+                alert('تم تسجيل الدخول بنجاح!');
+            }
+        }
+
+        // إنشاء حساب جديد
+        async function doRegister() {
+            const name = document.getElementById('regName').value.trim();
+            const gmail = document.getElementById('regGmail').value.trim();
+            const pass = document.getElementById('regPass').value.trim();
+
+            if(!name || !gmail || !pass) {
+                alert('يرجى ملء جميع البيانات المطلوب!');
+                return;
+            }
+
+            if(!isValidGmail(gmail)) {
+                alert('⚠️ بريد الجيميل غير صحيح!\nيجب أن يكون حساب حقيقي ينتهي بـ @gmail.com');
+                return;
+            }
+
+            try {
+                const userData = { name, gmail, pass, createdAt: Date.now() };
+                const res = await fetch(`${DB_URL}/users.json`, {
+                    method: 'POST',
+                    body: JSON.stringify(userData)
+                });
+                if(res.ok) {
+                    alert('تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.');
+                    switchAuthTab('login');
+                    document.getElementById('userIn').value = gmail;
+                } else {
+                    alert('حدث خطأ أثناء إنشاء الحساب!');
+                }
+            } catch(e) {
+                alert('خطأ في الاتصال بالسيرفر!');
             }
         }
 
@@ -488,7 +670,7 @@
             document.getElementById('adminPanel').style.display = 'block';
             document.getElementById('adminBadge').style.display = 'inline-block';
             document.getElementById('ordersBtn').style.display = 'inline-flex';
-            document.getElementById('loginBtn').innerText = 'تسجيل خروج';
+            document.getElementById('loginBtn').innerText = 'تسجيل خروج (المدير)';
             document.getElementById('loginBtn').className = 'btn btn-danger';
             fetchOrders();
             fetchProducts();
@@ -498,6 +680,7 @@
             document.getElementById(id).classList.remove('active');
         }
 
+        // جلب المنتجات من الفايربيس
         async function fetchProducts() {
             try {
                 const res = await fetch(`${DB_URL}/products.json`);
@@ -510,13 +693,14 @@
             }
         }
 
+        // عرض المنتجات
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
 
             const keys = Object.keys(productsData);
             if(keys.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد منتجات متاحة حالياً.</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888888;">لا توجد منتجات متاحة حالياً.</p>';
                 return;
             }
 
@@ -559,6 +743,7 @@
             });
         }
 
+        // حفظ منتج جديد
         async function saveProduct(e) {
             e.preventDefault();
             const name = document.getElementById('pName').value.trim();
@@ -590,7 +775,7 @@
                         body: JSON.stringify(newProd)
                     });
                     if(res.ok) {
-                        alert('تمت إضافة المنتج بنجاح وتحديثه على جميع الأجهزة!');
+                        alert('تمت إضافة المنتج بنجاح وتحديثه لدى جميع الزوار!');
                         document.getElementById('productForm').reset();
                         fetchProducts();
                     } else {
@@ -603,6 +788,7 @@
             reader.readAsDataURL(fileInput.files[0]);
         }
 
+        // حذف منتج
         async function deleteProduct(id) {
             if(!confirm('هل أنت تأكد من رغبتك في حذف هذا المنتج؟')) return;
             try {
@@ -614,6 +800,7 @@
             }
         }
 
+        // فتح نموذج طلب المنتج
         function openOrderModal(id) {
             selectedProduct = productsData[id];
             if(!selectedProduct) return;
@@ -634,11 +821,13 @@
             document.getElementById('orderModal').classList.add('active');
         }
 
+        // التحقق من صحة بريد الجيميل
         function isValidGmail(gmail) {
             const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
             return gmailRegex.test(gmail);
         }
 
+        // إرسال طلب الزبون
         async function submitOrder(e) {
             e.preventDefault();
             const gmailInput = document.getElementById('custGmail').value.trim();
@@ -678,6 +867,7 @@
             }
         }
 
+        // جلب الطلبات الواردة (للمدير)
         async function fetchOrders() {
             try {
                 const res = await fetch(`${DB_URL}/orders.json`);
@@ -689,7 +879,7 @@
                 list.innerHTML = '';
 
                 if(keys.length === 0) {
-                    list.innerHTML = '<p style="text-align:center; color:#64748b;">لا توجد طلبات حالياً.</p>';
+                    list.innerHTML = '<p style="text-align:center; color:#888;">لا توجد طلبات حالياً.</p>';
                     return;
                 }
 
@@ -702,17 +892,17 @@
                     const statusClass = isProcessed ? 'status-accepted' : 'status-pending';
 
                     item.innerHTML = `
-                        <div style="font-weight:bold; color:#0f172a; font-size:1.05rem;">📦 ${o.productName} (${o.price} ج.م)</div>
+                        <div style="font-weight:bold; color:#111;">📦 ${o.productName} (${o.price} ج.م)</div>
                         <div>👤 <b>العميل:</b> ${o.custName}</div>
                         <div>📧 <b>الجيميل:</b> ${o.custGmail || 'غير مسجل'}</div>
                         <div>📱 <b>الموبايل:</b> ${o.custPhone}</div>
                         <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
                         <div>🎨 <b>اللون:</b> ${o.custColor} | 📏 <b>المقاس:</b> ${o.custSize}</div>
                         <div>حالة الطلب: <span class="status-badge ${statusClass}">${o.status || 'قيد الانتظار'}</span></div>
-                        <div style="font-size:0.8rem; color:#64748b; margin-top: 4px;">📅 ${o.date}</div>
-                        <div style="margin-top: 10px; display: flex; gap: 8px;">
-                            ${!isProcessed ? `<button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="submitOrderProcess('${id}')">قبول وبدء العمل على الطلب (Submit) ✅</button>` : ''}
-                            <button class="btn btn-danger" style="padding: 6px 14px; font-size: 0.85rem;" onclick="deleteOrder('${id}')">إزالة الطلب</button>
+                        <div style="font-size:0.8rem; color:#888; margin-top: 4px;">📅 ${o.date}</div>
+                        <div style="margin-top: 8px; display: flex; gap: 6px;">
+                            ${!isProcessed ? `<button class="btn btn-gold" style="padding: 6px 12px; font-size: 0.8rem;" onclick="submitOrderProcess('${id}')">قبول وبدء العمل على الطلب (Submit) ✅</button>` : ''}
+                            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteOrder('${id}')">إزالة الطلب</button>
                         </div>
                     `;
                     list.appendChild(item);
@@ -722,13 +912,14 @@
             }
         }
 
+        // قبول الطلب وبدء العمل عليه
         async function submitOrderProcess(id) {
             try {
                 await fetch(`${DB_URL}/orders/${id}/status.json`, {
                     method: 'PUT',
                     body: JSON.stringify('تم رؤية الطلب وسوف يتم العمل على الطلب')
                 });
-                alert('تم تحديث حالة الطلب وإرسال الرسالة للعميل بنجاح! 🚀');
+                alert('تم تحديث حالة الطلب وإرسال التنبيه للعميل بنجاح! 🚀');
                 fetchOrders();
             } catch(e) {
                 alert('حدث خطأ أثناء التحديث!');
@@ -752,13 +943,14 @@
             document.getElementById('trackModal').classList.add('active');
         }
 
+        // متابعة الطلب من قبل الزبون
         async function trackMyOrder() {
             const query = document.getElementById('trackInput').value.trim();
             const resultDiv = document.getElementById('trackResult');
-            resultDiv.innerHTML = '<p style="text-align:center; color:#64748b;">جاري البحث...</p>';
+            resultDiv.innerHTML = '<p style="text-align:center; color:#666;">جاري البحث...</p>';
 
             if(!query) {
-                resultDiv.innerHTML = '<p style="color:#ef4444; text-align:center;">يرجى إدخال رقم الموبايل أو حساب الجيميل!</p>';
+                resultDiv.innerHTML = '<p style="color:red; text-align:center;">يرجى إدخال رقم الموبايل أو حساب الجيميل!</p>';
                 return;
             }
 
@@ -776,29 +968,29 @@
                 });
 
                 if(foundOrders.length === 0) {
-                    resultDiv.innerHTML = '<p style="color:#ef4444; text-align:center;">لم يتم العثور على أي طلب مسجل بهاتفك أو الجيميل.</p>';
+                    resultDiv.innerHTML = '<p style="color:red; text-align:center;">لم يتم العثور على أي طلب مسجل بهاتفك أو الجيميل.</p>';
                     return;
                 }
 
                 resultDiv.innerHTML = '';
                 foundOrders.reverse().forEach(o => {
                     const isProcessed = o.status === 'تم رؤية الطلب وسوف يتم العمل على الطلب';
-                    const statusBg = isProcessed ? '#dcfce7' : '#fef3c7';
-                    const statusColor = isProcessed ? '#166534' : '#92400e';
+                    const statusBg = isProcessed ? '#fef9e7' : '#fff3cd';
+                    const statusColor = isProcessed ? '#8a6d0b' : '#856404';
 
                     const item = document.createElement('div');
-                    item.style.cssText = `background:#f8fafc; padding:12px 16px; border-radius:10px; margin-bottom:10px; border-right:4px solid ${statusColor}; border:1px solid #e2e8f0;`;
+                    item.style.cssText = `background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:10px; border-right:4px solid ${statusColor}; border:1px solid #eee;`;
                     item.innerHTML = `
                         <div><b>المنتج:</b> ${o.productName}</div>
                         <div><b>السعر:</b> ${o.price} ج.م</div>
-                        <div style="background:${statusBg}; color:${statusColor}; padding:6px 12px; border-radius:8px; margin-top:8px; font-weight:700; font-size:0.9rem; width:fit-content;">
+                        <div style="background:${statusBg}; color:${statusColor}; padding:6px 10px; border-radius:6px; margin-top:6px; font-weight:bold; font-size:0.9rem; width:fit-content;">
                             🔔 ${o.status || 'قيد الانتظار'}
                         </div>
                     `;
                     resultDiv.appendChild(item);
                 });
             } catch(e) {
-                resultDiv.innerHTML = '<p style="color:#ef4444; text-align:center;">حدث خطأ في جلب البيانات!</p>';
+                resultDiv.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ في جلب البيانات!</p>';
             }
         }
     </script>
