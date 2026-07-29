@@ -1,815 +1,799 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-  <title>M&S Store</title>
-  <style>
-    * { 
-      box-sizing: border-box; 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-      margin: 0; 
-      padding: 0; 
-      -webkit-tap-highlight-color: transparent; 
-    }
-    
-    html, body { 
-      background-color: #f4f6f9; 
-      color: #333; 
-      line-height: 1.6; 
-      overflow-x: hidden;
-      overflow-y: auto;
-      min-height: 100vh;
-      -webkit-overflow-scrolling: touch; 
-    }
-    
-    input, button, select, textarea {
-      -webkit-appearance: none;
-      appearance: none;
-      font-family: inherit;
-    }
-    
-    header { 
-      background-color: #1a1a1a; 
-      color: white; 
-      padding: max(15px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 15px max(20px, env(safe-area-inset-left)); 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      flex-wrap: wrap;
-      gap: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    .logo { font-size: 22px; font-weight: bold; color: #ffb703; }
-    
-    .nav-btns { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .nav-btns button { 
-      background: #ffb703; 
-      color: #1a1a1a;
-      border: none; 
-      padding: 8px 14px; 
-      border-radius: 6px; 
-      font-weight: bold; 
-      cursor: pointer; 
-      font-size: 14px;
-      position: relative;
-    }
-    .nav-btns button:hover { background: #e0a000; }
-    
-    .badge {
-      background-color: #dc3545;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 7px;
-      font-size: 12px;
-      margin-right: 5px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title>M&S Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .user-info { font-size: 14px; color: #ccc; }
+        html, body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
+            -webkit-overflow-scrolling: touch;
+        }
 
-    .container { 
-      padding: 15px; 
-      padding-bottom: max(15px, env(safe-area-inset-bottom)); 
-      padding-left: max(15px, env(safe-area-inset-left));
-      padding-right: max(15px, env(safe-area-inset-right));
-      max-width: 1200px; 
-      margin: 0 auto; 
-    }
+        input, button, select, textarea {
+            -webkit-appearance: none;
+            appearance: none;
+            font-family: inherit;
+        }
 
-    .card { 
-      background: white; 
-      padding: 20px; 
-      border-radius: 12px; 
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
-      margin-bottom: 20px; 
-      max-width: 500px; 
-      margin-left: auto; 
-      margin-right: auto; 
-    }
-    .hidden { display: none !important; }
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: max(15px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 15px max(20px, env(safe-area-inset-left));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; margin-bottom: 6px; font-weight: bold; font-size: 14px; }
-    .form-group input, .form-group select, .form-group textarea { 
-      width: 100%; 
-      padding: 12px; 
-      border: 1px solid #ccc; 
-      border-radius: 8px; 
-      font-size: 16px !important; 
-      background-color: #fff;
-      color: #333;
-    }
-    
-    .verify-box { display: flex; gap: 8px; }
-    .btn-verify { 
-      background-color: #0284c7; 
-      color: white; 
-      border: none; 
-      padding: 0 15px; 
-      border-radius: 8px; 
-      cursor: pointer; 
-      font-weight: bold; 
-      white-space: nowrap;
-    }
-    .btn-verify:hover { background-color: #0369a1; }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-    .password-wrapper { position: relative; }
-    .password-wrapper input { padding-left: 45px; }
-    .toggle-password { 
-      position: absolute; 
-      left: 12px; 
-      top: 50%; 
-      transform: translateY(-50%); 
-      cursor: pointer; 
-      user-select: none; 
-      font-size: 18px; 
-    }
+        .header-btns {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-    .btn-submit { 
-      background-color: #28a745; 
-      color: white; 
-      border: none; 
-      padding: 12px; 
-      border-radius: 8px; 
-      cursor: pointer; 
-      font-size: 16px; 
-      width: 100%; 
-      font-weight: bold; 
-    }
-    .btn-submit:hover { background-color: #218838; }
-    
-    .btn-cancel { 
-      background-color: #6c757d; 
-      color: white; 
-      border: none; 
-      padding: 10px; 
-      border-radius: 8px; 
-      cursor: pointer; 
-      font-size: 16px; 
-      width: 100%; 
-      font-weight: bold;
-      margin-top: 8px;
-    }
+        .btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
 
-    .switch-auth { text-align: center; margin-top: 15px; font-size: 14px; }
-    .switch-auth a { color: #007bff; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
 
-    .section-title { margin-bottom: 15px; font-size: 20px; }
-    
-    .products-grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-      gap: 15px; 
-    }
-    
-    @media (min-width: 600px) {
-      .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 20px;
-      }
-      .container { padding: 30px; }
-      .logo { font-size: 24px; }
-    }
+        .btn-primary:active {
+            background-color: #45a049;
+            transform: scale(0.98);
+        }
 
-    .product-card { 
-      background: white; 
-      border-radius: 10px; 
-      overflow: hidden; 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06); 
-      display: flex; 
-      flex-direction: column; 
-    }
-    
-    .product-card img { 
-      width: 100%; 
-      height: 180px; 
-      object-fit: cover; 
-      background-color: #eee;
-    }
-    
-    .product-details { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .product-title { font-size: 16px; font-weight: bold; margin-bottom: 5px; }
-    .product-price { color: #28a745; font-size: 15px; font-weight: bold; margin-bottom: 5px; }
-    .product-size { font-size: 13px; color: #666; margin-bottom: 10px; }
-    
-    .action-btns { display: flex; gap: 6px; }
-    .btn-order { background: #ffb703; color: #1a1a1a; border: none; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; font-size: 15px; margin-top: 8px; }
-    .btn-order:hover { background: #e0a000; }
-    .btn-edit { background: #007bff; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold; font-size: 14px; }
-    .btn-delete { background: #dc3545; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold; font-size: 14px; }
-    
-    .no-products { text-align: center; color: #777; grid-column: 1 / -1; padding: 40px; font-size: 16px; }
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid #555;
+        }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 15px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .payment-notice {
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 15px;
-      border: 1px solid #a5d6a7;
-    }
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
 
-    .order-item {
-      background: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-right: 4px solid #ffb703;
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-    .order-item div { margin-bottom: 4px; }
-  </style>
+        .btn-info {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #fafafa;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+            background: #fff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .product-details {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #222;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-size, .product-color {
+            font-size: 0.88rem;
+            color: #444;
+            margin-bottom: 4px;
+            background: #f0f4f8;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .product-color {
+            background: #fff3e0;
+            color: #e65100;
+            font-weight: 500;
+        }
+
+        .btn-order {
+            width: 100%;
+            padding: 10px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .admin-badge {
+            background: #ff9800;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .badge {
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 0.75rem;
+        }
+
+        .order-item {
+            border-bottom: 1px solid #eee;
+            padding: 14px 0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-accepted {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">M&S Store</div>
-    <div class="nav-btns">
-      <span id="userStatus" class="user-info">زائر</span>
-      <button id="loginNavBtn" onclick="showAuthCard('login')">دخول</button>
-      <button id="ordersBtn" class="hidden" onclick="toggleOrdersPanel()">
-        🔔 الطلبات <span id="ordersCountBadge" class="badge">0</span>
-      </button>
-      <button id="adminPanelBtn" class="hidden" onclick="toggleAdminPanel()">لوحة التحكم</button>
-      <button id="logoutBtn" class="hidden" onclick="logout()">خروج</button>
-    </div>
-  </header>
-
-  <div class="container">
-
-    <div id="loginCard" class="card hidden">
-      <h2>تسجيل الدخول</h2>
-      <br>
-      <form onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label>اسم المستخدم:</label>
-          <input type="text" id="loginUsername" required placeholder="أدخل اسم المستخدم" autocomplete="username">
+    <header>
+        <div class="logo">
+            🛍️ M&S Store
+            <span id="adminBadge" class="admin-badge" style="display:none;">مدير</span>
         </div>
-        <div class="form-group">
-          <label>كلمة المرور:</label>
-          <div class="password-wrapper">
-            <input type="password" id="loginPassword" required placeholder="أدخل كلمة المرور" autocomplete="current-password">
-            <span class="toggle-password" title="إظهار/إخفاء" onclick="togglePasswordVisibility('loginPassword')">👁️</span>
-          </div>
+        <div class="header-btns">
+            <button class="btn btn-info" onclick="openTrackModal()">🔍 متابعة طلبي</button>
+            <button id="ordersBtn" class="btn btn-outline" onclick="openOrdersModal()" style="display:none;">
+                📦 الطلبات <span id="ordersCount" class="badge">0</span>
+            </button>
+            <button id="loginBtn" class="btn btn-primary" onclick="toggleLogin()">تسجيل دخول</button>
         </div>
-        <button type="submit" class="btn-submit">دخول</button>
-      </form>
-      <div class="switch-auth">
-        ليس لديك حساب؟ <a onclick="showAuthCard('signup')">إنشاء حساب جديد</a>
-      </div>
-    </div>
+    </header>
 
-    <div id="signupCard" class="card hidden">
-      <h2>إنشاء حساب جديد (عميل)</h2>
-      <br>
-      <form onsubmit="handleSignup(event)">
-        <div class="form-group">
-          <label>حساب الجيميل (Gmail):</label>
-          <div class="verify-box">
-            <input type="email" id="signupGmail" required placeholder="example@gmail.com" autocomplete="email">
-            <button type="button" class="btn-verify" onclick="verifyGmail()">التحقق</button>
-          </div>
-          <small id="gmailStatus" style="display: block; margin-top: 5px; font-weight: bold;"></small>
+    <div class="container">
+        <!-- قسم إضافة منتج (للمدير فقط) -->
+        <div id="adminPanel" class="card" style="display:none;">
+            <h2 style="margin-bottom: 15px; color: #1a1a1a;">إضافة منتج جديد</h2>
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <div class="form-group">
+                    <label>اسم المنتج:</label>
+                    <input type="text" id="pName" class="form-control" required placeholder="مثال: طقم بيتي رجالي">
+                </div>
+                <div class="form-group">
+                    <label>السعر (بالجنيه):</label>
+                    <input type="number" id="pPrice" class="form-control" required placeholder="مثال: 500">
+                </div>
+                <div class="form-group">
+                    <label>المقاس:</label>
+                    <input type="text" id="pSize" class="form-control" required placeholder="مثال: XL / L / M">
+                </div>
+                <div class="form-group">
+                    <label>الألوان المتاحة (اختياري):</label>
+                    <input type="text" id="pColor" class="form-control" placeholder="مثال: أسود، كحلي، رمادي (أو اتركه فارغاً)">
+                </div>
+                <div class="form-group">
+                    <label>صورة المنتج (Upload File):</label>
+                    <input type="file" id="pFile" class="form-control" accept="image/*" required>
+                    <small style="color: #666; font-size: 0.8rem;">* اختر صورة من جهازك</small>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px;">إضافة المنتج</button>
+            </form>
         </div>
 
-        <div class="form-group">
-          <label>اسم المستخدم:</label>
-          <input type="text" id="signupUsername" required placeholder="اسم المستخدم" autocomplete="username">
+        <!-- قائمة المنتجات -->
+        <h2 style="margin-bottom: 15px; color: #333;" id="productsTitle">المنتجات المتاحة</h2>
+        <div id="productsGrid" class="products-grid">
+            <p style="grid-column: 1/-1; text-align: center; color: #888;">جاري تحميل المنتجات...</p>
         </div>
-        <div class="form-group">
-          <label>رقم الهاتف:</label>
-          <input type="tel" id="signupPhone" required placeholder="01xxxxxxxxx" autocomplete="tel">
-        </div>
-        <div class="form-group">
-          <label>العنوان التفصيلي <span style="color: #d97706; font-size: 12px; font-weight: normal;">(هذا العنوان سوف يتم توصيل الطلب له)</span>:</label>
-          <input type="text" id="signupAddress" required placeholder="المحافظة - المدينة - الشارع">
-        </div>
-        <div class="form-group">
-          <label>كلمة المرور:</label>
-          <div class="password-wrapper">
-            <input type="password" id="signupPassword" required placeholder="أنشئ كلمة مرور" autocomplete="new-password">
-            <span class="toggle-password" title="إظهار/إخفاء" onclick="togglePasswordVisibility('signupPassword')">👁️</span>
-          </div>
-        </div>
-        <button type="submit" class="btn-submit">إنشاء الحساب</button>
-      </form>
-      <div class="switch-auth">
-        لديك حساب بالفعل؟ <a onclick="showAuthCard('login')">تسجيل الدخول</a>
-      </div>
     </div>
 
-    <div id="ordersCard" class="card hidden" style="max-width: 800px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h2>🔔 تنبيهات الطلبات المحفوظة</h2>
-        <button onclick="clearAllOrders()" style="background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">مسح كافة الطلبات</button>
-      </div>
-      <div id="ordersList"></div>
-    </div>
-
-    <div id="adminCard" class="card hidden" style="max-width: 800px;">
-      <h2 id="adminFormTitle">إضافة منتج جديد (المدير)</h2>
-      <br>
-      <form onsubmit="saveProduct(event)">
-        <input type="hidden" id="editIndex">
-        <div class="form-group">
-          <label>اسم المنتج:</label>
-          <input type="text" id="pName" required placeholder="اسم المنتج">
-        </div>
-        <div class="form-group">
-          <label>السعر (بالجنيه):</label>
-          <input type="number" id="pPrice" required placeholder="السعر" inputmode="numeric">
-        </div>
-        <div class="form-group">
-          <label>المقاس:</label>
-          <select id="pSize" required>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XXL">XXL</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>صورة المنتج (Upload File):</label>
-          <input type="file" id="pImgFile" accept="image/*">
-          <small style="color: #666; display: block; margin-top: 5px;">* اختر صورة من جهازك</small>
-        </div>
-        <button type="submit" class="btn-submit" id="saveBtn">إضافة المنتج</button>
-      </form>
-    </div>
-
-    <div id="orderModal" class="modal-overlay hidden">
-      <div class="card" style="width: 100%; max-width: 450px; margin: 20px auto;">
-        <h2>تأكيد الطلب 🛍️</h2>
-        <br>
-        <div class="payment-notice">💵 طريقة الدفع: نقداً عند الاستلام</div>
-        <form onsubmit="submitOrder(event)">
-          <input type="hidden" id="orderProductIndex">
-          <div class="form-group">
-            <label>المنتج:</label>
-            <input type="text" id="orderProductName" readonly style="background: #f0f0f0;">
-          </div>
-          <div class="form-group">
-            <label>كم قطعة تريد؟</label>
-            <input type="number" id="orderQty" min="1" value="1" required oninput="calculateTotal()" inputmode="numeric">
-          </div>
-          <div class="form-group">
-            <label>الإجمالي:</label>
-            <input type="text" id="orderTotalPrice" readonly style="background: #e8f5e9; font-weight: bold; color: #2e7d32;">
-          </div>
-          <div class="form-group">
-            <label>العنوان التفصيلي للتوصيل:</label>
-            <input type="text" id="orderAddress" required placeholder="عنوان التوصيل">
-          </div>
-          <div class="form-group">
-            <label>موعد التوصيل المتوقع:</label>
-            <input type="text" value="خلال 2 إلى 4 أيام عمل" readonly style="background: #fff3cd; color: #856404; font-weight: bold;">
-          </div>
-          <button type="submit" class="btn-submit">تأكيد الطلب الآن</button>
-          <button type="button" class="btn-cancel" onclick="closeOrderModal()">إلغاء</button>
-        </form>
-      </div>
-    </div>
-
-    <div>
-      <h2 class="section-title">المنتجات المتاحة</h2>
-      <div id="productsGrid" class="products-grid"></div>
-    </div>
-
-  </div>
-
-  <!-- مكتبة Firebase متكاملة ومربوطة بمشروعك -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-    // تم وضع بيانات مشروعك الخاصة تلقائياً
-    const firebaseConfig = {
-      apiKey: "AIzaSyDiaByrTNYlrcURWax8E3rEGiiUtnnLiSA",
-      authDomain: "ms-store-26105.firebaseapp.com",
-      databaseURL: "https://ms-store-26105-default-rtdb.firebaseio.com",
-      projectId: "ms-store-26105",
-      storageBucket: "ms-store-26105.firebasestorage.app",
-      messagingSenderId: "665813928381",
-      appId: "1:665813928381:web:bfb432709a6a1f976f6ad4"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    let currentUser = null; 
-    let isGmailVerified = false;
-    let users = [];
-    let products = [];
-    let orders = [];
-
-    function getSafeStorage(key, defaultValue) {
-      try {
-        return JSON.parse(localStorage.getItem(key)) || defaultValue;
-      } catch (e) {
-        return defaultValue;
-      }
-    }
-    function setSafeStorage(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch (e) {}
-    }
-    users = getSafeStorage('ms_users', []);
-
-    // مزامنة المنتجات لحظياً مع السحاب
-    onValue(ref(db, 'products'), (snapshot) => {
-      const data = snapshot.val();
-      products = data ? Object.values(data) : [];
-      setSafeStorage('ms_products', products);
-      renderProducts();
-    });
-
-    // مزامنة الطلبات لحظياً مع السحاب
-    onValue(ref(db, 'orders'), (snapshot) => {
-      const data = snapshot.val();
-      orders = data ? Object.values(data) : [];
-      updateOrdersBadge();
-      if (!document.getElementById('ordersCard').classList.contains('hidden')) {
-        renderOrders();
-      }
-    });
-
-    window.togglePasswordVisibility = function(inputId) {
-      const input = document.getElementById(inputId);
-      input.type = input.type === 'password' ? 'text' : 'password';
-    }
-
-    window.showAuthCard = function(type) {
-      document.getElementById('adminCard').classList.add('hidden');
-      document.getElementById('ordersCard').classList.add('hidden');
-      if (type === 'login') {
-        document.getElementById('loginCard').classList.remove('hidden');
-        document.getElementById('signupCard').classList.add('hidden');
-      } else if (type === 'signup') {
-        document.getElementById('signupCard').classList.remove('hidden');
-        document.getElementById('loginCard').classList.add('hidden');
-      }
-    }
-
-    window.toggleAdminPanel = function() {
-      const adminCard = document.getElementById('adminCard');
-      adminCard.classList.toggle('hidden');
-      document.getElementById('ordersCard').classList.add('hidden');
-      document.getElementById('loginCard').classList.add('hidden');
-      document.getElementById('signupCard').classList.add('hidden');
-      resetAdminForm();
-    }
-
-    window.toggleOrdersPanel = function() {
-      const ordersCard = document.getElementById('ordersCard');
-      ordersCard.classList.toggle('hidden');
-      document.getElementById('adminCard').classList.add('hidden');
-      document.getElementById('loginCard').classList.add('hidden');
-      document.getElementById('signupCard').classList.add('hidden');
-      renderOrders();
-    }
-
-    window.verifyGmail = function() {
-      const gmailInput = document.getElementById('signupGmail').value.trim();
-      const statusLabel = document.getElementById('gmailStatus');
-
-      if (!gmailInput.endsWith('@gmail.com') || gmailInput.length < 11) {
-        statusLabel.style.color = '#dc3545';
-        statusLabel.innerText = '❌ البريد غير صحيح! يرجى إدخال حساب Gmail ينتهي بـ @gmail.com';
-        isGmailVerified = false;
-        return;
-      }
-
-      const gmailExists = users.some(u => u.gmail === gmailInput);
-      if (gmailExists) {
-        statusLabel.style.color = '#dc3545';
-        statusLabel.innerText = '❌ حساب Gmail هذا مسجل بالفعل مسبقاً!';
-        isGmailVerified = false;
-        return;
-      }
-
-      statusLabel.style.color = '#28a745';
-      statusLabel.innerText = '✅ تمت العملية بنجاح! تم التحقق من وجود حساب Google.';
-      isGmailVerified = true;
-    }
-
-    window.handleSignup = function(e) {
-      e.preventDefault();
-      if (!isGmailVerified) {
-        alert('يرجى إدخال حساب Gmail والضغط على "التحقق" أولاً!');
-        return;
-      }
-
-      const gmail = document.getElementById('signupGmail').value.trim();
-      const username = document.getElementById('signupUsername').value.trim();
-      const phone = document.getElementById('signupPhone').value.trim();
-      const address = document.getElementById('signupAddress').value.trim();
-      const password = document.getElementById('signupPassword').value.trim();
-
-      const userExists = users.some(u => u.username === username);
-      if (userExists || username === 'fatma store') {
-        alert('اسم المستخدم هذا مستخدم بالفعل.');
-        return;
-      }
-
-      const newUser = { gmail, username, phone, address, password };
-      users.push(newUser);
-      setSafeStorage('ms_users', users);
-
-      alert('تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.');
-      showAuthCard('login');
-      document.getElementById('loginUsername').value = username;
-    }
-
-    window.handleLogin = function(e) {
-      e.preventDefault();
-      const u = document.getElementById('loginUsername').value.trim();
-      const p = document.getElementById('loginPassword').value.trim();
-
-      if (u === 'fatma store' && p === 'FATMA2M&S store') {
-        currentUser = 'admin';
-        document.getElementById('userStatus').innerText = 'المدير (Fatma Store)';
-        document.getElementById('adminPanelBtn').classList.remove('hidden');
-        document.getElementById('ordersBtn').classList.remove('hidden');
-        updateOrdersBadge();
-        alert('تم تسجيل الدخول كمدير!');
-      } else {
-        const foundUser = users.find(user => user.username === u && user.password === p);
-        if (foundUser) {
-          currentUser = foundUser;
-          document.getElementById('userStatus').innerText = `${foundUser.username}`;
-          document.getElementById('adminPanelBtn').classList.add('hidden');
-          document.getElementById('ordersBtn').classList.add('hidden');
-          alert('تم تسجيل الدخول بنجاح!');
-        } else {
-          alert('بيانات الدخول غير صحيحة.');
-          return;
-        }
-      }
-
-      document.getElementById('loginNavBtn').classList.add('hidden');
-      document.getElementById('logoutBtn').classList.remove('hidden');
-      document.getElementById('loginCard').classList.add('hidden');
-      renderProducts();
-    }
-
-    window.logout = function() {
-      currentUser = null;
-      document.getElementById('userStatus').innerText = 'زائر';
-      document.getElementById('loginNavBtn').classList.remove('hidden');
-      document.getElementById('logoutBtn').classList.add('hidden');
-      document.getElementById('adminPanelBtn').classList.add('hidden');
-      document.getElementById('ordersBtn').classList.add('hidden');
-      document.getElementById('adminCard').classList.add('hidden');
-      document.getElementById('ordersCard').classList.add('hidden');
-      renderProducts();
-    }
-
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-      });
-    }
-
-    window.saveProduct = async function(e) {
-      e.preventDefault();
-      const name = document.getElementById('pName').value;
-      const price = document.getElementById('pPrice').value;
-      const size = document.getElementById('pSize').value;
-      const fileInput = document.getElementById('pImgFile');
-      const editIndex = document.getElementById('editIndex').value;
-
-      let imgBase64 = "";
-
-      if (fileInput.files && fileInput.files[0]) {
-        imgBase64 = await fileToBase64(fileInput.files[0]);
-      } else if (editIndex !== '') {
-        imgBase64 = products[editIndex].img;
-      } else {
-        alert('يرجى اختيار صورة للمنتج!');
-        return;
-      }
-
-      if (editIndex === '') {
-        const newId = 'prod_' + Date.now();
-        products.push({ id: newId, name, price, size, img: imgBase64 });
-        alert('تمت إضافة المنتج بنجاح وتحديثه على جميع الأجهزة!');
-      } else {
-        products[editIndex] = { ...products[editIndex], name, price, size, img: imgBase64 };
-        alert('تم حفظ التعديلات!');
-      }
-
-      await set(ref(db, 'products'), products);
-
-      resetAdminForm();
-      renderProducts();
-      document.getElementById('adminCard').classList.add('hidden');
-    }
-
-    window.editProduct = function(index) {
-      const p = products[index];
-      document.getElementById('pName').value = p.name;
-      document.getElementById('pPrice').value = p.price;
-      document.getElementById('pSize').value = p.size;
-      document.getElementById('editIndex').value = index;
-
-      document.getElementById('adminFormTitle').innerText = 'تعديل بيانات المنتج';
-      document.getElementById('saveBtn').innerText = 'حفظ التعديلات';
-      document.getElementById('adminCard').classList.remove('hidden');
-      document.getElementById('ordersCard').classList.add('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    window.deleteProduct = async function(index) {
-      if (confirm('هل أنت تأكد من حذف هذا المنتج من جميع الأجهزة؟')) {
-        products.splice(index, 1);
-        await set(ref(db, 'products'), products);
-        renderProducts();
-      }
-    }
-
-    window.openOrderModal = function(index) {
-      if (!currentUser || currentUser === 'admin') {
-        alert('يرجى تسجيل الدخول كعميل أولاً لطلب المنتجات!');
-        showAuthCard('login');
-        return;
-      }
-
-      const p = products[index];
-      document.getElementById('orderProductIndex').value = index;
-      document.getElementById('orderProductName').value = `${p.name} (مقاس: ${p.size})`;
-      document.getElementById('orderQty').value = 1;
-      document.getElementById('orderAddress').value = currentUser.address || '';
-      
-      calculateTotal();
-      document.getElementById('orderModal').classList.remove('hidden');
-    }
-
-    window.closeOrderModal = function() {
-      document.getElementById('orderModal').classList.add('hidden');
-    }
-
-    window.calculateTotal = function() {
-      const index = document.getElementById('orderProductIndex').value;
-      const p = products[index];
-      if (!p) return;
-
-      const qty = parseInt(document.getElementById('orderQty').value) || 1;
-      const total = parseFloat(p.price) * qty;
-      document.getElementById('orderTotalPrice').value = `${total} ج.م`;
-    }
-
-    window.submitOrder = async function(e) {
-      e.preventDefault();
-      const index = document.getElementById('orderProductIndex').value;
-      const p = products[index];
-
-      const qty = document.getElementById('orderQty').value;
-      const total = document.getElementById('orderTotalPrice').value;
-      const address = document.getElementById('orderAddress').value;
-
-      const newOrder = {
-        id: 'ord_' + Date.now(),
-        productName: p.name,
-        size: p.size,
-        qty: qty,
-        totalPrice: total,
-        address: address,
-        customerUsername: currentUser.username,
-        customerPhone: currentUser.phone,
-        customerGmail: currentUser.gmail || 'غير مسجل',
-        date: new Date().toLocaleString('ar-EG')
-      };
-
-      orders.push(newOrder);
-      await set(ref(db, 'orders'), orders);
-
-      alert(`✅ تم تأكيد طلبك بنجاح وإرساله للمدير!\n\n📦 المنتج: ${p.name}\n🔢 العدد: ${qty} قطعة\n💰 الإجمالي: ${total}\n📍 عنوان الشحن: ${address}\n💵 طريقة الدفع: نقداً عند الاستلام\n\nشكراً لتسوقك من M&S Store! ❤️`);
-
-      closeOrderModal();
-    }
-
-    window.deleteOrder = async function(index) {
-      if (confirm('هل أنت تأكد من مسح هذا الطلب؟')) {
-        orders.splice(index, 1);
-        await set(ref(db, 'orders'), orders);
-        renderOrders();
-      }
-    }
-
-    window.clearAllOrders = async function() {
-      if (orders.length === 0) return;
-      if (confirm('هل أنت تأكد من مسح جميع الطلبات المحفوظة؟')) {
-        orders = [];
-        await set(ref(db, 'orders'), null);
-        renderOrders();
-      }
-    }
-
-    function updateOrdersBadge() {
-      document.getElementById('ordersCountBadge').innerText = orders.length;
-    }
-
-    function renderOrders() {
-      const list = document.getElementById('ordersList');
-      list.innerHTML = '';
-
-      if (orders.length === 0) {
-        list.innerHTML = '<div style="text-align:center; padding: 20px; color: #777;">لا توجد طلبات جديدة حالياً.</div>';
-        return;
-      }
-
-      orders.forEach((o, index) => {
-        const item = document.createElement('div');
-        item.className = 'order-item';
-        item.innerHTML = `
-          <div><strong>👤 اسم المستخدم:</strong> ${o.customerUsername}</div>
-          <div><strong>📞 رقم الهاتف:</strong> ${o.customerPhone}</div>
-          <div><strong>✉️ البريد الإلكتروني:</strong> ${o.customerGmail}</div>
-          <div><strong>📦 المنتج والمقاس:</strong> ${o.productName} (مقاس: ${o.size}) - عدد ${o.qty} قطعة</div>
-          <div><strong>💰 المبلغ الإجمالي:</strong> ${o.totalPrice}</div>
-          <div><strong>📍 العنوان التفصيلي:</strong> ${o.address}</div>
-          <div><strong>📅 تاريخ الطلب:</strong> ${o.date}</div>
-          <button class="btn-delete" style="margin-top: 8px; width: 100%;" onclick="deleteOrder(${index})">مسح الطلب 🗑️</button>
-        `;
-        list.appendChild(item);
-      });
-
-      updateOrdersBadge();
-    }
-
-    function resetAdminForm() {
-      document.getElementById('pName').value = '';
-      document.getElementById('pPrice').value = '';
-      document.getElementById('pImgFile').value = '';
-      document.getElementById('editIndex').value = '';
-      document.getElementById('adminFormTitle').innerText = 'إضافة منتج جديد (المدير)';
-      document.getElementById('saveBtn').innerText = 'إضافة المنتج';
-    }
-
-    function renderProducts() {
-      const grid = document.getElementById('productsGrid');
-      grid.innerHTML = '';
-
-      if (products.length === 0) {
-        grid.innerHTML = '<div class="no-products">لا توجد منتجات حالياً.</div>';
-        return;
-      }
-
-      products.forEach((p, index) => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        
-        let actionSection = '';
-        if (currentUser === 'admin') {
-          actionSection = `
-            <div class="action-btns">
-              <button class="btn-edit" onclick="editProduct(${index})">تعديل ✏️</button>
-              <button class="btn-delete" onclick="deleteProduct(${index})">حذف 🗑️</button>
+    <!-- مودال تسجيل الدخول -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+            <h3 style="margin-bottom: 15px;">تسجيل دخول المدير</h3>
+            <div class="form-group">
+                <label>اسم المستخدم:</label>
+                <input type="text" id="userIn" class="form-control">
             </div>
-          `;
-        } else {
-          actionSection = `<button class="btn-order" onclick="openOrderModal(${index})">طلب المنتج 🛒</button>`;
+            <div class="form-group">
+                <label>كلمة المرور:</label>
+                <input type="password" id="passIn" class="form-control">
+            </div>
+            <button class="btn btn-primary" style="width:100%; padding: 10px;" onclick="doLogin()">دخول</button>
+        </div>
+    </div>
+
+    <!-- مودال عمل طلب زبون -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
+            <h3 style="margin-bottom: 10px;" id="modalProdTitle">طلب المنتج</h3>
+            <p style="color: #2e7d32; font-weight: bold; margin-bottom: 15px;" id="modalProdPrice"></p>
+            <form onsubmit="submitOrder(event)">
+                <input type="hidden" id="orderProdId">
+                <input type="hidden" id="orderProdName">
+                <div class="form-group">
+                    <label>اسمك بالكامل:</label>
+                    <input type="text" id="custName" class="form-control" required placeholder="مثال: أحمد محمد">
+                </div>
+                <div class="form-group">
+                    <label>بريد الجيميل (Gmail):</label>
+                    <input type="email" id="custGmail" class="form-control" required placeholder="مثال: name@gmail.com">
+                    <small style="color: #666; font-size: 0.78rem;">* يجب كتابة حساب Gmail حقيقي للتحقق</small>
+                </div>
+                <div class="form-group">
+                    <label>رقم الموبايل:</label>
+                    <input type="tel" id="custPhone" class="form-control" required placeholder="01xxxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label>العنوان بالتفصيل:</label>
+                    <input type="text" id="custAddress" class="form-control" required placeholder="المحافظة - المدينة - الشارع">
+                </div>
+                <div class="form-group" id="colorSelectGroup" style="display:none;">
+                    <label>اللون المطلوب:</label>
+                    <input type="text" id="custColor" class="form-control" placeholder="اكتب اللون الذي تفضله">
+                </div>
+                <div class="form-group">
+                    <label>المقاس المطلوب:</label>
+                    <input type="text" id="custSize" class="form-control" placeholder="اكتب المقاس المطلوب">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; padding: 12px; background:#25D366; font-size: 1rem;">تأكيد إرسال الطلب 🛍️</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- مودال متابعة الطلب للعميل -->
+    <div id="trackModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('trackModal')">&times;</span>
+            <h3 style="margin-bottom: 15px;">متابعة حالة الطلب 🔍</h3>
+            <div class="form-group">
+                <label>أدخل رقم الموبايل أو الجيميل المستخدم في الطلب:</label>
+                <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
+            </div>
+            <button class="btn btn-info" style="width:100%; padding: 10px;" onclick="trackMyOrder()">بحث عن طلبي</button>
+            <div id="trackResult" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <!-- مودال مشاهدة الطلبات (للمدير) -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content" style="max-width: 650px;">
+            <span class="close-modal" onclick="closeModal('ordersModal')">&times;</span>
+            <h3 style="margin-bottom: 15px;">قائمة الطلبات الواردة 📦</h3>
+            <div id="ordersList">
+                <p style="text-align:center; color:#888;">جاري تحميل الطلبات...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DB_URL = "https://ms-store-26105-default-rtdb.firebaseio.com";
+        let isAdmin = false;
+        let productsData = {};
+        let selectedProduct = null;
+
+        window.onload = function() {
+            checkSavedAdmin();
+            fetchProducts();
+        };
+
+        function checkSavedAdmin() {
+            if(localStorage.getItem('m_s_admin') === 'true') {
+                isAdmin = true;
+                showAdminUI();
+            }
         }
 
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
-          <div class="product-details">
-            <div>
-              <div class="product-title">${p.name}</div>
-              <div class="product-price">${p.price} ج.م</div>
-              <div class="product-size">المقاس: ${p.size}</div>
-            </div>
-            ${actionSection}
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
+        function toggleLogin() {
+            if(isAdmin) {
+                isAdmin = false;
+                localStorage.removeItem('m_s_admin');
+                location.reload();
+            } else {
+                document.getElementById('loginModal').classList.add('active');
+            }
+        }
 
-    updateOrdersBadge();
-  </script>
+        function doLogin() {
+            const u = document.getElementById('userIn').value.trim();
+            const p = document.getElementById('passIn').value.trim();
+            if(u === 'fatma store' && p === 'FATMA2M&S store') {
+                isAdmin = true;
+                localStorage.setItem('m_s_admin', 'true');
+                closeModal('loginModal');
+                showAdminUI();
+                alert('تم تسجيل الدخول كـ مدير بنجاح!');
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+            }
+        }
+
+        function showAdminUI() {
+            document.getElementById('adminPanel').style.display = 'block';
+            document.getElementById('adminBadge').style.display = 'inline-block';
+            document.getElementById('ordersBtn').style.display = 'inline-flex';
+            document.getElementById('loginBtn').innerText = 'تسجيل خروج';
+            document.getElementById('loginBtn').className = 'btn btn-danger';
+            fetchOrders();
+            fetchProducts();
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        async function fetchProducts() {
+            try {
+                const res = await fetch(`${DB_URL}/products.json`);
+                const data = await res.json();
+                productsData = data || {};
+                renderProducts();
+            } catch(e) {
+                console.error(e);
+                document.getElementById('productsGrid').innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:red;">حدث خطأ أثناء تحميل المنتجات.</p>';
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            const keys = Object.keys(productsData);
+            if(keys.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">لا توجد منتجات متاحة حالياً.</p>';
+                return;
+            }
+
+            keys.forEach(id => {
+                const p = productsData[id];
+                const card = document.createElement('div');
+                card.className = 'product-card';
+
+                let actionSection = `
+                    <button class="btn-order" onclick="openOrderModal('${id}')">
+                        🛒 طلب المنتج
+                    </button>
+                `;
+
+                if(isAdmin) {
+                    actionSection += `
+                        <button class="btn btn-danger" style="width: 100%; margin-top: 5px; font-size: 0.85rem;" onclick="deleteProduct('${id}')">
+                            🗑️ حذف المنتج
+                        </button>
+                    `;
+                }
+
+                const colorTag = (p.color && p.color.trim() !== '') 
+                    ? `<div class="product-color">🎨 الألوان: ${p.color}</div>` 
+                    : '';
+
+                card.innerHTML = `
+                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
+                    <div class="product-details">
+                        <div>
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-price">${p.price} ج.م</div>
+                            <div class="product-size">📏 المقاس: ${p.size}</div>
+                            ${colorTag}
+                        </div>
+                        ${actionSection}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function saveProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('pName').value.trim();
+            const price = document.getElementById('pPrice').value.trim();
+            const size = document.getElementById('pSize').value.trim();
+            const color = document.getElementById('pColor').value.trim();
+            const fileInput = document.getElementById('pFile');
+
+            if(!fileInput.files || !fileInput.files[0]) {
+                alert('يرجى اختيار صورة للمنتج!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(evt) {
+                const imgBase64 = evt.target.result;
+                const newProd = {
+                    name: name,
+                    price: price,
+                    size: size,
+                    color: color,
+                    img: imgBase64,
+                    createdAt: Date.now()
+                };
+
+                try {
+                    const res = await fetch(`${DB_URL}/products.json`, {
+                        method: 'POST',
+                        body: JSON.stringify(newProd)
+                    });
+                    if(res.ok) {
+                        alert('تمت إضافة المنتج بنجاح وتحديثه على جميع الأجهزة!');
+                        document.getElementById('productForm').reset();
+                        fetchProducts();
+                    } else {
+                        alert('حدث خطأ أثناء الإضافة!');
+                    }
+                } catch(e) {
+                    alert('خطأ في الاتصال بالخادم!');
+                }
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        async function deleteProduct(id) {
+            if(!confirm('هل أنت تأكد من رغبتك في حذف هذا المنتج؟')) return;
+            try {
+                await fetch(`${DB_URL}/products/${id}.json`, { method: 'DELETE' });
+                alert('تم حذف المنتج بنجاح.');
+                fetchProducts();
+            } catch(e) {
+                alert('فشل الحذف!');
+            }
+        }
+
+        function openOrderModal(id) {
+            selectedProduct = productsData[id];
+            if(!selectedProduct) return;
+
+            document.getElementById('orderProdId').value = id;
+            document.getElementById('orderProdName').value = selectedProduct.name;
+            document.getElementById('modalProdTitle').innerText = selectedProduct.name;
+            document.getElementById('modalProdPrice').innerText = 'السعر: ' + selectedProduct.price + ' ج.م';
+
+            const colorGroup = document.getElementById('colorSelectGroup');
+            if(selectedProduct.color && selectedProduct.color.trim() !== '') {
+                colorGroup.style.display = 'block';
+                document.getElementById('custColor').placeholder = `الألوان المتاحة: (${selectedProduct.color})`;
+            } else {
+                colorGroup.style.display = 'none';
+            }
+
+            document.getElementById('orderModal').classList.add('active');
+        }
+
+        // دالة فحص صحة حقل الجيميل
+        function isValidGmail(gmail) {
+            const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            return gmailRegex.test(gmail);
+        }
+
+        async function submitOrder(e) {
+            e.preventDefault();
+            const gmailInput = document.getElementById('custGmail').value.trim();
+
+            if(!isValidGmail(gmailInput)) {
+                alert('⚠️ بريد الجيميل غير صحيح أو غير مكتوب بصيغة حقيقية!\nيرجى كتابته بشكل صحيح (مثال: name@gmail.com)');
+                return;
+            }
+
+            const orderData = {
+                productName: document.getElementById('orderProdName').value,
+                custName: document.getElementById('custName').value.trim(),
+                custGmail: gmailInput,
+                custPhone: document.getElementById('custPhone').value.trim(),
+                custAddress: document.getElementById('custAddress').value.trim(),
+                custColor: document.getElementById('custColor').value.trim() || 'غير محدد',
+                custSize: document.getElementById('custSize').value.trim() || selectedProduct.size,
+                price: selectedProduct.price,
+                status: 'قيد الانتظار',
+                date: new Date().toLocaleString('ar-EG')
+            };
+
+            try {
+                const res = await fetch(`${DB_URL}/orders.json`, {
+                    method: 'POST',
+                    body: JSON.stringify(orderData)
+                });
+                if(res.ok) {
+                    alert('تم إرسال طلبك بنجاح! يمكنك متابعة حالة طلبك برقم الموبايل أو الجيميل.');
+                    closeModal('orderModal');
+                    if(isAdmin) fetchOrders();
+                } else {
+                    alert('فشل إرسال الطلب، حاول مرة أخرى.');
+                }
+            } catch(e) {
+                alert('خطأ في الاتصال!');
+            }
+        }
+
+        async function fetchOrders() {
+            try {
+                const res = await fetch(`${DB_URL}/orders.json`);
+                const data = await res.json() || {};
+                const keys = Object.keys(data);
+                document.getElementById('ordersCount').innerText = keys.length;
+
+                const list = document.getElementById('ordersList');
+                list.innerHTML = '';
+
+                if(keys.length === 0) {
+                    list.innerHTML = '<p style="text-align:center; color:#888;">لا توجد طلبات حالياً.</p>';
+                    return;
+                }
+
+                keys.reverse().forEach(id => {
+                    const o = data[id];
+                    const item = document.createElement('div');
+                    item.className = 'order-item';
+
+                    const isProcessed = o.status === 'تم رؤية الطلب وسوف يتم العمل على الطلب';
+                    const statusClass = isProcessed ? 'status-accepted' : 'status-pending';
+
+                    item.innerHTML = `
+                        <div style="font-weight:bold; color:#1a1a1a;">📦 ${o.productName} (${o.price} ج.م)</div>
+                        <div>👤 <b>العميل:</b> ${o.custName}</div>
+                        <div>📧 <b>الجيميل:</b> ${o.custGmail || 'غير مسجل'}</div>
+                        <div>📱 <b>الموبايل:</b> ${o.custPhone}</div>
+                        <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
+                        <div>🎨 <b>اللون:</b> ${o.custColor} | 📏 <b>المقاس:</b> ${o.custSize}</div>
+                        <div>حالة الطلب: <span class="status-badge ${statusClass}">${o.status || 'قيد الانتظار'}</span></div>
+                        <div style="font-size:0.8rem; color:#888; margin-top: 4px;">📅 ${o.date}</div>
+                        <div style="margin-top: 8px; display: flex; gap: 6px;">
+                            ${!isProcessed ? `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" onclick="submitOrderProcess('${id}')">قبول وبدء العمل على الطلب (Submit) ✅</button>` : ''}
+                            <button class="btn btn-danger" style="padding: 5px 12px; font-size: 0.8rem;" onclick="deleteOrder('${id}')">إزالة الطلب</button>
+                        </div>
+                    `;
+                    list.appendChild(item);
+                });
+            } catch(e) {
+                console.error(e);
+            }
+        }
+
+        // تغيير حالة الطلب من قبل المدير (زرار Submit)
+        async function submitOrderProcess(id) {
+            try {
+                await fetch(`${DB_URL}/orders/${id}/status.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify('تم رؤية الطلب وسوف يتم العمل على الطلب')
+                });
+                alert('تم تحديث حالة الطلب وإرسال الرسالة للعميل بنجاح! 🚀');
+                fetchOrders();
+            } catch(e) {
+                alert('حدث خطأ أثناء التحديث!');
+            }
+        }
+
+        function openOrdersModal() {
+            fetchOrders();
+            document.getElementById('ordersModal').classList.add('active');
+        }
+
+        async function deleteOrder(id) {
+            if(!confirm('هل تريد حذف هذا الطلب؟')) return;
+            await fetch(`${DB_URL}/orders/${id}.json`, { method: 'DELETE' });
+            fetchOrders();
+        }
+
+        function openTrackModal() {
+            document.getElementById('trackResult').innerHTML = '';
+            document.getElementById('trackInput').value = '';
+            document.getElementById('trackModal').classList.add('active');
+        }
+
+        // متابعة العميل لحالة طلبه
+        async function trackMyOrder() {
+            const query = document.getElementById('trackInput').value.trim();
+            const resultDiv = document.getElementById('trackResult');
+            resultDiv.innerHTML = '<p style="text-align:center; color:#666;">جاري البحث...</p>';
+
+            if(!query) {
+                resultDiv.innerHTML = '<p style="color:red; text-align:center;">يرجى إدخال رقم الموبايل أو حساب الجيميل!</p>';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${DB_URL}/orders.json`);
+                const data = await res.json() || {};
+                const keys = Object.keys(data);
+                
+                let foundOrders = [];
+                keys.forEach(k => {
+                    const o = data[k];
+                    if((o.custPhone && o.custPhone === query) || (o.custGmail && o.custGmail.toLowerCase() === query.toLowerCase())) {
+                        foundOrders.push(o);
+                    }
+                });
+
+                if(foundOrders.length === 0) {
+                    resultDiv.innerHTML = '<p style="color:red; text-align:center;">لم يتم العثور على أي طلب مسجل بهاتفك أو الجيميل.</p>';
+                    return;
+                }
+
+                resultDiv.innerHTML = '';
+                foundOrders.reverse().forEach(o => {
+                    const isProcessed = o.status === 'تم رؤية الطلب وسوف يتم العمل على الطلب';
+                    const statusBg = isProcessed ? '#d4edda' : '#fff3cd';
+                    const statusColor = isProcessed ? '#155724' : '#856404';
+
+                    const item = document.createElement('div');
+                    item.style.cssText = `background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:10px; border-right:4px solid ${statusColor};`;
+                    item.innerHTML = `
+                        <div><b>المنتج:</b> ${o.productName}</div>
+                        <div><b>السعر:</b> ${o.price} ج.م</div>
+                        <div style="background:${statusBg}; color:${statusColor}; padding:6px 10px; border-radius:6px; margin-top:6px; font-weight:bold; font-size:0.9rem;">
+                            🔔 ${o.status || 'قيد الانتظار'}
+                        </div>
+                    `;
+                    resultDiv.appendChild(item);
+                });
+            } catch(e) {
+                resultDiv.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ في جلب البيانات!</p>';
+            }
+        }
+    </script>
 </body>
 </html>
