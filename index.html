@@ -333,6 +333,18 @@
             padding: 2px 7px;
             font-size: 0.75rem;
         }
+
+        /* صندوق السعر النهائي المميز للعميل */
+        .final-price-box {
+            background: #111111;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            border: 2px solid #d4af37;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
+        }
     </style>
 </head>
 <body>
@@ -354,7 +366,7 @@
                 📦 لوحة الطلبات <span id="ordersCount" class="badge">0</span>
             </button>
 
-            <!-- زر الدخول والخروج في الشمال -->
+            <!-- زر الدخول والخروج -->
             <button id="authBtn" class="btn btn-gold" onclick="handleAuthClick()">دخول</button>
         </div>
     </header>
@@ -370,7 +382,7 @@
                     <input type="text" id="pName" class="form-control" required placeholder="مثال: طقم بيتي رجالي">
                 </div>
                 <div class="form-group">
-                    <label>سعر المنتج (بالجنيه):</label>
+                    <label>سعر القطعة الواحدة (بالجنيه):</label>
                     <input type="number" id="pPrice" class="form-control" required placeholder="مثال: 450">
                 </div>
                 <div class="form-group">
@@ -475,14 +487,28 @@
         </div>
     </div>
 
-    <!-- نافذة الطلب للعميل -->
+    <!-- نافذة الطلب للعميل (تتعبأ بالبيانات والعنوان تلقائياً) -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
-            <h3 style="margin-bottom: 10px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
-            <p style="color: #d4af37; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;" id="modalProdPrice"></p>
+            <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
+
+            <!-- ملخص السعر النهائي البارز -->
+            <div class="final-price-box">
+                <div style="color: #dddddd; font-size: 0.9rem;" id="modalProdPrice">سعر القطعة: 0 ج.م</div>
+                <div style="color: #dddddd; font-size: 0.9rem; margin-top: 3px;" id="modalProdQtySummary">عدد القطع: 1 قطعة</div>
+                <div style="border-top: 1px dashed #d4af37; margin: 8px 0;"></div>
+                <div style="color: #d4af37; font-weight: 900; font-size: 1.35rem;" id="modalTotalPrice">السعر النهائي: 0 ج.م</div>
+            </div>
+
             <form onsubmit="submitOrder(event)">
                 <input type="hidden" id="orderProdName">
+                
+                <div class="form-group">
+                    <label>اختر الكمية المطلوبة <span class="gold-subtext">(أقصى عدد 50 قطعة)</span>:</label>
+                    <input type="number" id="custQty" class="form-control" value="1" min="1" max="50" required oninput="updateOrderTotalPrice()">
+                </div>
+
                 <div class="form-group">
                     <label>اسمك بالكامل:</label>
                     <input type="text" id="custName" class="form-control" required placeholder="مثال: أحمد محمد">
@@ -496,14 +522,17 @@
                     <input type="tel" id="custPhone" class="form-control" required placeholder="01xxxxxxxxx">
                 </div>
                 <div class="form-group">
-                    <label>العنوان <span class="gold-subtext">(هذا العنوان الذي سوف يتم توصيل إليه الطلب)</span>:</label>
+                    <label>العنوان <span class="gold-subtext">(هذا العنوان الذي كتبته في التسجيل)</span>:</label>
                     <input type="text" id="custAddress" class="form-control" required placeholder="المحافظة - الشارع">
                 </div>
                 <div class="form-group">
                     <label>المقاس:</label>
                     <input type="text" id="custSize" class="form-control" readonly>
                 </div>
-                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">Submit (تأكيد وإرسال الطلب) 🛍️</button>
+                
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 14px; font-size: 1.05rem;">
+                    Submit (تأكيد الطلب بالسعر النهائي) 🛍️
+                </button>
             </form>
         </div>
     </div>
@@ -520,7 +549,11 @@
                     <input type="text" id="editProdName" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>السعر (ج.م):</label>
+                    <label>الكمية (عدد القطع):</label>
+                    <input type="number" id="editProdQty" class="form-control" min="1" max="50" required>
+                </div>
+                <div class="form-group">
+                    <label>السعر الإجمالي النهائي (ج.م):</label>
                     <input type="number" id="editProdPrice" class="form-control" required>
                 </div>
                 <div class="form-group">
@@ -570,7 +603,7 @@
     <div id="trackModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('trackModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #111111;">🔍 متابعة حالة الطلب</h3>
+            <h3 style="margin-bottom: 15px; color: #111111;">🔍 متابعة حالة الطلب والسعر النهائي</h3>
             <div class="form-group">
                 <label>أدخل رقم الموبايل أو الجيميل الخاص بك:</label>
                 <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
@@ -669,7 +702,7 @@
         }
 
         // تسجيل الدخول
-        function doLogin() {
+        async function doLogin() {
             const u = document.getElementById('userIn').value.trim();
             const p = document.getElementById('passIn').value.trim();
 
@@ -686,8 +719,28 @@
                 showAdminUI();
                 alert('مرحباً بالمدير! تم تسجيل الدخول بنجاح 🔥');
             } else {
-                // تسجيل زبون
-                currentUser = { username: u };
+                // البحث عن بيانات المستخدم المسجل لجلب عنوانه
+                try {
+                    const res = await fetch(`${DB_URL}/users.json`);
+                    const usersData = await res.json() || {};
+                    let matchedUser = null;
+
+                    Object.keys(usersData).forEach(k => {
+                        const userObj = usersData[k];
+                        if((userObj.username === u || userObj.gmail === u) && userObj.pass === p) {
+                            matchedUser = userObj;
+                        }
+                    });
+
+                    if(matchedUser) {
+                        currentUser = matchedUser;
+                    } else {
+                        currentUser = { username: u };
+                    }
+                } catch(e) {
+                    currentUser = { username: u };
+                }
+
                 localStorage.setItem('m_s_user', JSON.stringify(currentUser));
                 closeModal('authModal');
                 showUserUI();
@@ -814,7 +867,7 @@
         async function saveProduct(e) {
             e.preventDefault();
             const name = document.getElementById('pName').value.trim();
-            const price = document.getElementById('pPrice').value.trim();
+            const price = parseFloat(document.getElementById('pPrice').value.trim());
             const size = document.getElementById('pSize').value;
             const fileInput = document.getElementById('pFile');
 
@@ -857,29 +910,64 @@
             fetchProducts();
         }
 
+        // فتح نافذة الطلب وتعبئة عنوان الحساب تلقائياً
         function openOrderModal(id) {
             selectedProduct = productsData[id];
             if(!selectedProduct) return;
 
             document.getElementById('orderProdName').value = selectedProduct.name;
-            document.getElementById('modalProdTitle').innerText = selectedProduct.name;
-            document.getElementById('modalProdPrice').innerText = 'السعر: ' + selectedProduct.price + ' ج.م';
+            document.getElementById('modalProdTitle').innerText = 'طلب: ' + selectedProduct.name;
             document.getElementById('custSize').value = selectedProduct.size;
+            document.getElementById('custQty').value = 1;
 
-            // ملء البيانات تلقائياً لو العميل مسجل
+            updateOrderTotalPrice();
+
+            // تعبئة عنوان وبيانات المستخدم المسجل تلقائياً
             if(currentUser) {
                 if(currentUser.username) document.getElementById('custName').value = currentUser.username;
                 if(currentUser.gmail) document.getElementById('custGmail').value = currentUser.gmail;
                 if(currentUser.phone) document.getElementById('custPhone').value = currentUser.phone;
-                if(currentUser.address) document.getElementById('custAddress').value = currentUser.address;
+                if(currentUser.address) document.getElementById('custAddress').value = currentUser.address; // تعبئة العنوان تلقائياً
             }
 
             document.getElementById('orderModal').classList.add('active');
         }
 
-        // تقديم طلب الزبون Submit
+        // تحديث السعر النهائي المباشر بناءً على الكمية (أقصى كمية 50)
+        function updateOrderTotalPrice() {
+            const qtyInput = document.getElementById('custQty');
+            let qty = parseInt(qtyInput.value) || 1;
+
+            if (qty > 50) {
+                alert('الحد الأقصى المسموح به للطلب هو 50 قطعة فقط!');
+                qty = 50;
+                qtyInput.value = 50;
+            } else if (qty < 1) {
+                qty = 1;
+                qtyInput.value = 1;
+            }
+
+            if(selectedProduct) {
+                const total = selectedProduct.price * qty;
+                document.getElementById('modalProdPrice').innerText = 'سعر القطعة الواحدة: ' + selectedProduct.price + ' ج.م';
+                document.getElementById('modalProdQtySummary').innerText = 'عدد القطع المطلوبة: ' + qty + ' قطعة';
+                document.getElementById('modalTotalPrice').innerText = '💳 السعر النهائي الإجمالي: ' + total + ' ج.م';
+            }
+        }
+
+        // تقديم طلب الزبون Submit وإرسال العنوان المسجل
         async function submitOrder(e) {
             e.preventDefault();
+
+            const qty = parseInt(document.getElementById('custQty').value) || 1;
+            if (qty > 50) {
+                alert('الحد الأقصى للطلب هو 50 قطعة!');
+                return;
+            }
+
+            const unitPrice = parseFloat(selectedProduct.price);
+            const totalPrice = unitPrice * qty;
+
             const orderData = {
                 productName: document.getElementById('orderProdName').value,
                 custName: document.getElementById('custName').value.trim(),
@@ -887,7 +975,9 @@
                 custPhone: document.getElementById('custPhone').value.trim(),
                 custAddress: document.getElementById('custAddress').value.trim(),
                 custSize: document.getElementById('custSize').value,
-                price: selectedProduct.price,
+                quantity: qty,
+                unitPrice: unitPrice,
+                price: totalPrice,
                 status: 'قيد الانتظار',
                 date: new Date().toLocaleString('ar-EG')
             };
@@ -898,12 +988,12 @@
                     body: JSON.stringify(orderData)
                 });
                 if(res.ok) {
-                    alert('تم إرسال طلبك بنجاح Submit! 🚀 يمكنك متابعة حالة طلبك برقم هاتفك أو الجيميل.');
+                    alert('تم إرسال طلبك بنجاح Submit! 🚀\n\n📍 العنوان المحفوط للتوصيل: ' + orderData.custAddress + '\n💰 السعر النهائي المطلوب سداده: ' + totalPrice + ' ج.م (' + qty + ' قطعة)');
                     closeModal('orderModal');
                     if(isAdmin) fetchOrders();
                 }
             } catch(e) {
-                alert('حدث خطأ!');
+                alert('حدث خطأ أثناء إرسال الطلب!');
             }
         }
 
@@ -930,13 +1020,16 @@
                     item.className = 'order-item';
 
                     const isAccepted = o.status === ADMIN_CONFIRM_MSG;
+                    const qty = o.quantity || 1;
 
                     item.innerHTML = `
-                        <div style="font-weight:bold; color:#111;">📦 ${o.productName} (${o.price} ج.م)</div>
+                        <div style="font-weight:bold; color:#111; font-size:1.05rem;">📦 ${o.productName}</div>
+                        <div style="color:#d4af37; font-weight:bold;">🔢 <b>الكمية:</b> ${qty} قطعة ${o.unitPrice ? `(سعر القطعة: ${o.unitPrice} ج.م)` : ''}</div>
+                        <div style="color:#16a34a; font-weight:bold; font-size:1.15rem;">💰 <b>السعر النهائي الإجمالي:</b> ${o.price} ج.م</div>
                         <div>👤 <b>العميل:</b> ${o.custName}</div>
                         <div>📧 <b>الجيميل:</b> ${o.custGmail}</div>
                         <div>📱 <b>الهاتف:</b> ${o.custPhone}</div>
-                        <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
+                        <div>📍 <b>العنوان المسجل:</b> ${o.custAddress}</div>
                         <div>📏 <b>المقاس:</b> ${o.custSize}</div>
                         <div style="margin-top:4px;"><b>الحالة:</b> <span style="color:${isAccepted ? '#16a34a' : '#856404'}; font-weight:bold;">${o.status}</span></div>
                         <div style="font-size:0.8rem; color:#888;">📅 ${o.date}</div>
@@ -961,6 +1054,7 @@
 
             document.getElementById('editOrderId').value = id;
             document.getElementById('editProdName').value = o.productName || '';
+            document.getElementById('editProdQty').value = o.quantity || 1;
             document.getElementById('editProdPrice').value = o.price || '';
             document.getElementById('editProdSize').value = o.custSize || '';
             document.getElementById('editCustName').value = o.custName || '';
@@ -976,9 +1070,12 @@
         async function saveEditedOrder(e) {
             e.preventDefault();
             const id = document.getElementById('editOrderId').value;
+            const qty = parseInt(document.getElementById('editProdQty').value) || 1;
+
             const updatedOrder = {
                 productName: document.getElementById('editProdName').value.trim(),
-                price: document.getElementById('editProdPrice').value.trim(),
+                quantity: qty,
+                price: parseFloat(document.getElementById('editProdPrice').value.trim()),
                 custSize: document.getElementById('editProdSize').value.trim(),
                 custName: document.getElementById('editCustName').value.trim(),
                 custGmail: document.getElementById('editCustGmail').value.trim(),
@@ -1000,7 +1097,7 @@
             }
         }
 
-        // عند اضغط المدير على Submit يتبعت للعميل الرسالة المطلوبة
+        // قبول الطلب وإرسال الرسالة للعميل
         async function submitOrderProcess(id) {
             try {
                 await fetch(`${DB_URL}/orders/${id}/status.json`, {
@@ -1021,7 +1118,7 @@
             fetchOrders();
         }
 
-        // مسح طلب فردي (حذف هذا الطلب)
+        // مسح طلب فردي
         async function deleteOrder(id) {
             if(!confirm('هل تريد حذف هذا الطلب نهائياً؟')) return;
             await fetch(`${DB_URL}/orders/${id}.json`, { method: 'DELETE' });
@@ -1034,7 +1131,7 @@
             document.getElementById('trackModal').classList.add('active');
         }
 
-        // متابعة الطلب للزبون
+        // متابعة الطلب
         async function trackMyOrder() {
             const query = document.getElementById('trackInput').value.trim();
             const resultDiv = document.getElementById('trackResult');
@@ -1066,12 +1163,16 @@
                 resultDiv.innerHTML = '';
                 foundOrders.reverse().forEach(o => {
                     const isAccepted = o.status === ADMIN_CONFIRM_MSG;
+                    const qty = o.quantity || 1;
+
                     const item = document.createElement('div');
                     item.style.cssText = `background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:10px; border-right:4px solid ${isAccepted ? '#16a34a' : '#d4af37'}; border:1px solid #eee;`;
                     item.innerHTML = `
-                        <div><b>المنتج:</b> ${o.productName}</div>
-                        <div><b>السعر:</b> ${o.price} ج.م</div>
-                        <div style="margin-top:6px; font-weight:bold; color:${isAccepted ? '#16a34a' : '#856404'};">
+                        <div style="font-weight:bold; color:#111;">📦 المنتج: ${o.productName}</div>
+                        <div>🔢 <b>الكمية المطلوبة:</b> ${qty} قطعة</div>
+                        <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
+                        <div style="color:#d4af37; font-weight:800; font-size:1.1rem; margin:4px 0;">💰 السعر النهائي الإجمالي: ${o.price} ج.م</div>
+                        <div style="margin-top:4px; font-weight:bold; color:${isAccepted ? '#16a34a' : '#856404'};">
                             🔔 حالة الطلب: ${o.status}
                         </div>
                     `;
