@@ -14,8 +14,8 @@
         }
 
         html, body {
-            background-color: #f8f9fa;
-            color: #222;
+            background-color: #f8fafc;
+            color: #1e293b;
             line-height: 1.6;
             overflow-x: hidden;
             overflow-y: auto;
@@ -30,27 +30,26 @@
         }
 
         header {
-            background-color: #111111;
+            background-color: #0f172a;
             color: #ffffff;
             padding: max(15px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 15px max(20px, env(safe-area-inset-left));
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 2px solid #d4af37;
         }
 
         .logo {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #d4af37;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 6px;
-            letter-spacing: 0.5px;
+            gap: 8px;
+            letter-spacing: -0.5px;
         }
 
         .header-btns {
@@ -61,33 +60,37 @@
         }
 
         .btn {
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 0.88rem;
             transition: all 0.2s ease;
         }
 
         .btn-primary {
-            background-color: #d4af37;
-            color: #111111;
+            background-color: #2563eb;
+            color: #ffffff;
         }
 
         .btn-primary:active {
-            background-color: #b8860b;
+            background-color: #1d4ed8;
             transform: scale(0.98);
         }
 
         .btn-outline {
             background: transparent;
-            color: #d4af37;
-            border: 1px solid #d4af37;
+            color: #ffffff;
+            border: 1px solid #334155;
+        }
+
+        .btn-outline:active {
+            background: #1e293b;
         }
 
         .btn-danger {
-            background-color: #d32f2f;
+            background-color: #ef4444;
             color: white;
         }
 
@@ -98,40 +101,40 @@
         }
 
         .card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
-            border: 1px solid #eee;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 6px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            color: #222;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #334155;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.98rem;
             outline: none;
-            transition: border-color 0.2s;
-            background: #fff;
+            transition: all 0.2s;
+            background: #ffffff;
         }
 
         .form-control:focus {
-            border-color: #d4af37;
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
         .products-grid {
@@ -142,25 +145,25 @@
         }
 
         .product-card {
-            background: white;
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             position: relative;
-            border: 1px solid #f0f0f0;
+            border: 1px solid #e2e8f0;
         }
 
         .product-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            background: #eee;
+            background: #f1f5f9;
         }
 
         .product-details {
-            padding: 15px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -169,56 +172,54 @@
 
         .product-title {
             font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #111;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #0f172a;
         }
 
         .product-price {
             font-size: 1.25rem;
-            color: #b8860b;
-            font-weight: bold;
-            margin-bottom: 5px;
+            color: #16a34a;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .product-size, .product-color {
-            font-size: 0.88rem;
-            color: #333;
-            margin-bottom: 4px;
-            background: #f4f4f4;
-            padding: 4px 8px;
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 6px;
+            background: #f1f5f9;
+            padding: 4px 10px;
             border-radius: 6px;
             display: inline-block;
             width: fit-content;
         }
 
         .product-color {
-            background: #fef9e7;
-            color: #8a6d0b;
-            border: 1px solid #f3e5ab;
-            font-weight: 500;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 600;
         }
 
         .btn-order {
             width: 100%;
-            padding: 10px;
-            background: #111111;
-            color: #d4af37;
-            border: 1px solid #d4af37;
+            padding: 12px;
+            background: #0f172a;
+            color: #ffffff;
+            border: none;
             border-radius: 8px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
         }
 
         .btn-order:active {
-            background: #d4af37;
-            color: #111111;
+            background: #1e293b;
         }
 
         .modal {
@@ -228,7 +229,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -240,37 +242,38 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
             width: 100%;
             max-width: 480px;
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
-            border-top: 4px solid #d4af37;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            left: 15px;
+            top: 16px;
+            left: 16px;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #888;
+            color: #94a3b8;
+            line-height: 1;
         }
 
         .admin-badge {
-            background: #d4af37;
-            color: #111;
+            background: #2563eb;
+            color: white;
             font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
         }
 
         .badge {
-            background: #d32f2f;
+            background: #ef4444;
             color: white;
             border-radius: 50%;
             padding: 2px 7px;
@@ -278,7 +281,7 @@
         }
 
         .order-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #e2e8f0;
             padding: 14px 0;
         }
 
@@ -291,19 +294,18 @@
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-top: 5px;
         }
 
         .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
+            background-color: #fef3c7;
+            color: #92400e;
         }
 
         .status-accepted {
-            background-color: #fef9e7;
-            color: #8a6d0b;
-            border: 1px solid #d4af37;
+            background-color: #dcfce7;
+            color: #166534;
         }
     </style>
 </head>
@@ -326,7 +328,7 @@
     <div class="container">
         <!-- قسم إضافة منتج (للمدير فقط) -->
         <div id="adminPanel" class="card" style="display:none;">
-            <h2 style="margin-bottom: 15px; color: #111;">إضافة منتج جديد</h2>
+            <h2 style="margin-bottom: 15px; color: #0f172a;">إضافة منتج جديد</h2>
             <form id="productForm" onsubmit="saveProduct(event)">
                 <div class="form-group">
                     <label>اسم المنتج:</label>
@@ -345,18 +347,17 @@
                     <input type="text" id="pColor" class="form-control" placeholder="مثال: أسود، كحلي، رمادي (أو اتركه فارغاً)">
                 </div>
                 <div class="form-group">
-                    <label>صورة المنتج (Upload File):</label>
+                    <label>صورة المنتج (اختر صورة من جهازك):</label>
                     <input type="file" id="pFile" class="form-control" accept="image/*" required>
-                    <small style="color: #666; font-size: 0.8rem;">* اختر صورة من جهازك</small>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px;">إضافة المنتج</button>
             </form>
         </div>
 
         <!-- قائمة المنتجات -->
-        <h2 style="margin-bottom: 15px; color: #111;" id="productsTitle">المنتجات المتاحة</h2>
+        <h2 style="margin-bottom: 15px; color: #0f172a;" id="productsTitle">المنتجات المتاحة</h2>
         <div id="productsGrid" class="products-grid">
-            <p style="grid-column: 1/-1; text-align: center; color: #888;">جاري تحميل المنتجات...</p>
+            <p style="grid-column: 1/-1; text-align: center; color: #64748b;">جاري تحميل المنتجات...</p>
         </div>
     </div>
 
@@ -364,7 +365,7 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
-            <h3 style="margin-bottom: 15px;">تسجيل دخول المدير</h3>
+            <h3 style="margin-bottom: 15px; color: #0f172a;">تسجيل دخول المدير</h3>
             <div class="form-group">
                 <label>اسم المستخدم:</label>
                 <input type="text" id="userIn" class="form-control">
@@ -373,7 +374,7 @@
                 <label>كلمة المرور:</label>
                 <input type="password" id="passIn" class="form-control">
             </div>
-            <button class="btn btn-primary" style="width:100%; padding: 10px;" onclick="doLogin()">دخول</button>
+            <button class="btn btn-primary" style="width:100%; padding: 12px;" onclick="doLogin()">دخول</button>
         </div>
     </div>
 
@@ -381,8 +382,8 @@
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
-            <h3 style="margin-bottom: 10px;" id="modalProdTitle">طلب المنتج</h3>
-            <p style="color: #b8860b; font-weight: bold; margin-bottom: 15px;" id="modalProdPrice"></p>
+            <h3 style="margin-bottom: 10px; color: #0f172a;" id="modalProdTitle">طلب المنتج</h3>
+            <p style="color: #16a34a; font-weight: bold; margin-bottom: 15px; font-size: 1.1rem;" id="modalProdPrice"></p>
             <form onsubmit="submitOrder(event)">
                 <input type="hidden" id="orderProdId">
                 <input type="hidden" id="orderProdName">
@@ -393,7 +394,7 @@
                 <div class="form-group">
                     <label>بريد الجيميل (Gmail):</label>
                     <input type="email" id="custGmail" class="form-control" required placeholder="مثال: name@gmail.com">
-                    <small style="color: #666; font-size: 0.78rem;">* يجب كتابة حساب Gmail حقيقي للتحقق</small>
+                    <small style="color: #64748b; font-size: 0.78rem;">* يجب كتابة حساب Gmail حقيقي للتحقق</small>
                 </div>
                 <div class="form-group">
                     <label>رقم الموبايل:</label>
@@ -420,12 +421,12 @@
     <div id="trackModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('trackModal')">&times;</span>
-            <h3 style="margin-bottom: 15px;">متابعة حالة الطلب 🔍</h3>
+            <h3 style="margin-bottom: 15px; color: #0f172a;">متابعة حالة الطلب 🔍</h3>
             <div class="form-group">
                 <label>أدخل رقم الموبايل أو الجيميل المستخدم في الطلب:</label>
                 <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
             </div>
-            <button class="btn btn-primary" style="width:100%; padding: 10px;" onclick="trackMyOrder()">بحث عن طلبي</button>
+            <button class="btn btn-primary" style="width:100%; padding: 12px;" onclick="trackMyOrder()">بحث عن طلبي</button>
             <div id="trackResult" style="margin-top: 15px;"></div>
         </div>
     </div>
@@ -434,9 +435,9 @@
     <div id="ordersModal" class="modal">
         <div class="modal-content" style="max-width: 650px;">
             <span class="close-modal" onclick="closeModal('ordersModal')">&times;</span>
-            <h3 style="margin-bottom: 15px;">قائمة الطلبات الواردة 📦</h3>
+            <h3 style="margin-bottom: 15px; color: #0f172a;">قائمة الطلبات الواردة 📦</h3>
             <div id="ordersList">
-                <p style="text-align:center; color:#888;">جاري تحميل الطلبات...</p>
+                <p style="text-align:center; color:#64748b;">جاري تحميل الطلبات...</p>
             </div>
         </div>
     </div>
@@ -515,7 +516,7 @@
 
             const keys = Object.keys(productsData);
             if(keys.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">لا توجد منتجات متاحة حالياً.</p>';
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد منتجات متاحة حالياً.</p>';
                 return;
             }
 
@@ -532,7 +533,7 @@
 
                 if(isAdmin) {
                     actionSection += `
-                        <button class="btn btn-danger" style="width: 100%; margin-top: 5px; font-size: 0.85rem;" onclick="deleteProduct('${id}')">
+                        <button class="btn btn-danger" style="width: 100%; margin-top: 6px; font-size: 0.85rem;" onclick="deleteProduct('${id}')">
                             🗑️ حذف المنتج
                         </button>
                     `;
@@ -688,7 +689,7 @@
                 list.innerHTML = '';
 
                 if(keys.length === 0) {
-                    list.innerHTML = '<p style="text-align:center; color:#888;">لا توجد طلبات حالياً.</p>';
+                    list.innerHTML = '<p style="text-align:center; color:#64748b;">لا توجد طلبات حالياً.</p>';
                     return;
                 }
 
@@ -701,17 +702,17 @@
                     const statusClass = isProcessed ? 'status-accepted' : 'status-pending';
 
                     item.innerHTML = `
-                        <div style="font-weight:bold; color:#111;">📦 ${o.productName} (${o.price} ج.م)</div>
+                        <div style="font-weight:bold; color:#0f172a; font-size:1.05rem;">📦 ${o.productName} (${o.price} ج.م)</div>
                         <div>👤 <b>العميل:</b> ${o.custName}</div>
                         <div>📧 <b>الجيميل:</b> ${o.custGmail || 'غير مسجل'}</div>
                         <div>📱 <b>الموبايل:</b> ${o.custPhone}</div>
                         <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
                         <div>🎨 <b>اللون:</b> ${o.custColor} | 📏 <b>المقاس:</b> ${o.custSize}</div>
                         <div>حالة الطلب: <span class="status-badge ${statusClass}">${o.status || 'قيد الانتظار'}</span></div>
-                        <div style="font-size:0.8rem; color:#888; margin-top: 4px;">📅 ${o.date}</div>
-                        <div style="margin-top: 8px; display: flex; gap: 6px;">
-                            ${!isProcessed ? `<button class="btn btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" onclick="submitOrderProcess('${id}')">قبول وبدء العمل على الطلب (Submit) ✅</button>` : ''}
-                            <button class="btn btn-danger" style="padding: 5px 12px; font-size: 0.8rem;" onclick="deleteOrder('${id}')">إزالة الطلب</button>
+                        <div style="font-size:0.8rem; color:#64748b; margin-top: 4px;">📅 ${o.date}</div>
+                        <div style="margin-top: 10px; display: flex; gap: 8px;">
+                            ${!isProcessed ? `<button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="submitOrderProcess('${id}')">قبول وبدء العمل على الطلب (Submit) ✅</button>` : ''}
+                            <button class="btn btn-danger" style="padding: 6px 14px; font-size: 0.85rem;" onclick="deleteOrder('${id}')">إزالة الطلب</button>
                         </div>
                     `;
                     list.appendChild(item);
@@ -754,10 +755,10 @@
         async function trackMyOrder() {
             const query = document.getElementById('trackInput').value.trim();
             const resultDiv = document.getElementById('trackResult');
-            resultDiv.innerHTML = '<p style="text-align:center; color:#666;">جاري البحث...</p>';
+            resultDiv.innerHTML = '<p style="text-align:center; color:#64748b;">جاري البحث...</p>';
 
             if(!query) {
-                resultDiv.innerHTML = '<p style="color:red; text-align:center;">يرجى إدخال رقم الموبايل أو حساب الجيميل!</p>';
+                resultDiv.innerHTML = '<p style="color:#ef4444; text-align:center;">يرجى إدخال رقم الموبايل أو حساب الجيميل!</p>';
                 return;
             }
 
@@ -775,29 +776,29 @@
                 });
 
                 if(foundOrders.length === 0) {
-                    resultDiv.innerHTML = '<p style="color:red; text-align:center;">لم يتم العثور على أي طلب مسجل بهاتفك أو الجيميل.</p>';
+                    resultDiv.innerHTML = '<p style="color:#ef4444; text-align:center;">لم يتم العثور على أي طلب مسجل بهاتفك أو الجيميل.</p>';
                     return;
                 }
 
                 resultDiv.innerHTML = '';
                 foundOrders.reverse().forEach(o => {
                     const isProcessed = o.status === 'تم رؤية الطلب وسوف يتم العمل على الطلب';
-                    const statusBg = isProcessed ? '#fef9e7' : '#fff3cd';
-                    const statusColor = isProcessed ? '#8a6d0b' : '#856404';
+                    const statusBg = isProcessed ? '#dcfce7' : '#fef3c7';
+                    const statusColor = isProcessed ? '#166534' : '#92400e';
 
                     const item = document.createElement('div');
-                    item.style.cssText = `background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:10px; border-right:4px solid ${statusColor};`;
+                    item.style.cssText = `background:#f8fafc; padding:12px 16px; border-radius:10px; margin-bottom:10px; border-right:4px solid ${statusColor}; border:1px solid #e2e8f0;`;
                     item.innerHTML = `
                         <div><b>المنتج:</b> ${o.productName}</div>
                         <div><b>السعر:</b> ${o.price} ج.م</div>
-                        <div style="background:${statusBg}; color:${statusColor}; padding:6px 10px; border-radius:6px; margin-top:6px; font-weight:bold; font-size:0.9rem;">
+                        <div style="background:${statusBg}; color:${statusColor}; padding:6px 12px; border-radius:8px; margin-top:8px; font-weight:700; font-size:0.9rem; width:fit-content;">
                             🔔 ${o.status || 'قيد الانتظار'}
                         </div>
                     `;
                     resultDiv.appendChild(item);
                 });
             } catch(e) {
-                resultDiv.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ في جلب البيانات!</p>';
+                resultDiv.innerHTML = '<p style="color:#ef4444; text-align:center;">حدث خطأ في جلب البيانات!</p>';
             }
         }
     </script>
