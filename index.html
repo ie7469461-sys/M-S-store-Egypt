@@ -650,7 +650,7 @@
                     <label data-ar="الكمية (عدد القطع):" data-en="Quantity:">الكمية (عدد القطع):</label>
                     <input type="number" id="editProdQty" class="form-control" min="1" max="50" required>
                 </div>
-                <div class="form-group">
+                <div class: "form-group">
                     <label data-ar="السعر الإجمالي النهائي (ج.م):" data-en="Total Price (EGP):">السعر الإجمالي النهائي (ج.م):</label>
                     <input type="number" id="editProdPrice" class="form-control" required>
                 </div>
@@ -1163,14 +1163,16 @@
             const unitPrice = parseFloat(selectedProduct.price);
             const totalPrice = unitPrice * qty;
             const paymentMethod = document.getElementById('paymentMethod').value;
+            const custAddress = currentUser.address;
+            const custSize = currentUser.size;
 
             const orderData = {
                 productName: document.getElementById('orderProdName').value,
                 custName: document.getElementById('custName').value.trim(),
                 custGmail: document.getElementById('custGmail').value.trim() || currentUser.gmail,
                 custPhone: document.getElementById('custPhone').value.trim() || currentUser.phone,
-                custAddress: currentUser.address,
-                custSize: currentUser.size,
+                custAddress: custAddress,
+                custSize: custSize,
                 quantity: qty,
                 unitPrice: unitPrice,
                 price: totalPrice,
@@ -1187,10 +1189,10 @@
                 if(res.ok) {
                     closeModal('orderModal');
                     
-                    // إظهار نافذة رسالة التأكيد بعد الـ Submit
+                    // إظهار رسالة التأكيد بحيث يظهر فيها المقاس، العنوان، وطريقة الدفع مع الوداع المطلوب
                     const successText = currentLang === 'ar' ? 
-                        `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام، وسيتم التواصل معك خلال أقرب وقت.` :
-                        `Your order has been successfully placed, Cash on Delivery, and we will contact you shortly.`;
+                        `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام.\n📏 المقاس: ${custSize}\n📍 العنوان: ${custAddress}\n\nوسيتم التواصل معك خلال أقرب وقت.\nإلى اللقاء نراك المرة القادمة إن شاء الله.` :
+                        `Your order has been successfully placed, Cash on Delivery.\nSize: ${custSize}\nAddress: ${custAddress}\n\nWe will contact you shortly.\nGoodbye, see you next time, Inshallah.`;
                     
                     document.getElementById('successMsgText').innerText = successText;
                     document.getElementById('successOrderModal').classList.add('active');
