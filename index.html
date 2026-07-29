@@ -536,25 +536,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label data-ar="المقاس المفضل لديك:" data-en="Your Preferred Size:">المقاس المفضل لديك:</label>
-                    <select id="regSize" class="form-control" required>
-                        <option value="" data-ar="-- اختر المقاس الثابت لحسابك --" data-en="-- Select Account Size --">-- اختر المقاس الثابت لحسابك --</option>
-                        <option value="6">مقاس 6 (أطفال)</option>
-                        <option value="8">مقاس 8 (أطفال)</option>
-                        <option value="10">مقاس 10 (أطفال)</option>
-                        <option value="12">مقاس 12 (أطفال)</option>
-                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
-                        <option value="16">مقاس 16 (شبابي)</option>
-                        <option value="S">S (صغير)</option>
-                        <option value="M">M (وسط)</option>
-                        <option value="L">L (كبير)</option>
-                        <option value="XL">XL (كبير جداً)</option>
-                        <option value="XXL">XXL (2 إكس)</option>
-                        <option value="XXXL">XXXL (3 إكس)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label><span data-ar="عنوان التوصيل الثابت" data-en="Fixed Delivery Address">عنوان التوصيل الثابت</span> <span class="gold-subtext" data-ar="(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)" data-en="(Auto-assigned delivery address)">(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)</span>:</label>
                     <input type="text" id="regAddress" class="form-control" placeholder="المحافظة - المدينة - اسم الشارع والمنزل" required>
                 </div>
@@ -601,8 +582,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label><span data-ar="المقاس" data-en="Size">المقاس</span> <span class="gold-subtext" data-ar="(المقاس المسجل بحسابك وغير قابل للتعديل)" data-en="(Account size locked)">(المقاس المسجل بحسابك وغير قابل للتعديل)</span>:</label>
-                    <input type="text" id="custSize" class="form-control" readonly style="background-color: #f1f1f1; cursor: not-allowed; font-weight: bold;">
+                    <label><span data-ar="اختر المقاس المطلوب للطلب" data-en="Select Required Size">اختر المقاس المطلوب للطلب</span>:</label>
+                    <select id="custSize" class="form-control" required style="background: #fff;">
+                        <option value="" data-ar="-- اختر المقاس --" data-en="-- Select Size --">-- اختر المقاس --</option>
+                        <option value="6">مقاس 6 (أطفال)</option>
+                        <option value="8">مقاس 8 (أطفال)</option>
+                        <option value="10">مقاس 10 (أطفال)</option>
+                        <option value="12">مقاس 12 (أطفال)</option>
+                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
+                        <option value="16">مقاس 16 (شبابي)</option>
+                        <option value="S">S (صغير)</option>
+                        <option value="M">M (وسط)</option>
+                        <option value="L">L (كبير)</option>
+                        <option value="XL">XL (كبير جداً)</option>
+                        <option value="XXL">XXL (2 إكس)</option>
+                        <option value="XXXL">XXXL (3 إكس)</option>
+                    </select>
                 </div>
 
                 <div class="payment-method-box">
@@ -849,10 +844,10 @@
                     if(matchedUser) {
                         currentUser = matchedUser;
                     } else {
-                        currentUser = { username: u, size: 'M', address: 'غير محدد' };
+                        currentUser = { username: u, address: 'غير محدد' };
                     }
                 } catch(e) {
-                    currentUser = { username: u, size: 'M', address: 'غير محدد' };
+                    currentUser = { username: u, address: 'غير محدد' };
                 }
 
                 localStorage.setItem('m_s_user', JSON.stringify(currentUser));
@@ -867,7 +862,6 @@
             const phone = document.getElementById('regPhone').value.trim();
             const username = document.getElementById('regUser').value.trim();
             const pass = document.getElementById('regPass').value.trim();
-            const size = document.getElementById('regSize').value;
             const address = document.getElementById('regAddress').value.trim();
 
             if(!validateGmailLive()) {
@@ -875,12 +869,12 @@
                 return;
             }
 
-            if(!phone || !username || !pass || !size || !address) {
-                alert(currentLang === 'ar' ? 'يرجى ملء جميع البيانات المطلوبة بما فيها المقاس والعنوان الثابت!' : 'Please fill in all required fields including size and address!');
+            if(!phone || !username || !pass || !address) {
+                alert(currentLang === 'ar' ? 'يرجى ملء جميع البيانات المطلوبة بما فيها العنوان الثابت!' : 'Please fill in all required fields including address!');
                 return;
             }
 
-            const userData = { gmail, phone, username, pass, size, address, createdAt: Date.now() };
+            const userData = { gmail, phone, username, pass, address, createdAt: Date.now() };
 
             try {
                 const res = await fetch(`${DB_URL}/users.json`, {
@@ -892,7 +886,7 @@
                     localStorage.setItem('m_s_user', JSON.stringify(currentUser));
                     closeModal('authModal');
                     showUserUI();
-                    alert(currentLang === 'ar' ? 'تم إنشاء الحساب بنجاح وحفظ مقاسك وعنوانك الثابت! 🎉' : 'Account created successfully! 🎉');
+                    alert(currentLang === 'ar' ? 'تم إنشاء الحساب بنجاح وحفظ عنوانك الثابت! 🎉' : 'Account created successfully! 🎉');
                 }
             } catch(e) {
                 alert(currentLang === 'ar' ? 'حدث خطأ في الاتصال بالسيرفر!' : 'Connection error!');
@@ -1101,6 +1095,7 @@
             document.getElementById('modalProdTitle').innerText = (currentLang === 'ar' ? 'طلب: ' : 'Order: ') + selectedProduct.name;
             
             document.getElementById('custQty').value = 1;
+            document.getElementById('custSize').value = selectedProduct.size;
             updateOrderTotalPrice();
 
             if(currentUser) {
@@ -1109,13 +1104,11 @@
                 if(currentUser.phone) document.getElementById('custPhone').value = currentUser.phone;
                 
                 document.getElementById('custAddress').value = currentUser.address || 'غير محدد';
-                document.getElementById('custSize').value = currentUser.size || selectedProduct.size;
             } else {
                 document.getElementById('custName').value = '';
                 document.getElementById('custGmail').value = '';
                 document.getElementById('custPhone').value = '';
                 document.getElementById('custAddress').value = 'يرجى تسجيل الدخول أولاً';
-                document.getElementById('custSize').value = selectedProduct.size;
             }
 
             document.getElementById('orderModal').classList.add('active');
@@ -1160,7 +1153,7 @@
             const totalPrice = unitPrice * qty;
             const paymentMethod = document.getElementById('paymentMethod').value;
             const custAddress = currentUser.address;
-            const custSize = currentUser.size;
+            const custSize = document.getElementById('custSize').value;
 
             const orderData = {
                 productName: document.getElementById('orderProdName').value,
@@ -1185,7 +1178,6 @@
                 if(res.ok) {
                     closeModal('orderModal');
                     
-                    // رسالة النجاح متضمنة المقاس والعنوان بوضوح وعبارة الوداع المطلوبة
                     const successText = currentLang === 'ar' ? 
                         `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام.<br><br>` +
                         `<span style="color:#d4af37; font-size:1.15rem;">📏 المقاس: ${custSize}</span><br>` +
@@ -1242,7 +1234,7 @@
                         <div>📧 <b>${currentLang === 'ar' ? 'الجيميل:' : 'Gmail:'}</b> ${o.custGmail}</div>
                         <div>📱 <b>${currentLang === 'ar' ? 'الهاتف:' : 'Phone:'}</b> ${o.custPhone}</div>
                         <div>📍 <b>${currentLang === 'ar' ? 'العنوان الثابت:' : 'Fixed Address:'}</b> ${o.custAddress}</div>
-                        <div>📏 <b>${currentLang === 'ar' ? 'المقاس الثابت:' : 'Fixed Size:'}</b> ${o.custSize}</div>
+                        <div>📏 <b>${currentLang === 'ar' ? 'المقاس المطلوب:' : 'Selected Size:'}</b> ${o.custSize}</div>
                         <div style="margin-top:4px;"><b>${currentLang === 'ar' ? 'الحالة:' : 'Status:'}</b> <span style="color:${isAccepted ? '#16a34a' : '#856404'}; font-weight:bold;">${o.status}</span></div>
                         <div style="font-size:0.8rem; color:#888;">📅 ${o.date}</div>
                         
@@ -1380,7 +1372,7 @@
                         <div style="font-weight:bold; color:#111;">📦 المنتج: ${o.productName}</div>
                         <div>🔢 <b>الكمية المطلوبة:</b> ${qty} قطعة</div>
                         <div>📍 <b>العنوان الثابت:</b> ${o.custAddress}</div>
-                        <div>📏 <b>المقاس الثابت:</b> ${o.custSize}</div>
+                        <div>📏 <b>المقاس المطلوب:</b> ${o.custSize}</div>
                         <div>💳 <b>طريقة الدفع:</b> ${payMethod}</div>
                         <div style="color:#d4af37; font-weight:800; font-size:1.1rem; margin:4px 0;">💰 السعر النهائي الإجمالي: ${o.price} ج.م</div>
                         <div style="margin-top:4px; font-weight:bold; color:${isAccepted ? '#16a34a' : '#856404'};">
