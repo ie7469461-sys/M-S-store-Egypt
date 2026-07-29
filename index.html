@@ -28,7 +28,7 @@
             font-family: inherit;
         }
 
-        /* الهيدر الملكي */
+        /* الهيدر */
         header {
             background-color: #111111;
             color: #ffffff;
@@ -250,7 +250,7 @@
             color: #111111;
         }
 
-        /* النوافذ المنبثقة Modal مع السكرول */
+        /* النوافذ المنبثقة Modal */
         .modal {
             display: none;
             position: fixed;
@@ -334,7 +334,6 @@
             font-size: 0.75rem;
         }
 
-        /* صندوق السعر النهائي المميز للعميل */
         .final-price-box {
             background: #111111;
             color: #ffffff;
@@ -360,7 +359,7 @@
             
             <span id="userInfoDisplay" class="user-welcome" style="display:none;"></span>
 
-            <!-- أزرار المدير (تظهر عند دخول المدير) -->
+            <!-- أزرار المدير -->
             <button id="adminPanelBtn" class="btn btn-gold" onclick="showAdminSection('control')" style="display:none;">⚙️ لوحة التحكم</button>
             <button id="adminOrdersBtn" class="btn btn-outline-gold" onclick="showAdminSection('orders')" style="display:none;">
                 📦 لوحة الطلبات <span id="ordersCount" class="badge">0</span>
@@ -422,12 +421,56 @@
         </div>
     </div>
 
-    <!-- نافذة دخول / تسجيل حساب مع سكرول -->
+    <!-- نافذة تعديل المنتج الخاص بالمدير -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('editProductModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">✏️ تعديل بيانات المنتج المسجل</h3>
+            <form onsubmit="saveEditedProduct(event)">
+                <input type="hidden" id="editProdId">
+                <div class="form-group">
+                    <label>اسم المنتج:</label>
+                    <input type="text" id="editPName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>سعر القطعة الواحدة (ج.م):</label>
+                    <input type="number" id="editPPrice" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>المقاس:</label>
+                    <select id="editPSize" class="form-control" required>
+                        <option value="">-- اختر المقاس --</option>
+                        <option value="6">مقاس 6 (أطفال)</option>
+                        <option value="8">مقاس 8 (أطفال)</option>
+                        <option value="10">مقاس 10 (أطفال)</option>
+                        <option value="12">مقاس 12 (أطفال)</option>
+                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
+                        <option value="16">مقاس 16 (شبابي)</option>
+                        <option value="S">S (صغير)</option>
+                        <option value="M">M (وسط)</option>
+                        <option value="L">L (كبير)</option>
+                        <option value="XL">XL (كبير جداً)</option>
+                        <option value="XXL">XXL (2 إكس)</option>
+                        <option value="XXXL">XXXL (3 إكس)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>تحديث صورة المنتج (اختياري):</label>
+                    <input type="file" id="editPFile" class="form-control" accept="image/*">
+                </div>
+
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">
+                    حفظ التعديلات Submit ✏️
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة دخول / تسجيل حساب -->
     <div id="authModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('authModal')">&times;</span>
 
-            <!-- نموذج تسجيل الدخول -->
             <div id="loginFormSection">
                 <h3 style="margin-bottom: 15px; color: #111111;">تسجيل الدخول</h3>
                 <div class="form-group">
@@ -445,7 +488,6 @@
                 <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()">تسجيل الدخول Submit</button>
             </div>
 
-            <!-- نموذج إنشاء حساب جديد -->
             <div id="registerFormSection" style="display:none;">
                 <h3 style="margin-bottom: 15px; color: #111111;">إنشاء حساب جديد</h3>
                 
@@ -487,13 +529,12 @@
         </div>
     </div>
 
-    <!-- نافذة الطلب للعميل (تتعبأ بالبيانات والعنوان تلقائياً) -->
+    <!-- نافذة الطلب للعميل -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
             <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
 
-            <!-- ملخص السعر النهائي البارز -->
             <div class="final-price-box">
                 <div style="color: #dddddd; font-size: 0.9rem;" id="modalProdPrice">سعر القطعة: 0 ج.م</div>
                 <div style="color: #dddddd; font-size: 0.9rem; margin-top: 3px;" id="modalProdQtySummary">عدد القطع: 1 قطعة</div>
@@ -537,7 +578,7 @@
         </div>
     </div>
 
-    <!-- نافذة تعديل الطلب للمدير -->
+    <!-- نافذة تعديل طلب العميل للمدير -->
     <div id="editOrderModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('editOrderModal')">&times;</span>
@@ -628,7 +669,6 @@
             fetchProducts();
         };
 
-        // فحص الجلسة المحفوظة
         function checkSavedUser() {
             const savedAdmin = localStorage.getItem('m_s_admin');
             const savedUser = localStorage.getItem('m_s_user');
@@ -642,7 +682,6 @@
             }
         }
 
-        // إظهار/إخفاء كلمة المرور بالأيقونة
         function togglePassword(inputId, btn) {
             const input = document.getElementById(inputId);
             if (input.type === 'password') {
@@ -679,7 +718,6 @@
             document.getElementById('loginFormSection').style.display = 'block';
         }
 
-        // التحقق المباشر من الجيميل أثناء الكتابة
         function validateGmailLive() {
             const gmail = document.getElementById('regGmail').value.trim();
             const statusEl = document.getElementById('gmailStatus');
@@ -701,7 +739,6 @@
             }
         }
 
-        // تسجيل الدخول
         async function doLogin() {
             const u = document.getElementById('userIn').value.trim();
             const p = document.getElementById('passIn').value.trim();
@@ -711,15 +748,14 @@
                 return;
             }
 
-            // فحص المدير
             if(u === 'fatma store' && p === 'FATMA2M&S store') {
                 isAdmin = true;
                 localStorage.setItem('m_s_admin', 'true');
                 closeModal('authModal');
                 showAdminUI();
+                fetchProducts();
                 alert('مرحباً بالمدير! تم تسجيل الدخول بنجاح 🔥');
             } else {
-                // البحث عن بيانات المستخدم المسجل لجلب عنوانه
                 try {
                     const res = await fetch(`${DB_URL}/users.json`);
                     const usersData = await res.json() || {};
@@ -748,7 +784,6 @@
             }
         }
 
-        // إنشاء حساب جديد
         async function doRegister() {
             const gmail = document.getElementById('regGmail').value.trim();
             const phone = document.getElementById('regPhone').value.trim();
@@ -762,7 +797,7 @@
             }
 
             if(!phone || !username || !pass || !address) {
-                alert('يرجى ملء جميع البيانات المطلوب!');
+                alert('يرجى ملء جميع البيانات المطلوبة!');
                 return;
             }
 
@@ -818,7 +853,7 @@
             document.getElementById(id).classList.remove('active');
         }
 
-        // جلب المنتجات
+        // جلب عرض المنتجات
         async function fetchProducts() {
             try {
                 const res = await fetch(`${DB_URL}/products.json`);
@@ -830,6 +865,7 @@
             }
         }
 
+        // عرض بطاقات المنتجات للعميل والمدير
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
@@ -845,7 +881,13 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
 
-                let adminDelBtn = isAdmin ? `<button class="btn btn-danger" style="width:100%; margin-top:6px; font-size:0.8rem;" onclick="deleteProduct('${id}')">🗑️ مسح المنتج</button>` : '';
+                // أزرار التعديل والحذف النهائي للمدير
+                let adminActionBtns = isAdmin ? `
+                    <div style="display: flex; gap: 6px; margin-top: 8px;">
+                        <button class="btn btn-edit" style="flex:1; padding: 7px; font-size: 0.8rem;" onclick="openEditProductModal('${id}')">✏️ تعديل</button>
+                        <button class="btn btn-danger" style="flex:1; padding: 7px; font-size: 0.8rem;" onclick="deleteProduct('${id}')">🗑️ حذف نهائي</button>
+                    </div>
+                ` : '';
 
                 card.innerHTML = `
                     <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
@@ -856,14 +898,14 @@
                             <div class="product-size">📏 المقاس: ${p.size}</div>
                         </div>
                         <button class="btn-order" onclick="openOrderModal('${id}')">🛒 طلب المنتج</button>
-                        ${adminDelBtn}
+                        ${adminActionBtns}
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // حفظ منتج جديد من لوحة التحكم (Upload File)
+        // إضافة منتج جديد
         async function saveProduct(e) {
             e.preventDefault();
             const name = document.getElementById('pName').value.trim();
@@ -904,13 +946,67 @@
             reader.readAsDataURL(fileInput.files[0]);
         }
 
+        // فتح نافذة تعديل المنتج للمدير
+        function openEditProductModal(id) {
+            const p = productsData[id];
+            if(!p) return;
+
+            document.getElementById('editProdId').value = id;
+            document.getElementById('editPName').value = p.name || '';
+            document.getElementById('editPPrice').value = p.price || '';
+            document.getElementById('editPSize').value = p.size || '';
+            document.getElementById('editPFile').value = '';
+
+            document.getElementById('editProductModal').classList.add('active');
+        }
+
+        // حفظ تعديل المنتج للمدير
+        async function saveEditedProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('editProdId').value;
+            const name = document.getElementById('editPName').value.trim();
+            const price = parseFloat(document.getElementById('editPPrice').value.trim());
+            const size = document.getElementById('editPSize').value;
+            const fileInput = document.getElementById('editPFile');
+
+            let updatedProd = { name, price, size };
+
+            if(fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = async function(evt) {
+                    updatedProd.img = evt.target.result;
+                    await sendProductUpdate(id, updatedProd);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                await sendProductUpdate(id, updatedProd);
+            }
+        }
+
+        async function sendProductUpdate(id, updatedData) {
+            try {
+                const res = await fetch(`${DB_URL}/products/${id}.json`, {
+                    method: 'PATCH',
+                    body: JSON.stringify(updatedData)
+                });
+                if(res.ok) {
+                    alert('تم تعديل بيانات المنتج بنجاح! ✏️✨');
+                    closeModal('editProductModal');
+                    fetchProducts();
+                }
+            } catch(e) {
+                alert('حدث خطأ أثناء تعديل المنتج!');
+            }
+        }
+
+        // حذف المنتج نهائياً من قبل المدير
         async function deleteProduct(id) {
-            if(!confirm('هل تريد مسح هذا المنتج؟')) return;
+            if(!confirm('هل أنت متأكد من رغبتك في حذف هذا المنتج حذفاً نهائياً؟')) return;
             await fetch(`${DB_URL}/products/${id}.json`, { method: 'DELETE' });
+            alert('تم حذف المنتج بشكل نهائي!');
             fetchProducts();
         }
 
-        // فتح نافذة الطلب وتعبئة عنوان الحساب تلقائياً
         function openOrderModal(id) {
             selectedProduct = productsData[id];
             if(!selectedProduct) return;
@@ -922,18 +1018,16 @@
 
             updateOrderTotalPrice();
 
-            // تعبئة عنوان وبيانات المستخدم المسجل تلقائياً
             if(currentUser) {
                 if(currentUser.username) document.getElementById('custName').value = currentUser.username;
                 if(currentUser.gmail) document.getElementById('custGmail').value = currentUser.gmail;
                 if(currentUser.phone) document.getElementById('custPhone').value = currentUser.phone;
-                if(currentUser.address) document.getElementById('custAddress').value = currentUser.address; // تعبئة العنوان تلقائياً
+                if(currentUser.address) document.getElementById('custAddress').value = currentUser.address;
             }
 
             document.getElementById('orderModal').classList.add('active');
         }
 
-        // تحديث السعر النهائي المباشر بناءً على الكمية (أقصى كمية 50)
         function updateOrderTotalPrice() {
             const qtyInput = document.getElementById('custQty');
             let qty = parseInt(qtyInput.value) || 1;
@@ -955,7 +1049,6 @@
             }
         }
 
-        // تقديم طلب الزبون Submit وإرسال العنوان المسجل
         async function submitOrder(e) {
             e.preventDefault();
 
@@ -988,7 +1081,7 @@
                     body: JSON.stringify(orderData)
                 });
                 if(res.ok) {
-                    alert('تم إرسال طلبك بنجاح Submit! 🚀\n\n📍 العنوان المحفوط للتوصيل: ' + orderData.custAddress + '\n💰 السعر النهائي المطلوب سداده: ' + totalPrice + ' ج.م (' + qty + ' قطعة)');
+                    alert('تم إرسال طلبك بنجاح Submit! 🚀\n\n📍 العنوان المحفوظ للتوصيل: ' + orderData.custAddress + '\n💰 السعر النهائي المطلوب سداده: ' + totalPrice + ' ج.م (' + qty + ' قطعة)');
                     closeModal('orderModal');
                     if(isAdmin) fetchOrders();
                 }
@@ -997,7 +1090,6 @@
             }
         }
 
-        // جلب لوحة الطلبات للمدير
         async function fetchOrders() {
             try {
                 const res = await fetch(`${DB_URL}/orders.json`);
@@ -1047,7 +1139,6 @@
             }
         }
 
-        // فتح نافذة تعديل الطلب للمدير
         function openEditOrderModal(id) {
             const o = allOrdersData[id];
             if(!o) return;
@@ -1066,7 +1157,6 @@
             document.getElementById('editOrderModal').classList.add('active');
         }
 
-        // حفظ تعديلات الطلب للمدير
         async function saveEditedOrder(e) {
             e.preventDefault();
             const id = document.getElementById('editOrderId').value;
@@ -1097,7 +1187,6 @@
             }
         }
 
-        // قبول الطلب وإرسال الرسالة للعميل
         async function submitOrderProcess(id) {
             try {
                 await fetch(`${DB_URL}/orders/${id}/status.json`, {
@@ -1111,14 +1200,12 @@
             }
         }
 
-        // مسح كافة الطلبات
         async function clearAllOrders() {
             if(!confirm('هل أنت متاكد من رغبتك في مسح كافة الطلبات بالكامل؟')) return;
             await fetch(`${DB_URL}/orders.json`, { method: 'DELETE' });
             fetchOrders();
         }
 
-        // مسح طلب فردي
         async function deleteOrder(id) {
             if(!confirm('هل تريد حذف هذا الطلب نهائياً؟')) return;
             await fetch(`${DB_URL}/orders/${id}.json`, { method: 'DELETE' });
@@ -1131,7 +1218,6 @@
             document.getElementById('trackModal').classList.add('active');
         }
 
-        // متابعة الطلب
         async function trackMyOrder() {
             const query = document.getElementById('trackInput').value.trim();
             const resultDiv = document.getElementById('trackResult');
