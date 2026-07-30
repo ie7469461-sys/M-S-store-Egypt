@@ -272,8 +272,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(3px);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -297,23 +297,15 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #888888;
-            line-height: 1;
-        }
-
         .link-blue {
             color: #2563eb;
             font-size: 0.85rem;
             text-decoration: underline;
             cursor: pointer;
             display: inline-block;
-            margin-top: 6px;
+            margin-top: 8px;
+            text-align: center;
+            width: 100%;
         }
 
         .status-msg {
@@ -371,16 +363,14 @@
 <body>
 
     <header>
-        <div class="logo" data-ar="🛍️ M&S Store" data-en="🛍️ M&S Store">
-            🛍️ M&S Store
-        </div>
+        <div class="logo">🛍️ M&S Store</div>
 
         <div class="header-btns">
             <button class="btn btn-outline-gold" onclick="openTrackModal()" data-ar="🔍 متابعة طلبي" data-en="🔍 Track Order">🔍 متابعة طلبي</button>
             
-            <div id="userWelcomeContainer" class="user-welcome-box" style="display:none;">
-                <span id="roleBadge" class="user-badge" data-ar="مدير" data-en="Admin">مدير</span>
-                <span id="userInfoDisplay" class="user-welcome"></span>
+            <div id="userWelcomeContainer" class="user-welcome-box">
+                <span id="roleBadge" class="user-badge" data-ar="مستخدم" data-en="User">مستخدم</span>
+                <span id="userInfoDisplay" class="user-welcome">زائر</span>
             </div>
 
             <button id="adminPanelBtn" class="btn btn-gold" onclick="showAdminSection('control')" style="display:none;" data-ar="⚙️ لوحة التحكم" data-en="⚙️ Dashboard">⚙️ لوحة التحكم</button>
@@ -410,7 +400,7 @@
                 <div class="form-group">
                     <label data-ar="المقاس الأساسي للمنتج:" data-en="Base Product Size:">المقاس الأساسي للمنتج:</label>
                     <select id="pSize" class="form-control" required>
-                        <option value="" data-ar="-- اختر المقاس --" data-en="-- Select Size --">-- اختر المقاس --</option>
+                        <option value="">-- اختر المقاس --</option>
                         <option value="6">مقاس 6 (أطفال)</option>
                         <option value="8">مقاس 8 (أطفال)</option>
                         <option value="10">مقاس 10 (أطفال)</option>
@@ -443,73 +433,36 @@
         </div>
     </div>
 
-    <div id="editProductModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('editProductModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #111111;" data-ar="✏️ تعديل بيانات المنتج المسجل" data-en="✏️ Edit Registered Product">✏️ تعديل بيانات المنتج المسجل</h3>
-            <form onsubmit="saveEditedProduct(event)">
-                <input type="hidden" id="editProdId">
-                <div class="form-group">
-                    <label data-ar="اسم المنتج:" data-en="Product Name:">اسم المنتج:</label>
-                    <input type="text" id="editPName" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="سعر القطعة الواحدة (ج.م):" data-en="Unit Price (EGP):">سعر القطعة الواحدة (ج.م):</label>
-                    <input type="number" id="editPPrice" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="المقاس:" data-en="Size:">المقاس:</label>
-                    <select id="editPSize" class="form-control" required>
-                        <option value="" data-ar="-- اختر المقاس --" data-en="-- Select Size --">-- اختر المقاس --</option>
-                        <option value="6">مقاس 6 (أطفال)</option>
-                        <option value="8">مقاس 8 (أطفال)</option>
-                        <option value="10">مقاس 10 (أطفال)</option>
-                        <option value="12">مقاس 12 (أطفال)</option>
-                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
-                        <option value="16">مقاس 16 (شبابي)</option>
-                        <option value="S">S (صغير)</option>
-                        <option value="M">M (وسط)</option>
-                        <option value="L">L (كبير)</option>
-                        <option value="XL">XL (كبير جداً)</option>
-                        <option value="XXL">XXL (2 إكس)</option>
-                        <option value="XXXL">XXXL (3 إكس)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-ar="تحديث صورة المنتج (اختياري):" data-en="Update Image (Optional):">تحديث صورة المنتج (اختياري):</label>
-                    <input type="file" id="editPFile" class="form-control" accept="image/*">
-                </div>
-
-                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;" data-ar="حفظ التعديلات (Submit)" data-en="Submit Changes">
-                    حفظ التعديلات (Submit) ✏️
-                </button>
-            </form>
-        </div>
-    </div>
-
+    <!-- نافذة إجبار تسجيل الدخول فور دخول الموقع -->
     <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('authModal')">&times;</span>
-
+        <div class="modal-content" style="max-width: 440px;">
             <div id="loginFormSection">
-                <h3 style="margin-bottom: 15px; color: #111111;" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
+                <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center;" id="warningTextAlert">
+                    تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
+                </div>
+
+                <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
+                
                 <div class="form-group">
                     <label data-ar="اسم المستخدم أو الجيميل:" data-en="Username or Gmail:">اسم المستخدم أو الجيميل:</label>
                     <input type="text" id="userIn" class="form-control" placeholder="أدخل اسم المستخدم">
                 </div>
+                
                 <div class="form-group">
                     <label data-ar="كلمة المرور (الباسورد):" data-en="Password:">كلمة المرور (الباسورد):</label>
                     <div class="input-eye-container">
                         <input type="password" id="passIn" class="form-control" placeholder="أدخل كلمة المرور">
                         <button type="button" class="eye-btn" onclick="togglePassword('passIn', this)">👁️</button>
                     </div>
-                    <span class="link-blue" onclick="switchToRegister()" data-ar="أليس عندك حساب حالي؟ اضغط هنا لإنشاء حساب جديد" data-en="Don't have an account? Click here to register">أليس عندك حساب حالي؟ اضغط هنا لإنشاء حساب جديد</span>
                 </div>
-                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()" data-ar="تسجيل الدخول (Submit)" data-en="Login (Submit)">تسجيل الدخول (Submit)</button>
+
+                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</button>
+                
+                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد أو إنشاء مستخدم جديد</span>
             </div>
 
             <div id="registerFormSection" style="display:none;">
-                <h3 style="margin-bottom: 15px; color: #111111;" data-ar="إنشاء حساب جديد" data-en="Create New Account">إنشاء حساب جديد</h3>
+                <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="إنشاء حساب جديد" data-en="Create New Account">إنشاء حساب جديد</h3>
                 
                 <div class="form-group">
                     <label data-ar="البريد الإلكتروني (Gmail):" data-en="Gmail Address:">البريد الإلكتروني (Gmail):</label>
@@ -536,22 +489,64 @@
                 </div>
 
                 <div class="form-group">
-                    <label><span data-ar="عنوان التوصيل الثابت" data-en="Fixed Delivery Address">عنوان التوصيل الثابت</span> <span class="gold-subtext" data-ar="(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)" data-en="(Auto-assigned delivery address)">(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)</span>:</label>
+                    <label><span>عنوان التوصيل الثابت</span> <span class="gold-subtext">(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)</span>:</label>
                     <input type="text" id="regAddress" class="form-control" placeholder="المحافظة - المدينة - اسم الشارع والمنزل" required>
                 </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <button class="btn btn-gold" style="flex:1; padding: 12px; font-size: 1rem;" onclick="doRegister()" data-ar="إنشاء حساب (Submit)" data-en="Register (Submit)">إنشاء حساب (Submit)</button>
-                    <button class="btn btn-danger" style="padding: 12px 15px;" onclick="switchToLogin()" data-ar="رجوع" data-en="Back">رجوع</button>
+                    <button class="btn btn-gold" style="flex:1; padding: 12px; font-size: 1rem;" onclick="doRegister()">إنشاء حساب</button>
+                    <button class="btn btn-danger" style="padding: 12px 15px;" onclick="switchToLogin()">رجوع</button>
                 </div>
             </div>
 
         </div>
     </div>
 
+    <!-- باقي النوافذ كما هي -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('editProductModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">✏️ تعديل بيانات المنتج المسجل</h3>
+            <form onsubmit="saveEditedProduct(event)">
+                <input type="hidden" id="editProdId">
+                <div class="form-group">
+                    <label>اسم المنتج:</label>
+                    <input type="text" id="editPName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>سعر القطعة الواحدة (ج.م):</label>
+                    <input type="number" id="editPPrice" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>المقاس:</label>
+                    <select id="editPSize" class="form-control" required>
+                        <option value="">-- اختر المقاس --</option>
+                        <option value="6">مقاس 6 (أطفال)</option>
+                        <option value="8">مقاس 8 (أطفال)</option>
+                        <option value="10">مقاس 10 (أطفال)</option>
+                        <option value="12">مقاس 12 (أطفال)</option>
+                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
+                        <option value="16">مقاس 16 (شبابي)</option>
+                        <option value="S">S (صغير)</option>
+                        <option value="M">M (وسط)</option>
+                        <option value="L">L (كبير)</option>
+                        <option value="XL">XL (كبير جداً)</option>
+                        <option value="XXL">XXL (2 إكس)</option>
+                        <option value="XXXL">XXXL (3 إكس)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>تحديث صورة المنتج (اختياري):</label>
+                    <input type="file" id="editPFile" class="form-control" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">حفظ التعديلات ✏️</button>
+            </form>
+        </div>
+    </div>
+
     <div id="orderModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('orderModal')">&times;</span>
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('orderModal')">&times;</span>
             <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
 
             <div class="final-price-box">
@@ -563,28 +558,36 @@
 
             <form onsubmit="submitOrder(event)">
                 <input type="hidden" id="orderProdName">
-                <input type="hidden" id="custGmail">
-                <input type="hidden" id="custPhone">
                 
                 <div class="form-group">
-                    <label><span data-ar="اختر الكمية المطلوبة" data-en="Select Quantity">اختر الكمية المطلوبة</span> <span class="gold-subtext" data-ar="(أقصى عدد 50 قطعة)" data-en="(Max 50 pcs)">(أقصى عدد 50 قطعة)</span>:</label>
+                    <label>اختر الكمية المطلوبة <span class="gold-subtext">(أقصى عدد 50 قطعة)</span>:</label>
                     <input type="number" id="custQty" class="form-control" value="1" min="1" max="50" required oninput="updateOrderTotalPrice()">
                 </div>
 
                 <div class="form-group">
-                    <label data-ar="اسمك بالكامل:" data-en="Full Name:">اسمك بالكامل:</label>
+                    <label>اسمك بالكامل:</label>
                     <input type="text" id="custName" class="form-control" required placeholder="مثال: أحمد محمد">
                 </div>
 
                 <div class="form-group">
-                    <label><span data-ar="العنوان" data-en="Address">العنوان</span> <span class="gold-subtext" data-ar="(تم تسجيله تلقائياً من حسابك وغير قابل للتعديل)" data-en="(Registered from account and locked)">(تم تسجيله تلقائياً من حسابك وغير قابل للتعديل)</span>:</label>
-                    <input type="text" id="custAddress" class="form-control" readonly style="background-color: #f1f1f1; cursor: not-allowed; font-weight: bold;">
+                    <label>رقم الموبايل:</label>
+                    <input type="tel" id="custPhone" class="form-control" required placeholder="01xxxxxxxxx">
                 </div>
 
                 <div class="form-group">
-                    <label><span data-ar="اختر المقاس المطلوب للطلب" data-en="Select Required Size">اختر المقاس المطلوب للطلب</span>:</label>
+                    <label>البريد الإلكتروني (Gmail):</label>
+                    <input type="email" id="custGmail" class="form-control" placeholder="example@gmail.com">
+                </div>
+
+                <div class="form-group">
+                    <label>عنوان التوصيل بالتفصيل:</label>
+                    <input type="text" id="custAddress" class="form-control" required placeholder="المحافظة - المدينة - الشارع - رقم المنزل">
+                </div>
+
+                <div class="form-group">
+                    <label>اختر المقاس المطلوب للطلب:</label>
                     <select id="custSize" class="form-control" required style="background: #fff;">
-                        <option value="" data-ar="-- اختر المقاس --" data-en="-- Select Size --">-- اختر المقاس --</option>
+                        <option value="">-- اختر المقاس --</option>
                         <option value="6">مقاس 6 (أطفال)</option>
                         <option value="8">مقاس 8 (أطفال)</option>
                         <option value="10">مقاس 10 (أطفال)</option>
@@ -602,104 +605,68 @@
 
                 <div class="payment-method-box">
                     <div class="form-group" style="margin-bottom: 0;">
-                        <label data-ar="طريقة الدفع:" data-en="Payment Method:">طريقة الدفع:</label>
+                        <label>طريقة الدفع:</label>
                         <select id="paymentMethod" class="form-control" required style="background: #fff;">
-                            <option value="الدفع نقدا عند الاستلام" data-ar="💵 الدفع نقدا عند الاستلام" data-en="💵 Cash on Delivery">💵 الدفع نقدا عند الاستلام</option>
+                            <option value="الدفع نقدا عند الاستلام">💵 الدفع نقدا عند الاستلام</option>
                         </select>
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-gold" style="width:100%; padding: 14px; font-size: 1.05rem;" data-ar="تأكيد الطلب بالسعر النهائي (Submit)" data-en="Confirm Order (Submit)">
-                    تأكيد الطلب بالسعر النهائي (Submit) 🛍️
-                </button>
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 14px; font-size: 1.05rem;">تأكيد الطلب بالسعر النهائي 🛍️</button>
             </form>
         </div>
     </div>
 
-    <!-- نافذة نجاح الطلب ورسالة التأكيد مع المقاس والعنوان بوضوح وعبارة الوداع -->
     <div id="successOrderModal" class="modal">
         <div class="modal-content" style="text-align: center; max-width: 440px;">
             <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
-            <h3 style="color: #111111; margin-bottom: 12px;" data-ar="تم تأكيد طلبك بنجاح!" data-en="Order Confirmed Successfully!">تم تأكيد طلبك بنجاح!</h3>
-            <div style="background: #fdfbf7; border: 2px solid #d4af37; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-weight: bold; color: #111; font-size: 1.05rem; line-height: 1.8; text-align: right;" id="successMsgText">
-            </div>
-            <button class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModal('successOrderModal')" data-ar="حسناً" data-en="OK">حسناً</button>
+            <h3 style="color: #111111; margin-bottom: 12px;">تم تأكيد طلبك بنجاح!</h3>
+            <div style="background: #fdfbf7; border: 2px solid #d4af37; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-weight: bold; color: #111; font-size: 1.05rem; line-height: 1.8; text-align: right;" id="successMsgText"></div>
+            <button class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModal('successOrderModal')">حسناً</button>
         </div>
     </div>
 
     <div id="editOrderModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('editOrderModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #111111;" data-ar="✏️ تعديل بيانات الطلب" data-en="✏️ Edit Order">✏️ تعديل بيانات الطلب</h3>
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('editOrderModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">✏️ تعديل بيانات الطلب</h3>
             <form onsubmit="saveEditedOrder(event)">
                 <input type="hidden" id="editOrderId">
-                <div class="form-group">
-                    <label data-ar="اسم المنتج:" data-en="Product Name:">اسم المنتج:</label>
-                    <input type="text" id="editProdName" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="الكمية (عدد القطع):" data-en="Quantity:">الكمية (عدد القطع):</label>
-                    <input type="number" id="editProdQty" class="form-control" min="1" max="50" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="السعر الإجمالي النهائي (ج.م):" data-en="Total Price (EGP):">السعر الإجمالي النهائي (ج.م):</label>
-                    <input type="number" id="editProdPrice" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="المقاس:" data-en="Size:">المقاس:</label>
-                    <input type="text" id="editProdSize" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="اسم العميل:" data-en="Customer Name:">اسم العميل:</label>
-                    <input type="text" id="editCustName" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="الجيميل:" data-en="Gmail:">الجيميل:</label>
-                    <input type="email" id="editCustGmail" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="رقم الموبايل:" data-en="Phone:">رقم الموبايل:</label>
-                    <input type="tel" id="editCustPhone" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="العنوان:" data-en="Address:">العنوان:</label>
-                    <input type="text" id="editCustAddress" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="طريقة الدفع:" data-en="Payment Method:">طريقة الدفع:</label>
-                    <input type="text" id="editPaymentMethod" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label data-ar="حالة الطلب:" data-en="Order Status:">حالة الطلب:</label>
-                    <input type="text" id="editCustStatus" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;" data-ar="حفظ التعديلات (Submit)" data-en="Submit Changes">حفظ التعديلات (Submit)</button>
+                <div class="form-group"><label>اسم المنتج:</label><input type="text" id="editProdName" class="form-control" required></div>
+                <div class="form-group"><label>الكمية (عدد القطع):</label><input type="number" id="editProdQty" class="form-control" min="1" max="50" required></div>
+                <div class="form-group"><label>السعر الإجمالي النهائي (ج.م):</label><input type="number" id="editProdPrice" class="form-control" required></div>
+                <div class="form-group"><label>المقاس:</label><input type="text" id="editProdSize" class="form-control" required></div>
+                <div class="form-group"><label>اسم العميل:</label><input type="text" id="editCustName" class="form-control" required></div>
+                <div class="form-group"><label>الجيميل:</label><input type="email" id="editCustGmail" class="form-control" required></div>
+                <div class="form-group"><label>رقم الموبايل:</label><input type="tel" id="editCustPhone" class="form-control" required></div>
+                <div class="form-group"><label>العنوان:</label><input type="text" id="editCustAddress" class="form-control" required></div>
+                <div class="form-group"><label>طريقة الدفع:</label><input type="text" id="editPaymentMethod" class="form-control" required></div>
+                <div class="form-group"><label>حالة الطلب:</label><input type="text" id="editCustStatus" class="form-control" required></div>
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">حفظ التعديلات</button>
             </form>
         </div>
     </div>
 
     <div id="ordersModal" class="modal">
         <div class="modal-content" style="max-width: 650px;">
-            <span class="close-modal" onclick="closeModal('ordersModal')">&times;</span>
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('ordersModal')">&times;</span>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                <h3 style="color: #111111;" data-ar="📦 لوحة الطلبات الواردة" data-en="📦 Incoming Orders">📦 لوحة الطلبات الواردة</h3>
-                <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearAllOrders()" data-ar="🗑️ مسح كافة الطلبات" data-en="🗑️ Clear All Orders">🗑️ مسح كافة الطلبات</button>
+                <h3 style="color: #111111;">📦 لوحة الطلبات الواردة</h3>
+                <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearAllOrders()">🗑️ مسح كافة الطلبات</button>
             </div>
-            <div id="ordersList">
-                <p style="text-align:center; color:#888;" data-ar="جاري تحميل الطلبات..." data-en="Loading orders...">جاري تحميل الطلبات...</p>
-            </div>
+            <div id="ordersList"><p style="text-align:center; color:#888;">جاري تحميل الطلبات...</p></div>
         </div>
     </div>
 
     <div id="trackModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('trackModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #111111;" data-ar="🔍 متابعة حالة الطلب والسعر النهائي" data-en="🔍 Track Order Status">🔍 متابعة حالة الطلب والسعر النهائي</h3>
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('trackModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">🔍 متابعة حالة الطلب والسعر النهائي</h3>
             <div class="form-group">
-                <label data-ar="أدخل رقم الموبايل أو الجيميل الخاص بك:" data-en="Enter your Phone or Gmail:">أدخل رقم الموبايل أو الجيميل الخاص بك:</label>
+                <label>أدخل رقم الموبايل أو الجيميل الخاص بك:</label>
                 <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
             </div>
-            <button class="btn btn-gold" style="width:100%; padding: 12px;" onclick="trackMyOrder()" data-ar="بحث عن طلبي" data-en="Search Order">بحث عن طلبي</button>
+            <button class="btn btn-gold" style="width:100%; padding: 12px;" onclick="trackMyOrder()">بحث عن طلبي</button>
             <div id="trackResult" style="margin-top: 15px;"></div>
         </div>
     </div>
@@ -752,6 +719,8 @@
             } else if(savedUser) {
                 currentUser = JSON.parse(savedUser);
                 showUserUI();
+            } else {
+                showGuestUI();
             }
         }
 
@@ -768,12 +737,12 @@
 
         function handleAuthClick() {
             if(isAdmin || currentUser) {
-                if(confirm(currentLang === 'ar' ? 'هل تريد تسجيل الخروج؟' : 'Do you want to log out?')) {
+                if(confirm('هل تريد تسجيل الخروج؟')) {
                     isAdmin = false;
                     currentUser = null;
                     localStorage.removeItem('m_s_admin');
                     localStorage.removeItem('m_s_user');
-                    location.reload();
+                    showGuestUI();
                 }
             } else {
                 switchToLogin();
@@ -802,11 +771,11 @@
             }
 
             if(gmailRegex.test(gmail)) {
-                statusEl.innerText = currentLang === 'ar' ? 'هذا الجيميل صحيح بالفعل ويمكن استخدامه' : 'Valid Gmail address';
+                statusEl.innerText = 'هذا الجيميل صحيح بالفعل ويمكن استخدامه';
                 statusEl.className = 'status-msg status-valid';
                 return true;
             } else {
-                statusEl.innerText = currentLang === 'ar' ? 'هذا الجيميل تالف' : 'Invalid Gmail address';
+                statusEl.innerText = 'هذا الجيميل تالف';
                 statusEl.className = 'status-msg status-invalid';
                 return false;
             }
@@ -817,7 +786,7 @@
             const p = document.getElementById('passIn').value.trim();
 
             if(!u || !p) {
-                alert(currentLang === 'ar' ? 'يرجى إدخال اسم المستخدم والباسورد!' : 'Please enter username and password!');
+                alert('يرجى إدخال اسم المستخدم والباسورد!');
                 return;
             }
 
@@ -827,7 +796,7 @@
                 closeModal('authModal');
                 showAdminUI();
                 fetchProducts();
-                alert(currentLang === 'ar' ? 'مرحباً بالمدير! تم تسجيل الدخول بنجاح 🔥' : 'Welcome Admin! Logged in successfully 🔥');
+                alert('مرحباً بالمدير! تم تسجيل الدخول بنجاح 🔥');
             } else {
                 try {
                     const res = await fetch(`${DB_URL}/users.json`);
@@ -853,7 +822,7 @@
                 localStorage.setItem('m_s_user', JSON.stringify(currentUser));
                 closeModal('authModal');
                 showUserUI();
-                alert(currentLang === 'ar' ? 'تم تسجيل الدخول بنجاح! مرحباً بك 🛍️' : 'Logged in successfully! Welcome 🛍️');
+                alert('تم تسجيل الدخول بنجاح! مرحباً بك 🛍️');
             }
         }
 
@@ -865,12 +834,12 @@
             const address = document.getElementById('regAddress').value.trim();
 
             if(!validateGmailLive()) {
-                alert(currentLang === 'ar' ? '⚠️ يرجى التأكد من كتابة جيميل صحيح ينتهي بـ @gmail.com' : '⚠️ Please enter a valid Gmail address ending with @gmail.com');
+                alert('⚠️ يرجى التأكد من كتابة جيميل صحيح ينتهي بـ @gmail.com');
                 return;
             }
 
             if(!phone || !username || !pass || !address) {
-                alert(currentLang === 'ar' ? 'يرجى ملء جميع البيانات المطلوبة بما فيها العنوان الثابت!' : 'Please fill in all required fields including address!');
+                alert('يرجى ملء جميع البيانات المطلوبة بما فيها العنوان الثابت!');
                 return;
             }
 
@@ -886,38 +855,53 @@
                     localStorage.setItem('m_s_user', JSON.stringify(currentUser));
                     closeModal('authModal');
                     showUserUI();
-                    alert(currentLang === 'ar' ? 'تم إنشاء الحساب بنجاح وحفظ عنوانك الثابت! 🎉' : 'Account created successfully! 🎉');
+                    alert('تم إنشاء الحساب بنجاح وحفظ عنوانك الثابت! 🎉');
                 }
             } catch(e) {
-                alert(currentLang === 'ar' ? 'حدث خطأ في الاتصال بالسيرفر!' : 'Connection error!');
+                alert('حدث خطأ في الاتصال بالسيرفر!');
             }
         }
 
+        function showGuestUI() {
+            const display = document.getElementById('userInfoDisplay');
+            const badge = document.getElementById('roleBadge');
+
+            display.innerText = 'زائر';
+            badge.innerText = 'تنبيه';
+
+            document.getElementById('adminPanelBtn').style.display = 'none';
+            document.getElementById('adminOrdersBtn').style.display = 'none';
+            document.getElementById('authBtn').innerText = 'دخول / إنشاء حساب';
+            document.getElementById('authBtn').className = 'btn btn-gold';
+
+            // إجبار ظهور نافذة تسجيل الدخول فوراً وعدم السماح بالإغلاق إلا بتسجيل الدخول
+            switchToLogin();
+            document.getElementById('authModal').classList.add('active');
+        }
+
         function showUserUI() {
-            const container = document.getElementById('userWelcomeContainer');
             const display = document.getElementById('userInfoDisplay');
             const badge = document.getElementById('roleBadge');
 
             display.innerText = currentUser.username || currentUser.name || 'مستخدم';
-            badge.innerText = currentLang === 'ar' ? 'عميل' : 'Customer';
-            container.style.display = 'flex';
+            badge.innerText = 'عميل';
 
-            document.getElementById('authBtn').innerText = currentLang === 'ar' ? 'خروج' : 'Logout';
+            document.getElementById('adminPanelBtn').style.display = 'none';
+            document.getElementById('adminOrdersBtn').style.display = 'none';
+            document.getElementById('authBtn').innerText = 'خروج';
             document.getElementById('authBtn').className = 'btn btn-danger';
         }
 
         function showAdminUI() {
-            const container = document.getElementById('userWelcomeContainer');
             const display = document.getElementById('userInfoDisplay');
             const badge = document.getElementById('roleBadge');
 
             display.innerText = "Fatma Store";
-            badge.innerText = currentLang === 'ar' ? 'مدير' : 'Admin';
-            container.style.display = 'flex';
+            badge.innerText = 'مدير';
 
             document.getElementById('adminPanelBtn').style.display = 'inline-block';
             document.getElementById('adminOrdersBtn').style.display = 'inline-block';
-            document.getElementById('authBtn').innerText = currentLang === 'ar' ? 'خروج' : 'Logout';
+            document.getElementById('authBtn').innerText = 'خروج';
             document.getElementById('authBtn').className = 'btn btn-danger';
             fetchOrders();
         }
@@ -937,6 +921,11 @@
         }
 
         function closeModal(id) {
+            // منع إغلاق نافذة إجبار تسجيل الدخول إذا لم يكن هناك مستخدم مسجل
+            if(id === 'authModal' && !isAdmin && !currentUser) {
+                alert('يجب عليك تسجيل الدخول أو إنشاء حساب لاستخدام الموقع!');
+                return;
+            }
             document.getElementById(id).classList.remove('active');
         }
 
@@ -957,7 +946,7 @@
             const keys = Object.keys(productsData);
 
             if(keys.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #888888;">${currentLang === 'ar' ? 'لا توجد منتجات متاحة حالياً.' : 'No products available.'}</p>`;
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #888888;">لا توجد منتجات متاحة حالياً.</p>`;
                 return;
             }
 
@@ -968,8 +957,8 @@
 
                 let adminActionBtns = isAdmin ? `
                     <div style="display: flex; gap: 6px; margin-top: 8px;">
-                        <button class="btn btn-edit" style="flex:1; padding: 7px; font-size: 0.8rem;" onclick="openEditProductModal('${id}')">${currentLang === 'ar' ? '✏️ تعديل' : '✏️ Edit'}</button>
-                        <button class="btn btn-danger" style="flex:1; padding: 7px; font-size: 0.8rem;" onclick="deleteProduct('${id}')">${currentLang === 'ar' ? '🗑️ حذف' : '🗑️ Delete'}</button>
+                        <button class="btn btn-edit" style="flex:1; padding: 7px; font-size: 0.8rem;" onclick="openEditProductModal('${id}')">✏️ تعديل</button>
+                        <button class="btn btn-danger" style="flex:1; padding: 7px; font-size: 0.8rem;" onclick="deleteProduct('${id}')">🗑️ حذف</button>
                     </div>
                 ` : '';
 
@@ -979,9 +968,9 @@
                         <div>
                             <div class="product-title">${p.name}</div>
                             <div class="product-price">${p.price} ج.م</div>
-                            <div class="product-size">${currentLang === 'ar' ? '📏 المقاس الأساسي:' : '📏 Base Size:'} ${p.size}</div>
+                            <div class="product-size">📏 المقاس الأساسي: ${p.size}</div>
                         </div>
-                        <button class="btn-order" onclick="openOrderModal('${id}')">${currentLang === 'ar' ? '🛒 طلب المنتج' : '🛒 Order Product'}</button>
+                        <button class="btn-order" onclick="openOrderModal('${id}')">🛒 طلب المنتج</button>
                         ${adminActionBtns}
                     </div>
                 `;
@@ -997,7 +986,7 @@
             const fileInput = document.getElementById('pFile');
 
             if(!fileInput.files || !fileInput.files[0]) {
-                alert(currentLang === 'ar' ? 'يرجى اختيار صورة للمنتج بـ Upload File!' : 'Please select a product image!');
+                alert('يرجى اختيار صورة للمنتج بـ Upload File!');
                 return;
             }
 
@@ -1017,7 +1006,7 @@
                         body: JSON.stringify(newProd)
                     });
                     if(res.ok) {
-                        alert(currentLang === 'ar' ? 'تمت إضافة المنتج بنجاح Submit! ✨' : 'Product added successfully! ✨');
+                        alert('تمت إضافة المنتج بنجاح Submit! ✨');
                         document.getElementById('productForm').reset();
                         hideAdminControl();
                         fetchProducts();
@@ -1071,7 +1060,7 @@
                     body: JSON.stringify(updatedData)
                 });
                 if(res.ok) {
-                    alert(currentLang === 'ar' ? 'تم تعديل بيانات المنتج بنجاح! ✏️✨' : 'Product updated successfully!');
+                    alert('تم تعديل بيانات المنتج بنجاح! ✏️✨');
                     closeModal('editProductModal');
                     fetchProducts();
                 }
@@ -1081,34 +1070,35 @@
         }
 
         async function deleteProduct(id) {
-            if(!confirm(currentLang === 'ar' ? 'هل أنت متأكد من رغبتك في حذف هذا المنتج حذفاً نهائياً؟' : 'Are you sure you want to permanently delete this product?')) return;
+            if(!confirm('هل أنت متأكد من رغبتك في حذف هذا المنتج حذفاً نهائياً؟')) return;
             await fetch(`${DB_URL}/products/${id}.json`, { method: 'DELETE' });
-            alert(currentLang === 'ar' ? 'تم حذف المنتج بشكل نهائي!' : 'Product deleted permanently!');
+            alert('تم حذف المنتج بشكل نهائي!');
             fetchProducts();
         }
 
         function openOrderModal(id) {
+            // التحقق مرة أخرى قبل الشراء
+            if(!isAdmin && !currentUser) {
+                alert('يجب تسجيل الدخول أو إنشاء حساب أولاً لكي تتمكن من الشراء!');
+                handleAuthClick();
+                return;
+            }
+
             selectedProduct = productsData[id];
             if(!selectedProduct) return;
 
             document.getElementById('orderProdName').value = selectedProduct.name;
-            document.getElementById('modalProdTitle').innerText = (currentLang === 'ar' ? 'طلب: ' : 'Order: ') + selectedProduct.name;
+            document.getElementById('modalProdTitle').innerText = 'طلب: ' + selectedProduct.name;
             
             document.getElementById('custQty').value = 1;
             document.getElementById('custSize').value = selectedProduct.size;
             updateOrderTotalPrice();
 
             if(currentUser) {
-                if(currentUser.username) document.getElementById('custName').value = currentUser.username;
-                if(currentUser.gmail) document.getElementById('custGmail').value = currentUser.gmail;
-                if(currentUser.phone) document.getElementById('custPhone').value = currentUser.phone;
-                
-                document.getElementById('custAddress').value = currentUser.address || 'غير محدد';
-            } else {
-                document.getElementById('custName').value = '';
-                document.getElementById('custGmail').value = '';
-                document.getElementById('custPhone').value = '';
-                document.getElementById('custAddress').value = 'يرجى تسجيل الدخول أولاً';
+                document.getElementById('custName').value = currentUser.username || '';
+                document.getElementById('custPhone').value = currentUser.phone || '';
+                document.getElementById('custGmail').value = currentUser.gmail || '';
+                document.getElementById('custAddress').value = currentUser.address || '';
             }
 
             document.getElementById('orderModal').classList.add('active');
@@ -1119,7 +1109,7 @@
             let qty = parseInt(qtyInput.value) || 1;
 
             if (qty > 50) {
-                alert(currentLang === 'ar' ? 'الحد الأقصى المسموح به للطلب هو 50 قطعة فقط!' : 'Maximum allowed quantity is 50 pieces!');
+                alert('الحد الأقصى المسموح به للطلب هو 50 قطعة فقط!');
                 qty = 50;
                 qtyInput.value = 50;
             } else if (qty < 1) {
@@ -1129,37 +1119,36 @@
 
             if(selectedProduct) {
                 const total = selectedProduct.price * qty;
-                document.getElementById('modalProdPrice').innerText = (currentLang === 'ar' ? 'سعر القطعة الواحدة: ' : 'Unit Price: ') + selectedProduct.price + ' ج.م';
-                document.getElementById('modalProdQtySummary').innerText = (currentLang === 'ar' ? 'عدد القطع المطلوبة: ' : 'Quantity: ') + qty + (currentLang === 'ar' ? ' قطعة' : ' pcs');
-                document.getElementById('modalTotalPrice').innerText = (currentLang === 'ar' ? '💳 السعر النهائي الإجمالي: ' : '💳 Total Final Price: ') + total + ' ج.م';
+                document.getElementById('modalProdPrice').innerText = 'سعر القطعة الواحدة: ' + selectedProduct.price + ' ج.م';
+                document.getElementById('modalProdQtySummary').innerText = 'عدد القطع المطلوبة: ' + qty + ' قطعة';
+                document.getElementById('modalTotalPrice').innerText = '💳 السعر النهائي الإجمالي: ' + total + ' ج.م';
             }
         }
 
         async function submitOrder(e) {
             e.preventDefault();
 
-            if(!currentUser) {
-                alert('يجب تسجيل الدخول أولاً لتأكيد الطلب!');
+            if(!isAdmin && !currentUser) {
+                alert('لا يمكن إتمام الطلب إلا بتسجيل الدخول أولاً!');
+                handleAuthClick();
                 return;
             }
 
             const qty = parseInt(document.getElementById('custQty').value) || 1;
-            if (qty > 50) {
-                alert('الحد الأقصى للطلب هو 50 قطعة!');
-                return;
-            }
-
             const unitPrice = parseFloat(selectedProduct.price);
             const totalPrice = unitPrice * qty;
             const paymentMethod = document.getElementById('paymentMethod').value;
-            const custAddress = currentUser.address;
+            const custAddress = document.getElementById('custAddress').value.trim();
             const custSize = document.getElementById('custSize').value;
+            const custName = document.getElementById('custName').value.trim();
+            const custPhone = document.getElementById('custPhone').value.trim();
+            const custGmail = document.getElementById('custGmail').value.trim();
 
             const orderData = {
                 productName: document.getElementById('orderProdName').value,
-                custName: document.getElementById('custName').value.trim(),
-                custGmail: document.getElementById('custGmail').value.trim() || currentUser.gmail,
-                custPhone: document.getElementById('custPhone').value.trim() || currentUser.phone,
+                custName: custName,
+                custGmail: custGmail,
+                custPhone: custPhone,
                 custAddress: custAddress,
                 custSize: custSize,
                 quantity: qty,
@@ -1178,17 +1167,11 @@
                 if(res.ok) {
                     closeModal('orderModal');
                     
-                    const successText = currentLang === 'ar' ? 
-                        `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام.<br><br>` +
+                    const successText = `تم تنفيذ طلبك بنجاح، الدفع نقداً عند الاستلام.<br><br>` +
                         `<span style="color:#d4af37; font-size:1.15rem;">📏 المقاس: ${custSize}</span><br>` +
                         `<span style="color:#d4af37; font-size:1.05rem;">📍 العنوان: ${custAddress}</span><br><br>` +
                         `وسيتم التواصل معك خلال أقرب وقت.<br>` +
-                        `وإلى اللقاء نراك المرة القادمة إن شاء الله.` :
-                        `Your order has been successfully placed, Cash on Delivery.<br><br>` +
-                        `Size: ${custSize}<br>` +
-                        `Address: ${custAddress}<br><br>` +
-                        `We will contact you shortly.<br>` +
-                        `Goodbye, see you next time, Inshallah.`;
+                        `وإلى اللقاء نراك المرة القادمة إن شاء الله.`;
                     
                     document.getElementById('successMsgText').innerHTML = successText;
                     document.getElementById('successOrderModal').classList.add('active');
@@ -1212,7 +1195,7 @@
                 list.innerHTML = '';
 
                 if(keys.length === 0) {
-                    list.innerHTML = `<p style="text-align:center; color:#888;">${currentLang === 'ar' ? 'لا توجد طلبات حالياً.' : 'No orders currently.'}</p>`;
+                    list.innerHTML = `<p style="text-align:center; color:#888;">لا توجد طلبات حالياً.</p>`;
                     return;
                 }
 
@@ -1227,21 +1210,21 @@
 
                     item.innerHTML = `
                         <div style="font-weight:bold; color:#111; font-size:1.05rem;">📦 ${o.productName}</div>
-                        <div style="color:#d4af37; font-weight:bold;">🔢 <b>${currentLang === 'ar' ? 'الكمية:' : 'Qty:'}</b> ${qty} ${currentLang === 'ar' ? 'قطعة' : 'pcs'}</div>
-                        <div style="color:#16a34a; font-weight:bold; font-size:1.15rem;">💰 <b>${currentLang === 'ar' ? 'السعر النهائي الإجمالي:' : 'Total Price:'}</b> ${o.price} ج.م</div>
-                        <div>💳 <b>${currentLang === 'ar' ? 'طريقة الدفع:' : 'Payment:'}</b> ${payMethod}</div>
-                        <div>👤 <b>${currentLang === 'ar' ? 'العميل:' : 'Customer:'}</b> ${o.custName}</div>
-                        <div>📧 <b>${currentLang === 'ar' ? 'الجيميل:' : 'Gmail:'}</b> ${o.custGmail}</div>
-                        <div>📱 <b>${currentLang === 'ar' ? 'الهاتف:' : 'Phone:'}</b> ${o.custPhone}</div>
-                        <div>📍 <b>${currentLang === 'ar' ? 'العنوان الثابت:' : 'Fixed Address:'}</b> ${o.custAddress}</div>
-                        <div>📏 <b>${currentLang === 'ar' ? 'المقاس المطلوب:' : 'Selected Size:'}</b> ${o.custSize}</div>
-                        <div style="margin-top:4px;"><b>${currentLang === 'ar' ? 'الحالة:' : 'Status:'}</b> <span style="color:${isAccepted ? '#16a34a' : '#856404'}; font-weight:bold;">${o.status}</span></div>
+                        <div style="color:#d4af37; font-weight:bold;">🔢 <b>الكمية:</b> ${qty} قطعة</div>
+                        <div style="color:#16a34a; font-weight:bold; font-size:1.15rem;">💰 <b>السعر النهائي الإجمالي:</b> ${o.price} ج.م</div>
+                        <div>💳 <b>طريقة الدفع:</b> ${payMethod}</div>
+                        <div>👤 <b>العميل:</b> ${o.custName}</div>
+                        <div>📧 <b>الجيميل:</b> ${o.custGmail}</div>
+                        <div>📱 <b>الهاتف:</b> ${o.custPhone}</div>
+                        <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
+                        <div>📏 <b>المقاس المطلوب:</b> ${o.custSize}</div>
+                        <div style="margin-top:4px;"><b>الحالة:</b> <span style="color:${isAccepted ? '#16a34a' : '#856404'}; font-weight:bold;">${o.status}</span></div>
                         <div style="font-size:0.8rem; color:#888;">📅 ${o.date}</div>
                         
                         <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
-                            ${!isAccepted ? `<button class="btn btn-gold" style="padding: 6px 12px; font-size: 0.8rem;" onclick="submitOrderProcess('${id}')">✅ ${currentLang === 'ar' ? 'قبول وإرسال للعميل' : 'Accept & Send'}</button>` : ''}
-                            <button class="btn btn-edit" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openEditOrderModal('${id}')">✏️ ${currentLang === 'ar' ? 'تعديل' : 'Edit'}</button>
-                            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteOrder('${id}')">🗑️ ${currentLang === 'ar' ? 'حذف' : 'Delete'}</button>
+                            ${!isAccepted ? `<button class="btn btn-gold" style="padding: 6px 12px; font-size: 0.8rem;" onclick="submitOrderProcess('${id}')">✅ قبول وإرسال للعميل</button>` : ''}
+                            <button class="btn btn-edit" style="padding: 6px 12px; font-size: 0.8rem;" onclick="openEditOrderModal('${id}')">✏️ تعديل</button>
+                            <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="deleteOrder('${id}')">🗑️ حذف</button>
                         </div>
                     `;
                     list.appendChild(item);
@@ -1371,7 +1354,7 @@
                     item.innerHTML = `
                         <div style="font-weight:bold; color:#111;">📦 المنتج: ${o.productName}</div>
                         <div>🔢 <b>الكمية المطلوبة:</b> ${qty} قطعة</div>
-                        <div>📍 <b>العنوان الثابت:</b> ${o.custAddress}</div>
+                        <div>📍 <b>العنوان:</b> ${o.custAddress}</div>
                         <div>📏 <b>المقاس المطلوب:</b> ${o.custSize}</div>
                         <div>💳 <b>طريقة الدفع:</b> ${payMethod}</div>
                         <div style="color:#d4af37; font-weight:800; font-size:1.1rem; margin:4px 0;">💰 السعر النهائي الإجمالي: ${o.price} ج.م</div>
