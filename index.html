@@ -42,6 +42,12 @@
             border-bottom: 2px solid #d4af37;
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .logo {
             font-size: 1.35rem;
             font-weight: 800;
@@ -87,6 +93,11 @@
         .btn-danger {
             background-color: #dc2626;
             color: white;
+        }
+
+        .btn-danger:active {
+            background-color: #b91c1c;
+            transform: scale(0.98);
         }
 
         .btn-edit {
@@ -363,11 +374,13 @@
 <body>
 
     <header>
-        <div class="logo">🛍️ M&S Store</div>
+        <div class="header-left">
+            <div class="logo">🛍️ M&S Store</div>
+            <!-- زر متابعة طلبي في الأعلى خالص (بجوار اللوجو) ليكون متاحاً في كل مكان باستثناء حساب المدير -->
+            <button id="trackOrderHeaderBtn" class="btn btn-outline-gold" onclick="openTrackModal()" data-ar="🔍 متابعة طلبي" data-en="🔍 Track Order">🔍 متابعة طلبي</button>
+        </div>
 
         <div class="header-btns">
-            <button class="btn btn-outline-gold" onclick="openTrackModal()" data-ar="🔍 متابعة طلبي" data-en="🔍 Track Order">🔍 متابعة طلبي</button>
-            
             <div id="userWelcomeContainer" class="user-welcome-box">
                 <span id="roleBadge" class="user-badge" data-ar="مستخدم" data-en="User">مستخدم</span>
                 <span id="userInfoDisplay" class="user-welcome">زائر</span>
@@ -438,8 +451,6 @@
         <div class="modal-content" style="max-width: 440px;">
             <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('authModal')">&times;</span>
             <div id="loginFormSection">
-                <!-- تم إزالة عنصر التحذير بالكامل هنا -->
-
                 <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
                 
                 <div class="form-group">
@@ -547,7 +558,6 @@
         <div class="modal-content">
             <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('orderModal')">&times;</span>
             
-            <!-- رسالة التحذير الحمراء تظهر هنا فقط عند طلب المنتج وعندما لا يكون المستخدم مسجلاً -->
             <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center; display: none;" id="warningTextAlert">
                 تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
             </div>
@@ -617,7 +627,10 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-gold" style="width:100%; padding: 14px; font-size: 1.05rem;">تأكيد الطلب بالسعر النهائي 🛍️</button>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="submit" class="btn btn-gold" style="flex: 2; padding: 14px; font-size: 1.05rem;">تأكيد الطلب بالسعر النهائي 🛍️</button>
+                    <button type="button" class="btn btn-danger" style="flex: 1; padding: 14px; font-size: 1.05rem;" onclick="closeModal('orderModal')">إلغاء</button>
+                </div>
             </form>
         </div>
     </div>
@@ -748,9 +761,9 @@
                     localStorage.removeItem('m_s_admin');
                     localStorage.removeItem('m_s_user');
                     showGuestUI();
+                    fetchProducts();
                 }
             } else {
-                // فتح نافذة الدخول مباشرة بدون أي رسالة تحذير
                 switchToLogin();
                 document.getElementById('authModal').classList.add('active');
             }
@@ -828,6 +841,7 @@
                 localStorage.setItem('m_s_user', JSON.stringify(currentUser));
                 closeModal('authModal');
                 showUserUI();
+                fetchProducts();
                 alert('تم تسجيل الدخول بنجاح! مرحباً بك 🛍️');
             }
         }
@@ -861,6 +875,7 @@
                     localStorage.setItem('m_s_user', JSON.stringify(currentUser));
                     closeModal('authModal');
                     showUserUI();
+                    fetchProducts();
                     alert('تم إنشاء الحساب بنجاح وحفظ عنوانك الثابت! 🎉');
                 }
             } catch(e) {
@@ -875,9 +890,10 @@
             display.innerText = 'زائر';
             badge.innerText = 'زائر';
 
+            document.getElementById('trackOrderHeaderBtn').style.display = 'inline-block'; // يظهر للزائر
             document.getElementById('adminPanelBtn').style.display = 'none';
             document.getElementById('adminOrdersBtn').style.display = 'none';
-            document.getElementById('authBtn').innerText = 'دخول / إنشاء حساب';
+            document.getElementById('authBtn').innerText = 'دخول';
             document.getElementById('authBtn').className = 'btn btn-gold';
         }
 
@@ -888,6 +904,7 @@
             display.innerText = currentUser.username || currentUser.name || 'مستخدم';
             badge.innerText = 'عميل';
 
+            document.getElementById('trackOrderHeaderBtn').style.display = 'inline-block'; // يظهر للعميل
             document.getElementById('adminPanelBtn').style.display = 'none';
             document.getElementById('adminOrdersBtn').style.display = 'none';
             document.getElementById('authBtn').innerText = 'خروج';
@@ -901,6 +918,7 @@
             display.innerText = "Fatma Store";
             badge.innerText = 'مدير';
 
+            document.getElementById('trackOrderHeaderBtn').style.display = 'none'; // مخفي تماماً لحساب المدير فقط
             document.getElementById('adminPanelBtn').style.display = 'inline-block';
             document.getElementById('adminOrdersBtn').style.display = 'inline-block';
             document.getElementById('authBtn').innerText = 'خروج';
@@ -959,6 +977,8 @@
                     </div>
                 ` : '';
 
+                let orderButtonHtml = !isAdmin ? `<button class="btn-order" onclick="openOrderModal('${id}')">🛒 طلب المنتج</button>` : '';
+
                 card.innerHTML = `
                     <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
                     <div class="product-details">
@@ -967,7 +987,7 @@
                             <div class="product-price">${p.price} ج.م</div>
                             <div class="product-size">📏 المقاس الأساسي: ${p.size}</div>
                         </div>
-                        <button class="btn-order" onclick="openOrderModal('${id}')">🛒 طلب المنتج</button>
+                        ${orderButtonHtml}
                         ${adminActionBtns}
                     </div>
                 `;
@@ -1074,12 +1094,10 @@
         }
 
         function openOrderModal(id) {
-            // التحقق إذا لم يكن مسجل دخول، إظهار التحذير في نافذة طلب المنتج
-            if(!isAdmin && !currentUser) {
+            if(!currentUser) {
                 const alertEl = document.getElementById('warningTextAlert');
-                if(alertEl) alertEl.style.display = 'block'; // يظهر هنا فقط
+                if(alertEl) alertEl.style.display = 'block';
 
-                // فتح نافذة طلب المنتج وفيها تنبيه التسجيل
                 selectedProduct = productsData[id];
                 if(!selectedProduct) return;
 
@@ -1094,7 +1112,6 @@
                 return;
             }
 
-            // إذا كان مسجلاً بالفعل، افتح نافذة طلب المنتج طبيعي وبدون تحذير
             const alertEl = document.getElementById('warningTextAlert');
             if(alertEl) alertEl.style.display = 'none';
 
@@ -1142,7 +1159,7 @@
         async function submitOrder(e) {
             e.preventDefault();
 
-            if(!isAdmin && !currentUser) {
+            if(!currentUser) {
                 alert('لا يمكن إتمام الطلب إلا بتسجيل الدخول أولاً!');
                 const alertEl = document.getElementById('warningTextAlert');
                 if(alertEl) alertEl.style.display = 'block';
