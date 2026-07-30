@@ -433,9 +433,10 @@
         </div>
     </div>
 
-    <!-- نافذة إجبار تسجيل الدخول فور دخول الموقع -->
+    <!-- نافذة تسجيل الدخول/إنشاء حساب (تظهر عند محاولة طلب منتج بدون تسجيل) -->
     <div id="authModal" class="modal">
         <div class="modal-content" style="max-width: 440px;">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('authModal')">&times;</span>
             <div id="loginFormSection">
                 <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center;" id="warningTextAlert">
                     تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
@@ -502,7 +503,7 @@
         </div>
     </div>
 
-    <!-- باقي النوافذ كما هي -->
+    <!-- باقي النوافذ -->
     <div id="editProductModal" class="modal">
         <div class="modal-content">
             <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('editProductModal')">&times;</span>
@@ -846,7 +847,7 @@
             const userData = { gmail, phone, username, pass, address, createdAt: Date.now() };
 
             try {
-                const res = await fetch(`${DB_URL}/users.json`, {
+                const res =  await fetch(`${DB_URL}/users.json`, {
                     method: 'POST',
                     body: JSON.stringify(userData)
                 });
@@ -867,16 +868,12 @@
             const badge = document.getElementById('roleBadge');
 
             display.innerText = 'زائر';
-            badge.innerText = 'تنبيه';
+            badge.innerText = 'زائر';
 
             document.getElementById('adminPanelBtn').style.display = 'none';
             document.getElementById('adminOrdersBtn').style.display = 'none';
             document.getElementById('authBtn').innerText = 'دخول / إنشاء حساب';
             document.getElementById('authBtn').className = 'btn btn-gold';
-
-            // إجبار ظهور نافذة تسجيل الدخول فوراً وعدم السماح بالإغلاق إلا بتسجيل الدخول
-            switchToLogin();
-            document.getElementById('authModal').classList.add('active');
         }
 
         function showUserUI() {
@@ -921,11 +918,6 @@
         }
 
         function closeModal(id) {
-            // منع إغلاق نافذة إجبار تسجيل الدخول إذا لم يكن هناك مستخدم مسجل
-            if(id === 'authModal' && !isAdmin && !currentUser) {
-                alert('يجب عليك تسجيل الدخول أو إنشاء حساب لاستخدام الموقع!');
-                return;
-            }
             document.getElementById(id).classList.remove('active');
         }
 
@@ -1077,10 +1069,10 @@
         }
 
         function openOrderModal(id) {
-            // التحقق مرة أخرى قبل الشراء
+            // التحقق إذا لم يكن مسجل دخول، إظهار رسالة التحذير ونافذة تسجيل الدخول فوراً
             if(!isAdmin && !currentUser) {
-                alert('يجب تسجيل الدخول أو إنشاء حساب أولاً لكي تتمكن من الشراء!');
-                handleAuthClick();
+                switchToLogin();
+                document.getElementById('authModal').classList.add('active');
                 return;
             }
 
@@ -1130,7 +1122,8 @@
 
             if(!isAdmin && !currentUser) {
                 alert('لا يمكن إتمام الطلب إلا بتسجيل الدخول أولاً!');
-                handleAuthClick();
+                switchToLogin();
+                document.getElementById('authModal').classList.add('active');
                 return;
             }
 
