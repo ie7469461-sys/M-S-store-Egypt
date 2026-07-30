@@ -438,9 +438,7 @@
         <div class="modal-content" style="max-width: 440px;">
             <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('authModal')">&times;</span>
             <div id="loginFormSection">
-                <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center; display: none;" id="warningTextAlert">
-                    تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
-                </div>
+                <!-- تم إزالة عنصر التحذير بالكامل هنا -->
 
                 <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
                 
@@ -548,6 +546,12 @@
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('orderModal')">&times;</span>
+            
+            <!-- رسالة التحذير الحمراء تظهر هنا فقط عند طلب المنتج وعندما لا يكون المستخدم مسجلاً -->
+            <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center; display: none;" id="warningTextAlert">
+                تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
+            </div>
+
             <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
 
             <div class="final-price-box">
@@ -746,8 +750,7 @@
                     showGuestUI();
                 }
             } else {
-                // دخول عادي بدون إظهار تحذير
-                document.getElementById('warningTextAlert').style.display = 'none';
+                // فتح نافذة الدخول مباشرة بدون أي رسالة تحذير
                 switchToLogin();
                 document.getElementById('authModal').classList.add('active');
             }
@@ -1071,13 +1074,29 @@
         }
 
         function openOrderModal(id) {
-            // التحقق إذا لم يكن مسجل دخول، إظهار رسالة التحذير ونافذة تسجيل الدخول فوراً
+            // التحقق إذا لم يكن مسجل دخول، إظهار التحذير في نافذة طلب المنتج
             if(!isAdmin && !currentUser) {
-                document.getElementById('warningTextAlert').style.display = 'block'; // إظهار التحذير فقط عند طلب المنتج
-                switchToLogin();
-                document.getElementById('authModal').classList.add('active');
+                const alertEl = document.getElementById('warningTextAlert');
+                if(alertEl) alertEl.style.display = 'block'; // يظهر هنا فقط
+
+                // فتح نافذة طلب المنتج وفيها تنبيه التسجيل
+                selectedProduct = productsData[id];
+                if(!selectedProduct) return;
+
+                document.getElementById('orderProdName').value = selectedProduct.name;
+                document.getElementById('modalProdTitle').innerText = 'طلب: ' + selectedProduct.name;
+                
+                document.getElementById('custQty').value = 1;
+                document.getElementById('custSize').value = selectedProduct.size;
+                updateOrderTotalPrice();
+
+                document.getElementById('orderModal').classList.add('active');
                 return;
             }
+
+            // إذا كان مسجلاً بالفعل، افتح نافذة طلب المنتج طبيعي وبدون تحذير
+            const alertEl = document.getElementById('warningTextAlert');
+            if(alertEl) alertEl.style.display = 'none';
 
             selectedProduct = productsData[id];
             if(!selectedProduct) return;
@@ -1125,9 +1144,8 @@
 
             if(!isAdmin && !currentUser) {
                 alert('لا يمكن إتمام الطلب إلا بتسجيل الدخول أولاً!');
-                document.getElementById('warningTextAlert').style.display = 'block';
-                switchToLogin();
-                document.getElementById('authModal').classList.add('active');
+                const alertEl = document.getElementById('warningTextAlert');
+                if(alertEl) alertEl.style.display = 'block';
                 return;
             }
 
