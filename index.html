@@ -433,7 +433,6 @@
                     </select>
                 </div>
                 
-                <!-- التعديل هنا: المدير يقدر يرفع صورة أولى ويقدر يرفع صورة تانية اختيارياً ويقفل ويضغط Submit عادي -->
                 <div class="form-group">
                     <label>صورة المنتج الأولى (رئيسية):</label>
                     <input type="file" id="pFile" class="form-control" accept="image/*" required>
@@ -458,10 +457,10 @@
 
     <!-- نافذة تكبير وعرض الصورة كاملة للعميل مع خاصية الزووم -->
     <div id="imageModal" class="modal" onclick="closeImageModal()">
-        <div class="relative max-w-4xl max-h-screen p-4" onclick="event.stopPropagation()">
-            <button onclick="closeImageModal()" class="absolute top-2 left-2 text-white bg-red-600 rounded-full w-10 h-10 flex items-center justify-center text-xl hover:bg-red-700 z-10 border-0 cursor-pointer">×</button>
-            <img id="modalFullImage" src="" alt="صورة مكبرة" class="max-h-[85vh] max-w-full object-contain rounded-lg shadow-2xl transition-transform duration-300 transform scale-100 cursor-zoom-in" onclick="toggleZoom(this)">
-            <p class="text-center text-white mt-2 text-sm">اضغط على الصورة للتقريب أو الإبعاد</p>
+        <div style="position: relative; max-width: 90vw; max-height: 90vh; padding: 4px; display: flex; flex-direction: column; align-items: center;" onclick="event.stopPropagation()">
+            <button onclick="closeImageModal()" style="position: absolute; top: 10px; left: 10px; color: white; background: #dc2626; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; z-index: 10; border: none; cursor: pointer;">×</button>
+            <img id="modalFullImage" src="" alt="صورة مكبرة" style="max-height: 75vh; max-width: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transition: transform 0.3s ease; cursor: zoom-in;" onclick="toggleZoom(this)">
+            <p style="text-align: center; color: white; margin-top: 10px; font-size: 0.9rem;">اضغط على الصورة للتقريب أو الإبعاد</p>
         </div>
     </div>
 
@@ -746,16 +745,25 @@
             });
         }
 
+        // تم إصلاح دالة التحقق وقراءة الحسابات القديمة والجديدة باستقرار تامة
         function checkSavedUser() {
             const savedAdmin = localStorage.getItem('m_s_admin');
-            const savedUser = localStorage.getItem('m_s_user');
+            const savedUserStr = localStorage.getItem('m_s_user');
 
             if(savedAdmin === 'true') {
                 isAdmin = true;
                 showAdminUI();
-            } else if(savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showUserUI();
+            } else if(savedUserStr) {
+                try {
+                    currentUser = JSON.parse(savedUserStr);
+                    if(currentUser && (currentUser.username || currentUser.gmail)) {
+                        showUserUI();
+                        return;
+                    }
+                } catch(e) {
+                    console.error("Error parsing user data");
+                }
+                showGuestUI();
             } else {
                 showGuestUI();
             }
@@ -799,7 +807,7 @@
 
         function showUserUI() {
             document.getElementById('roleBadge').innerText = currentLang === 'ar' ? 'مستخدم' : 'User';
-            document.getElementById('userInfoDisplay').innerText = currentUser.username || currentUser.gmail;
+            document.getElementById('userInfoDisplay').innerText = currentUser.username || currentUser.gmail || 'مستخدم مسجل';
             document.getElementById('authBtn').innerText = currentLang === 'ar' ? 'خروج' : 'Logout';
             document.getElementById('adminPanelBtn').style.display = 'none';
             document.getElementById('adminOrdersBtn').style.display = 'none';
@@ -814,7 +822,7 @@
             document.getElementById('authBtn').innerText = currentLang === 'ar' ? 'خروج' : 'Logout';
             document.getElementById('adminPanelBtn').style.display = 'inline-block';
             document.getElementById('adminOrdersBtn').style.display = 'inline-block';
-            document.getElementById('trackOrderHeaderBtn').style.display = 'none'; // إخفاء زر متابعة الطلبي من حساب المدير
+            document.getElementById('trackOrderHeaderBtn').style.display = 'none';
             fetchProducts();
             fetchOrdersCount();
         }
@@ -881,14 +889,16 @@
 
             const savedUserStr = localStorage.getItem('m_s_user');
             if(savedUserStr) {
-                const savedUser = JSON.parse(savedUserStr);
-                if((savedUser.username === inputVal || savedUser.gmail === inputVal) && savedUser.password === passVal) {
-                    currentUser = savedUser;
-                    closeModal('authModal');
-                    showUserUI();
-                    alert('تم تسجيل الدخول بنجاح!');
-                    return;
-                }
+                try {
+                    const savedUser = JSON.parse(savedUserStr);
+                    if((savedUser.username === inputVal || savedUser.gmail === inputVal) && savedUser.password === passVal) {
+                        currentUser = savedUser;
+                        closeModal('authModal');
+                        showUserUI();
+                        alert('تم تسجيل الدخول بنجاح!');
+                        return;
+                    }
+                } catch(e) {}
             }
 
             alert('بيانات الدخول غير صحيحة، أو تأكد من إنشاء حساب جديد إذا لم يكن لديك حساب.');
@@ -902,7 +912,6 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
-        // دالة تكبير وعرض الصورة كاملة للعميل مع الزووم
         function openImageModal(imgSrc) {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalFullImage');
@@ -941,7 +950,6 @@
             document.getElementById('adminControlPanel').style.display = 'none';
         }
 
-        // حفظ المنتج (مع دعم صورة رئيسية وصورة ثانية اختيارية)
         function saveProduct(event) {
             event.preventDefault();
             const name = document.getElementById('pName').value.trim();
@@ -1092,11 +1100,9 @@
             });
         }
 
-        // فتح نافذة الطلب مع تطبيق شرط حظر الزائر وإجباره على تسجيل الدخول أولاً
         function openOrderModal(key) {
             selectedProduct = productsData[key];
             
-            // تحقق لو الزائر مش مسجل دخول
             if(!currentUser && !isAdmin) {
                 document.getElementById('warningTextAlert').style.display = 'block';
                 openModal('authModal');
@@ -1110,7 +1116,6 @@
             document.getElementById('orderProdName').value = selectedProduct.name;
             document.getElementById('custQty').value = 1;
             
-            // تعبئة البيانات تلقائياً لو العميل مسجل حساب
             if(currentUser) {
                 document.getElementById('custName').value = currentUser.username || '';
                 document.getElementById('custPhone').value = currentUser.phone || '';
