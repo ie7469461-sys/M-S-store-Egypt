@@ -486,7 +486,7 @@
 
                 <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</button>
                 
-                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد أو إنشاء مستخدم جديد</span>
+                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد</span>
             </div>
 
             <div id="registerFormSection" style="display:none;">
@@ -873,7 +873,6 @@
             alert('تم إنشاء الحساب وتسجيل الدخول بنجاح!');
         }
 
-        // تم تعديل دالة تسجيل الدخول لتسجيل الدخول مباشرة فوراً ودون أي رسائل خطأ معقدة
         function doLogin() {
             const inputVal = document.getElementById('userIn').value.trim();
             const passVal = document.getElementById('passIn').value.trim();
@@ -883,7 +882,6 @@
                 return;
             }
 
-            // التحقق من حساب الأدمن
             if((inputVal === 'M&S Store' || inputVal === 'فاطمة ستور' || inputVal === 'fatma store') && passVal === '2026') {
                 isAdmin = true;
                 localStorage.setItem('m_s_admin', 'true');
@@ -892,7 +890,6 @@
                 return;
             }
 
-            // التحقق من المستخدم المسجل محلياً
             const savedUserStr = localStorage.getItem('m_s_user');
             if(savedUserStr) {
                 try {
@@ -906,12 +903,7 @@
                 } catch(e) {}
             }
 
-            // إذا لم تطابق البيانات السابقة، يتم اعتماد ودخول المدخلات الجديدة فوراً كجلسة مستخدم بنجاح تام
-            const newSessionUser = { username: inputVal, gmail: inputVal.includes('@') ? inputVal : inputVal + '@gmail.com', phone: '01000000000', password: passVal, address: 'عنوان افتراضي' };
-            currentUser = newSessionUser;
-            localStorage.setItem('m_s_user', JSON.stringify(newSessionUser));
-            closeModal('authModal');
-            showUserUI();
+            alert('بيانات الدخول غير صحيحة، أو تأكد من إنشاء حساب جديد إن لم يكن لديك حساب.');
         }
 
         function openModal(modalId) {
