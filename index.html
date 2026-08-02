@@ -325,7 +325,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* نافذة تكبير الصورة الخاصة بالعميل */
         .zoom-modal-content {
             background: transparent;
             max-width: 90vw;
@@ -340,7 +339,7 @@
         .zoom-image-container {
             width: 100%;
             height: 80vh;
-            overflow: auto; /* يتيح للمستخدم تحريك الصورة وتقريبها بحرية */
+            overflow: auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -466,7 +465,6 @@
                         <option value="XXXL">XXXL (3 إكس)</option>
                     </select>
                 </div>
-                <!-- المدير يمكنه رفع صورة واحدة أو أكثر براحته ويضغط submit عادي -->
                 <div class="form-group">
                     <label>صور المنتج <span class="gold-subtext">(يمكنك اختيار صورة واحدة أو عدة صور معاً)</span>:</label>
                     <input type="file" id="pFiles" class="form-control" accept="image/*" multiple required>
@@ -815,7 +813,6 @@
             }
         }
 
-        // دالة حفظ المنتج (المدير يقدر يرفع صورة واحدة أو عدة صور ويضغط submit عادي)
         async function saveProduct(e) {
             e.preventDefault();
             const name = document.getElementById('pName').value.trim();
@@ -840,8 +837,8 @@
                     name: name,
                     price: price,
                     size: size,
-                    images: base64Images, // تخزين مصفوفة الصور
-                    image: base64Images[0] // الصورة الرئيسية كأول صورة
+                    images: base64Images,
+                    image: base64Images[0]
                 };
 
                 const res = await fetch(`${DB_URL}/products.json`, {
@@ -872,7 +869,6 @@
             });
         }
 
-        // دالة جلب المنتجات وعرضها
         async function fetchProducts() {
             try {
                 const res = await fetch(`${DB_URL}/products.json`);
@@ -895,7 +891,6 @@
 
             keys.forEach(id => {
                 const p = productsData[id];
-                // دعم الصور المتعددة أو الصورة الفردية القديمة
                 const imagesList = p.images || [p.image];
                 const mainImg = imagesList[0];
 
@@ -928,7 +923,6 @@
             });
         }
 
-        // تبديل الصورة الرئيسية عند الضغط على أي صورة مصغرة
         function changeMainImage(prodId, index) {
             const p = productsData[prodId];
             const imagesList = p.images || [p.image];
@@ -939,13 +933,11 @@
             }
         }
 
-        // دالة فتح نافذة تكبير الصورة للعميل
         function openImageZoom(imgUrl) {
             document.getElementById('zoomedImageElement').src = imgUrl;
             openModal('imageZoomModal');
         }
 
-        // حماية زر طلب المنتج بحيث يجب تسجيل الدخول
         function openOrderModal(prodId) {
             if (!currentUser && !isAdmin) {
                 openModal('authModal');
