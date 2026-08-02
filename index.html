@@ -219,6 +219,28 @@
             height: 220px;
             object-fit: cover;
             background: #f5f5f5;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .product-card img:hover {
+            opacity: 0.9;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 5px;
+            padding: 8px 12px 0;
+            overflow-x: auto;
+        }
+
+        .product-thumbnails img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            cursor: pointer;
         }
 
         .product-details {
@@ -303,6 +325,37 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
+        /* نافذة تكبير الصورة الخاصة بالعميل */
+        .zoom-modal-content {
+            background: transparent;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: visible;
+        }
+
+        .zoom-image-container {
+            width: 100%;
+            height: 80vh;
+            overflow: auto; /* يتيح للمستخدم تحريك الصورة وتقريبها بحرية */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .zoom-image-container img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.2s ease;
+            cursor: zoom-in;
+            object-fit: contain;
+        }
+
         .link-blue {
             color: #2563eb;
             font-size: 0.85rem;
@@ -327,15 +380,6 @@
 
         .status-valid {
             color: #16a34a;
-        }
-
-        .order-item {
-            border-bottom: 1px solid #eeeeee;
-            padding: 14px 0;
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
         }
 
         .badge {
@@ -422,14 +466,15 @@
                         <option value="XXXL">XXXL (3 إكس)</option>
                     </select>
                 </div>
+                <!-- المدير يمكنه رفع صورة واحدة أو أكثر براحته ويضغط submit عادي -->
                 <div class="form-group">
-                    <label data-ar="صورة المنتج (رفع صورة من الجهاز):" data-en="Product Image (Upload File):">صورة المنتج (رفع صورة من الجهاز Upload File):</label>
-                    <input type="file" id="pFile" class="form-control" accept="image/*" required>
+                    <label>صور المنتج <span class="gold-subtext">(يمكنك اختيار صورة واحدة أو عدة صور معاً)</span>:</label>
+                    <input type="file" id="pFiles" class="form-control" accept="image/*" multiple required>
                 </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <button type="submit" class="btn btn-gold" style="flex: 1; padding: 12px; font-size: 1rem;" data-ar="إضافة المنتج (Submit)" data-en="Submit Product">إضافة المنتج (Submit)</button>
-                    <button type="button" class="btn btn-danger" style="padding: 12px 20px;" onclick="hideAdminControl()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+                    <button type="submit" class="btn btn-gold" style="flex: 1; padding: 12px; font-size: 1rem;">إضافة المنتج (Submit)</button>
+                    <button type="button" class="btn btn-danger" style="padding: 12px 20px;" onclick="hideAdminControl()">إلغاء</button>
                 </div>
             </form>
         </div>
@@ -437,6 +482,17 @@
         <h2 style="margin-bottom: 15px; color: #111111;" data-ar="المنتجات المتاحة" data-en="Available Products">المنتجات المتاحة</h2>
         <div id="productsGrid" class="products-grid">
             <p style="grid-column: 1/-1; text-align: center; color: #888888;" data-ar="جاري تحميل المنتجات..." data-en="Loading products...">جاري تحميل المنتجات...</p>
+        </div>
+    </div>
+
+    <!-- نافذة تكبير واستعراض الصورة للعميل -->
+    <div id="imageZoomModal" class="modal" onclick="closeModal('imageZoomModal')">
+        <div class="zoom-modal-content" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: -40px; left: 0; font-size: 2rem; cursor: pointer; color: #fff; font-weight: bold;" onclick="closeModal('imageZoomModal')">&times; إغلاق</span>
+            <div class="zoom-image-container">
+                <img id="zoomedImageElement" src="" alt="صورة مكبرة">
+            </div>
+            <div style="color: #d4af37; margin-top: 10px; font-size: 0.95rem; font-weight: bold; text-align: center;">💡 يمكنك تقريب الصورة أو تحريكها برؤية تفصيلية كاملة</div>
         </div>
     </div>
 
@@ -460,7 +516,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</button>
+                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()">تسجيل الدخول</button>
                 
                 <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد أو إنشاء مستخدم جديد</span>
             </div>
@@ -506,15 +562,11 @@
         </div>
     </div>
 
-    <!-- باقي النوافذ -->
+    <!-- نافذة طلب المنتج (محمية) -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('orderModal')">&times;</span>
             
-            <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center; display: none;" id="warningTextAlert">
-                تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
-            </div>
-
             <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
 
             <div class="final-price-box">
@@ -692,6 +744,17 @@
             fetchOrdersCount();
         }
 
+        function showAdminSection(section) {
+            if(section === 'control') {
+                const panel = document.getElementById('adminControlPanel');
+                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function hideAdminControl() {
+            document.getElementById('adminControlPanel').style.display = 'none';
+        }
+
         function handleAuthClick() {
             if(isAdmin || currentUser) {
                 if(confirm('هل تريد تسجيل الخروج؟')) {
@@ -752,6 +815,63 @@
             }
         }
 
+        // دالة حفظ المنتج (المدير يقدر يرفع صورة واحدة أو عدة صور ويضغط submit عادي)
+        async function saveProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('pName').value.trim();
+            const price = parseFloat(document.getElementById('pPrice').value);
+            const size = document.getElementById('pSize').value;
+            const fileInput = document.getElementById('pFiles');
+
+            if(!name || !price || !size || fileInput.files.length === 0) {
+                alert('الرجاء إدخال كافة بيانات المنتج واختيار صورة واحدة على الأقل');
+                return;
+            }
+
+            const imagePromises = [];
+            for(let i = 0; i < fileInput.files.length; i++) {
+                imagePromises.push(toBase64(fileInput.files[i]));
+            }
+
+            try {
+                const base64Images = await Promise.all(imagePromises);
+                
+                const newProduct = {
+                    name: name,
+                    price: price,
+                    size: size,
+                    images: base64Images, // تخزين مصفوفة الصور
+                    image: base64Images[0] // الصورة الرئيسية كأول صورة
+                };
+
+                const res = await fetch(`${DB_URL}/products.json`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newProduct)
+                });
+
+                if(res.ok) {
+                    alert('تم إضافة المنتج بنجاح!');
+                    document.getElementById('productForm').reset();
+                    hideAdminControl();
+                    fetchProducts();
+                } else {
+                    alert('فشل حفظ المنتج');
+                }
+            } catch(err) {
+                alert('حدث خطأ أثناء معالجة الصور');
+            }
+        }
+
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
         // دالة جلب المنتجات وعرضها
         async function fetchProducts() {
             try {
@@ -775,10 +895,26 @@
 
             keys.forEach(id => {
                 const p = productsData[id];
+                // دعم الصور المتعددة أو الصورة الفردية القديمة
+                const imagesList = p.images || [p.image];
+                const mainImg = imagesList[0];
+
+                let thumbnailsHTML = '';
+                if(imagesList.length > 1) {
+                    thumbnailsHTML = `<div class="product-thumbnails">`;
+                    imagesList.forEach((imgUrl, idx) => {
+                        thumbnailsHTML += `<img src="${imgUrl}" onclick="changeMainImage('${id}', ${idx})" alt="صورة مصغرة">`;
+                    });
+                    thumbnailsHTML += `</div>`;
+                }
+
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img src="${p.image}" alt="${p.name}">
+                    <div id="imgContainer_${id}">
+                        <img id="mainImg_${id}" src="${mainImg}" alt="${p.name}" onclick="openImageZoom('${mainImg}')" title="اضغط لتكبير ورؤية تفاصيل الصورة">
+                    </div>
+                    ${thumbnailsHTML}
                     <div class="product-details">
                         <div>
                             <div class="product-title">${p.name}</div>
@@ -792,11 +928,26 @@
             });
         }
 
-        // هنا التعديل الجوهري: حماية زر الطلب بحيث يُجبر الزائر على تسجيل الدخول أولاً
+        // تبديل الصورة الرئيسية عند الضغط على أي صورة مصغرة
+        function changeMainImage(prodId, index) {
+            const p = productsData[prodId];
+            const imagesList = p.images || [p.image];
+            const mainImgElem = document.getElementById(`mainImg_${prodId}`);
+            if(mainImgElem && imagesList[index]) {
+                mainImgElem.src = imagesList[index];
+                mainImgElem.setAttribute('onclick', `openImageZoom('${imagesList[index]}')`);
+            }
+        }
+
+        // دالة فتح نافذة تكبير الصورة للعميل
+        function openImageZoom(imgUrl) {
+            document.getElementById('zoomedImageElement').src = imgUrl;
+            openModal('imageZoomModal');
+        }
+
+        // حماية زر طلب المنتج بحيث يجب تسجيل الدخول
         function openOrderModal(prodId) {
-            // التحقق مما إذا كان المستخدم مسجلاً دخولاً أو مديراً
             if (!currentUser && !isAdmin) {
-                // إظهار نافذة تسجيل الدخول فوراً وتنبيه الزائر
                 openModal('authModal');
                 alert('عذراً، يجب تسجيل الدخول أو إنشاء حساب جديد أولاً لكي تتمكن من طلب المنتجات.');
                 return;
@@ -811,7 +962,6 @@
             document.getElementById('orderProdName').value = selectedProduct.name;
             document.getElementById('custSize').value = selectedProduct.size || '';
             
-            // تعبئة البيانات تلقائياً إذا كان المستخدم مسجلاً
             if(currentUser) {
                 document.getElementById('custName').value = currentUser.username || '';
                 document.getElementById('custPhone').value = currentUser.phone || '';
@@ -840,7 +990,6 @@
                 return;
             }
 
-            // التحقق إذا كان المدير
             if(userIn === 'admin' && passIn === '123456') {
                 isAdmin = true;
                 localStorage.setItem('m_s_admin', 'true');
@@ -850,7 +999,6 @@
                 return;
             }
 
-            // التحقق من حسابات المستخدمين من قاعدة البيانات
             try {
                 const res = await fetch(`${DB_URL}/users.json`);
                 const users = await res.json() || {};
@@ -994,7 +1142,7 @@
                 for(let id in orders) {
                     let o = orders[id];
                     if(o.phone === query || o.gmail === query) {
-                        found.push(o);
+                        found.push(o.ok || o);
                     }
                 }
 
