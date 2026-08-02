@@ -1,1023 +1,763 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlRoot">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">M&S Store</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title id="pageTitle">M&S Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        html, body {
-            background-color: #fcfcfc;
-            color: #111111;
-            line-height: 1.6;
-            overflow-x: hidden;
-            overflow-y: auto;
-            min-height: 100vh;
-        }
+        html, body {
+            background-color: #fcfcfc;
+            color: #111111;
+            line-height: 1.6;
+            overflow-x: hidden;
+            overflow-y: auto;
+            min-height: 100vh;
+        }
 
-        input, button, select, textarea {
-            -webkit-appearance: none;
-            appearance: none;
-            font-family: inherit;
-        }
+        input, button, select, textarea {
+            -webkit-appearance: none;
+            appearance: none;
+            font-family: inherit;
+        }
 
-        header {
-            background-color: #111111;
-            color: #ffffff;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 2px solid #d4af37;
-        }
+        header {
+            background-color: #111111;
+            color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #d4af37;
+        }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .logo {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: #d4af37;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-        .header-btns {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+        .header-btns {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
 
-        .btn {
-            padding: 8px 14px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-        }
+        .btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
 
-        .btn-gold {
-            background-color: #d4af37;
-            color: #111111;
-        }
+        .btn-gold {
+            background-color: #d4af37;
+            color: #111111;
+        }
 
-        .btn-gold:active {
-            background-color: #b89628;
-            transform: scale(0.98);
-        }
+        .btn-gold:active {
+            background-color: #b89628;
+            transform: scale(0.98);
+        }
 
-        .btn-outline-gold {
-            background: transparent;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-        }
+        .btn-outline-gold {
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
 
-        .btn-danger {
-            background-color: #dc2626;
-            color: white;
-        }
+        .btn-danger {
+            background-color: #dc2626;
+            color: white;
+        }
 
-        .btn-danger:active {
-            background-color: #b91c1c;
-            transform: scale(0.98);
-        }
+        .btn-danger:active {
+            background-color: #b91c1c;
+            transform: scale(0.98);
+        }
 
-        .user-welcome-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(212, 175, 55, 0.15);
-            padding: 5px 12px;
-            border-radius: 20px;
-            border: 1px solid #d4af37;
-        }
+        .btn-edit {
+            background-color: #0284c7;
+            color: white;
+        }
 
-        .user-badge {
-            background-color: #d4af37;
-            color: #111;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
+        .user-welcome-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid #d4af37;
+        }
 
-        .user-welcome {
-            color: #d4af37;
-            font-weight: bold;
-            font-size: 0.85rem;
-        }
+        .user-badge {
+            background-color: #d4af37;
+            color: #111;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
 
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 0 15px 40px;
-        }
+        .user-welcome {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
 
-        .card {
-            background: #ffffff;
-            padding: 22px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            border: 1px solid #eaeaea;
-        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px 40px;
+        }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+        .card {
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
+        }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            font-size: 0.92rem;
-            color: #222222;
-        }
+        .form-group {
+            margin-bottom: 16px;
+        }
 
-        .gold-subtext {
-            color: #d4af37;
-            font-size: 0.82rem;
-            font-weight: bold;
-            margin-right: 6px;
-        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 0.92rem;
+            color: #222222;
+        }
 
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 0.98rem;
-            outline: none;
-            transition: border-color 0.2s;
-            background: #ffffff;
-        }
+        .gold-subtext {
+            color: #d4af37;
+            font-size: 0.82rem;
+            font-weight: bold;
+            margin-right: 6px;
+        }
 
-        .form-control:focus {
-            border-color: #d4af37;
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
-        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.98rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #ffffff;
+        }
 
-        .input-eye-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+        .form-control:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
+        }
 
-        .input-eye-container input {
-            padding-left: 45px;
-        }
+        .input-eye-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-        .eye-btn {
-            position: absolute;
-            left: 10px;
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px;
-            color: #666;
-            user-select: none;
-        }
+        .input-eye-container input {
+            padding-left: 45px;
+        }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+        .eye-btn {
+            position: absolute;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            color: #666;
+            user-select: none;
+        }
 
-        .product-card {
-            background: #ffffff;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #f0f0f0;
-        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-        .product-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            background: #f5f5f5;
-        }
+        .product-card {
+            background: #ffffff;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f0f0f0;
+        }
 
-        .product-details {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #f5f5f5;
+        }
 
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 6px;
-            color: #111111;
-        }
+        .product-details {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
 
-        .product-price {
-            font-size: 1.25rem;
-            color: #d4af37;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #111111;
+        }
 
-        .product-size {
-            font-size: 0.85rem;
-            color: #333333;
-            background: #f4f4f4;
-            padding: 4px 8px;
-            border-radius: 6px;
-            display: inline-block;
-            margin-bottom: 6px;
-        }
+        .product-price {
+            font-size: 1.25rem;
+            color: #d4af37;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
 
-        .btn-order {
-            width: 100%;
-            padding: 11px;
-            background: #111111;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.2s ease;
-        }
+        .product-size {
+            font-size: 0.85rem;
+            color: #333333;
+            background: #f4f4f4;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
 
-        .btn-order:active {
-            background: #d4af37;
-            color: #111111;
-        }
+        .btn-order {
+            width: 100%;
+            padding: 11px;
+            background: #111111;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
+        .btn-order:active {
+            background: #d4af37;
+            color: #111111;
+        }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
 
-        .modal-content {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            width: 100%;
-            max-width: 480px;
-            position: relative;
-            max-height: 85vh;
-            overflow-y: auto;
-            border-top: 5px solid #d4af37;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
+        .modal.active {
+            display: flex;
+        }
 
-        .link-blue {
-            color: #2563eb;
-            font-size: 0.85rem;
-            text-decoration: underline;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 8px;
-            text-align: center;
-            width: 100%;
-        }
+        .modal-content {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-top: 5px solid #d4af37;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
 
-        .status-msg {
-            font-size: 0.82rem;
-            margin-top: 4px;
-            font-weight: bold;
-            display: block;
-        }
+        .link-blue {
+            color: #2563eb;
+            font-size: 0.85rem;
+            text-decoration: underline;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 8px;
+            text-align: center;
+            width: 100%;
+        }
 
-        .status-invalid {
-            color: #dc2626;
-        }
+        .status-msg {
+            font-size: 0.82rem;
+            margin-top: 4px;
+            font-weight: bold;
+            display: block;
+        }
 
-        .status-valid {
-            color: #16a34a;
-        }
+        .status-invalid {
+            color: #dc2626;
+        }
 
-        .order-item {
-            border-bottom: 1px solid #eeeeee;
-            padding: 14px 0;
-        }
+        .status-valid {
+            color: #16a34a;
+        }
 
-        .order-item:last-child {
-            border-bottom: none;
-        }
+        .order-item {
+            border-bottom: 1px solid #eeeeee;
+            padding: 14px 0;
+        }
 
-        .badge {
-            background: #dc2626;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 7px;
-            font-size: 0.75rem;
-        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
 
-        .final-price-box {
-            background: #111111;
-            color: #ffffff;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            border: 2px solid #d4af37;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
-        }
+        .badge {
+            background: #dc2626;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 0.75rem;
+        }
 
-        .payment-method-box {
-            background: #fdfbf7;
-            border: 2px dashed #d4af37;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-        }
-    </style>
+        .final-price-box {
+            background: #111111;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            border: 2px solid #d4af37;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
+        }
+
+        .payment-method-box {
+            background: #fdfbf7;
+            border: 2px dashed #d4af37;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-left">
-            <div class="logo">🛍️ M&S Store</div>
-            <button id="trackOrderHeaderBtn" class="btn btn-outline-gold" onclick="openTrackModal()" data-ar="🔍 متابعة طلبي" data-en="🔍 Track Order">🔍 متابعة طلبي</button>
-        </div>
-
-        <div class="header-btns">
-            <div id="userWelcomeContainer" class="user-welcome-box">
-                <span id="roleBadge" class="user-badge" data-ar="مستخدم" data-en="User">مستخدم</span>
-                <span id="userInfoDisplay" class="user-welcome">زائر</span>
-            </div>
-
-            <button id="adminPanelBtn" class="btn btn-gold" onclick="showAdminSection('control')" style="display:none;" data-ar="⚙️ لوحة التحكم" data-en="⚙️ Dashboard">⚙️ لوحة التحكم</button>
-            <button id="adminOrdersBtn" class="btn btn-outline-gold" onclick="showAdminSection('orders')" style="display:none;">
-                <span data-ar="📦 لوحة الطلبات" data-en="📦 Orders">📦 لوحة الطلبات</span> <span id="ordersCount" class="badge">0</span>
-            </button>
-
-            <button class="btn btn-outline-gold" id="langToggleBtn" onclick="toggleLanguage()" style="padding: 8px 12px;">English</button>
-
-            <button id="authBtn" class="btn btn-gold" onclick="handleAuthClick()" data-ar="دخول" data-en="Login">دخول</button>
-        </div>
-    </header>
-
-    <div class="container">
-
-        <div id="adminControlPanel" class="card" style="display:none;">
-            <h2 style="margin-bottom: 15px; color: #111111;" data-ar="⚙️ لوحة التحكم - إضافة منتج جديد" data-en="⚙️ Dashboard - Add New Product">⚙️ لوحة التحكم - إضافة منتج جديد</h2>
-            <form id="productForm" onsubmit="saveProduct(event)">
-                <div class="form-group">
-                    <label data-ar="اسم المنتج:" data-en="Product Name:">اسم المنتج:</label>
-                    <input type="text" id="pName" class="form-control" required placeholder="مثال: طقم بيتي رجالي">
-                </div>
-                <div class="form-group">
-                    <label data-ar="سعر القطعة الواحدة (بالجنيه):" data-en="Unit Price (EGP):">سعر القطعة الواحدة (بالجنيه):</label>
-                    <input type="number" id="pPrice" class="form-control" required placeholder="مثال: 450">
-                </div>
-                <div class="form-group">
-                    <label data-ar="المقاس الأساسي للمنتج:" data-en="Base Product Size:">المقاس الأساسي للمنتج:</label>
-                    <select id="pSize" class="form-control" required>
-                        <option value="">-- اختر المقاس --</option>
-                        <option value="6">مقاس 6 (أطفال)</option>
-                        <option value="8">مقاس 8 (أطفال)</option>
-                        <option value="10">مقاس 10 (أطفال)</option>
-                        <option value="12">مقاس 12 (أطفال)</option>
-                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
-                        <option value="16">مقاس 16 (شبابي)</option>
-                        <option value="S">S (صغير)</option>
-                        <option value="M">M (وسط)</option>
-                        <option value="L">L (كبير)</option>
-                        <option value="XL">XL (كبير جداً)</option>
-                        <option value="XXL">XXL (2 إكس)</option>
-                        <option value="XXXL">XXXL (3 إكس)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-ar="صورة المنتج (رفع صورة من الجهاز):" data-en="Product Image (Upload File):">صورة المنتج (رفع صورة من الجهاز Upload File):</label>
-                    <input type="file" id="pFile" class="form-control" accept="image/*" required>
-                </div>
-
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <button type="submit" class="btn btn-gold" style="flex: 1; padding: 12px; font-size: 1rem;" data-ar="إضافة المنتج (Submit)" data-en="Submit Product">إضافة المنتج (Submit)</button>
-                    <button type="button" class="btn btn-danger" style="padding: 12px 20px;" onclick="hideAdminControl()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
-                </div>
-            </form>
-        </div>
-
-        <h2 style="margin-bottom: 15px; color: #111111;" data-ar="المنتجات المتاحة" data-en="Available Products">المنتجات المتاحة</h2>
-        <div id="productsGrid" class="products-grid">
-            <p style="grid-column: 1/-1; text-align: center; color: #888888;" data-ar="جاري تحميل المنتجات..." data-en="Loading products...">جاري تحميل المنتجات...</p>
-        </div>
-    </div>
-
-    <!-- نافذة تسجيل الدخول/إنشاء حساب -->
-    <div id="authModal" class="modal">
-        <div class="modal-content" style="max-width: 440px;">
-            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('authModal')">&times;</span>
-            <div id="loginFormSection">
-                <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
-                
-                <div class="form-group">
-                    <label data-ar="اسم المستخدم أو الجيميل:" data-en="Username or Gmail:">اسم المستخدم أو الجيميل:</label>
-                    <input type="text" id="userIn" class="form-control" placeholder="أدخل اسم المستخدم">
-                </div>
-                
-                <div class="form-group">
-                    <label data-ar="كلمة المرور (الباسورد):" data-en="Password:">كلمة المرور (الباسورد):</label>
-                    <div class="input-eye-container">
-                        <input type="password" id="passIn" class="form-control" placeholder="أدخل كلمة المرور">
-                        <button type="button" class="eye-btn" onclick="togglePassword('passIn', this)">👁️</button>
-                    </div>
-                </div>
-
-                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</button>
-                
-                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد أو إنشاء مستخدم جديد</span>
-            </div>
-
-            <div id="registerFormSection" style="display:none;">
-                <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="إنشاء حساب جديد" data-en="Create New Account">إنشاء حساب جديد</h3>
-                
-                <div class="form-group">
-                    <label data-ar="البريد الإلكتروني (Gmail):" data-en="Gmail Address:">البريد الإلكتروني (Gmail):</label>
-                    <input type="email" id="regGmail" class="form-control" placeholder="example@gmail.com" oninput="validateGmailLive()">
-                    <span id="gmailStatus" class="status-msg"></span>
-                </div>
-
-                <div class="form-group">
-                    <label data-ar="رقم الهاتف (الموبايل):" data-en="Phone Number:">رقم الهاتف (الموبايل):</label>
-                    <input type="tel" id="regPhone" class="form-control" placeholder="01xxxxxxxxx">
-                </div>
-
-                <div class="form-group">
-                    <label data-ar="اسم المستخدم:" data-en="Username:">اسم المستخدم:</label>
-                    <input type="text" id="regUser" class="form-control" placeholder="أدخل اسم المستخدم الجديد">
-                </div>
-
-                <div class="form-group">
-                    <label data-ar="كلمة المرور (الباسورد):" data-en="Password:">كلمة المرور (الباسورد):</label>
-                    <div class="input-eye-container">
-                        <input type="password" id="regPass" class="form-control" placeholder="أنشئ كلمة مرور قوية">
-                        <button type="button" class="eye-btn" onclick="togglePassword('regPass', this)">👁️</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label><span>عنوان التوصيل الثابت</span> <span class="gold-subtext">(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)</span>:</label>
-                    <input type="text" id="regAddress" class="form-control" placeholder="المحافظة - المدينة - اسم الشارع والمنزل" required>
-                </div>
-
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <button class="btn btn-gold" style="flex:1; padding: 12px; font-size: 1rem;" onclick="doRegister()">إنشاء حساب</button>
-                    <button class="btn btn-danger" style="padding: 12px 15px;" onclick="switchToLogin()">رجوع</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- باقي النوافذ -->
-    <div id="orderModal" class="modal">
-        <div class="modal-content">
-            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('orderModal')">&times;</span>
-            
-            <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center; display: none;" id="warningTextAlert">
-                تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
-            </div>
-
-            <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
-
-            <div class="final-price-box">
-                <div style="color: #dddddd; font-size: 0.9rem;" id="modalProdPrice">سعر القطعة: 0 ج.م</div>
-                <div style="color: #dddddd; font-size: 0.9rem; margin-top: 3px;" id="modalProdQtySummary">عدد القطع: 1 قطعة</div>
-                <div style="border-top: 1px dashed #d4af37; margin: 8px 0;"></div>
-                <div style="color: #d4af37; font-weight: 900; font-size: 1.35rem;" id="modalTotalPrice">السعر النهائي: 0 ج.م</div>
-            </div>
-
-            <form onsubmit="submitOrder(event)">
-                <input type="hidden" id="orderProdName">
-                
-                <div class="form-group">
-                    <label>اختر الكمية المطلوبة <span class="gold-subtext">(أقصى عدد 50 قطعة)</span>:</label>
-                    <input type="number" id="custQty" class="form-control" value="1" min="1" max="50" required oninput="updateOrderTotalPrice()">
-                </div>
-
-                <div class="form-group">
-                    <label>اسمك بالكامل:</label>
-                    <input type="text" id="custName" class="form-control" required placeholder="مثال: أحمد محمد">
-                </div>
-
-                <div class="form-group">
-                    <label>رقم الموبايل:</label>
-                    <input type="tel" id="custPhone" class="form-control" required placeholder="01xxxxxxxxx">
-                </div>
-
-                <div class="form-group">
-                    <label>البريد الإلكتروني (Gmail):</label>
-                    <input type="email" id="custGmail" class="form-control" placeholder="example@gmail.com">
-                </div>
-
-                <div class="form-group">
-                    <label>عنوان التوصيل بالتفصيل:</label>
-                    <input type="text" id="custAddress" class="form-control" required placeholder="المحافظة - المدينة - الشارع - رقم المنزل">
-                </div>
-
-                <div class="form-group">
-                    <label>اختر المقاس المطلوب للطلب:</label>
-                    <select id="custSize" class="form-control" required style="background: #fff;">
-                        <option value="">-- اختر المقاس --</option>
-                        <option value="6">مقاس 6 (أطفال)</option>
-                        <option value="8">مقاس 8 (أطفال)</option>
-                        <option value="10">مقاس 10 (أطفال)</option>
-                        <option value="12">مقاس 12 (أطفال)</option>
-                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
-                        <option value="16">مقاس 16 (شبابي)</option>
-                        <option value="S">S (صغير)</option>
-                        <option value="M">M (وسط)</option>
-                        <option value="L">L (كبير)</option>
-                        <option value="XL">XL (كبير جداً)</option>
-                        <option value="XXL">XXL (2 إكس)</option>
-                        <option value="XXXL">XXXL (3 إكس)</option>
-                    </select>
-                </div>
-
-                <div class="payment-method-box">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label>طريقة الدفع:</label>
-                        <select id="paymentMethod" class="form-control" required style="background: #fff;">
-                            <option value="الدفع نقدا عند الاستلام">💵 الدفع نقدا عند الاستلام</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <button type="submit" class="btn btn-gold" style="flex: 2; padding: 14px; font-size: 1.05rem;">تأكيد الطلب بالسعر النهائي 🛍️</button>
-                    <button type="button" class="btn btn-danger" style="flex: 1; padding: 14px; font-size: 1.05rem;" onclick="closeModal('orderModal')">إلغاء</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- نافذة نجاح الطلب -->
-    <div id="successOrderModal" class="modal">
-        <div class="modal-content" style="text-align: center; max-width: 440px;">
-            <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
-            <h3 style="color: #111111; margin-bottom: 12px;">تم تأكيد طلبك بنجاح!</h3>
-            <div style="background: #fdfbf7; border: 2px solid #d4af37; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-weight: bold; color: #111; font-size: 1.05rem; line-height: 1.8; text-align: right;" id="successMsgText"></div>
-            <button class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModal('successOrderModal')">حسناً</button>
-        </div>
-    </div>
-
-    <!-- نافذة تتبع الطلب -->
-    <div id="trackModal" class="modal">
-        <div class="modal-content">
-            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('trackModal')">&times;</span>
-            <h3 style="margin-bottom: 15px; color: #111111;">🔍 متابعة حالة الطلب والسعر النهائي</h3>
-            <div class="form-group">
-                <label>أدخل رقم الموبايل أو الجيميل الخاص بك:</label>
-                <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
-            </div>
-            <button class="btn btn-gold" style="width:100%; padding: 12px;" onclick="trackMyOrder()">بحث عن طلبي</button>
-            <div id="trackResult" style="margin-top: 15px;"></div>
-        </div>
-    </div>
-
-    <script>
-        const DB_URL = "https://ms-store-26105-default-rtdb.firebaseio.com";
-        let isAdmin = false;
-        let currentUser = null;
-        let productsData = {};
-        let allOrdersData = {};
-        let selectedProduct = null;
-        let currentLang = 'ar';
-
-        const ADMIN_CONFIRM_MSG = "يتم تنفيذ طلبك وسوف يتم التواصل معك خلال أقرب وقت";
-
-        window.onload = function() {
-            checkSavedUser();
-            fetchProducts();
-        };
-
-        function toggleLanguage() {
-            const htmlRoot = document.getElementById('htmlRoot');
-            const langBtn = document.getElementById('langToggleBtn');
-
-            if (currentLang === 'ar') {
-                currentLang = 'en';
-                htmlRoot.setAttribute('lang', 'en');
-                htmlRoot.setAttribute('dir', 'ltr');
-                langBtn.innerText = 'عربي';
-            } else {
-                currentLang = 'ar';
-                htmlRoot.setAttribute('lang', 'ar');
-                htmlRoot.setAttribute('dir', 'rtl');
-                langBtn.innerText = 'English';
-            }
-
-            document.querySelectorAll('[data-ar]').forEach(el => {
-                const text = el.getAttribute(`data-${currentLang}`);
-                if (text) el.innerText = text;
-            });
-        }
-
-        function checkSavedUser() {
-            const savedAdmin = localStorage.getItem('m_s_admin');
-            const savedUser = localStorage.getItem('m_s_user');
-
-            if(savedAdmin === 'true') {
-                isAdmin = true;
-                showAdminUI();
-            } else if(savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showUserUI();
-            } else {
-                showGuestUI();
-            }
-        }
-
-        function showGuestUI() {
-            isAdmin = false;
-            currentUser = null;
-            document.getElementById('userInfoDisplay').innerText = "زائر";
-            document.getElementById('roleBadge').innerText = "زائر";
-            document.getElementById('authBtn').innerText = "دخول / تسجيل";
-            document.getElementById('adminPanelBtn').style.display = 'none';
-            document.getElementById('adminOrdersBtn').style.display = 'none';
-        }
-
-        function showUserUI() {
-            document.getElementById('userInfoDisplay').innerText = currentUser.username || currentUser.gmail;
-            document.getElementById('roleBadge').innerText = "مستخدم";
-            document.getElementById('authBtn').innerText = "خروج";
-            document.getElementById('adminPanelBtn').style.display = 'none';
-            document.getElementById('adminOrdersBtn').style.display = 'none';
-        }
-
-        function showAdminUI() {
-            document.getElementById('userInfoDisplay').innerText = "مدير المتجر";
-            document.getElementById('roleBadge').innerText = "مدير";
-            document.getElementById('authBtn').innerText = "خروج";
-            document.getElementById('adminPanelBtn').style.display = 'inline-block';
-            document.getElementById('adminOrdersBtn').style.display = 'inline-block';
-            fetchOrdersCount();
-        }
-
-        function handleAuthClick() {
-            if(isAdmin || currentUser) {
-                if(confirm('هل تريد تسجيل الخروج؟')) {
-                    isAdmin = false;
-                    currentUser = null;
-                    localStorage.removeItem('m_s_admin');
-                    localStorage.removeItem('m_s_user');
-                    showGuestUI();
-                    fetchProducts();
-                }
-            } else {
-                openModal('authModal');
-            }
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        function openTrackModal() {
-            openModal('trackModal');
-        }
-
-        function switchToRegister() {
-            document.getElementById('loginFormSection').style.display = 'none';
-            document.getElementById('registerFormSection').style.display = 'block';
-        }
-
-        function switchToLogin() {
-            document.getElementById('registerFormSection').style.display = 'none';
-            document.getElementById('loginFormSection').style.display = 'block';
-        }
-
-        function togglePassword(inputId, btn) {
-            const input = document.getElementById(inputId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.innerText = '🙈';
-            } else {
-                input.type = 'password';
-                btn.innerText = '👁️';
-            }
-        }
-
-        function validateGmailLive() {
-            const email = document.getElementById('regGmail').value;
-            const statusEl = document.getElementById('gmailStatus');
-            if(email.endsWith('@gmail.com')) {
-                statusEl.innerText = "✓ البريد الإلكتروني صالح";
-                statusEl.className = "status-msg status-valid";
-            } else {
-                statusEl.innerText = "✗ يجب أن ينتهي البريد بـ @gmail.com";
-                statusEl.className = "status-msg status-invalid";
-            }
-        }
-
-        // دالة جلب المنتجات وعرضها
-        async function fetchProducts() {
-            try {
-                const res = await fetch(`${DB_URL}/products.json`);
-                productsData = await res.json() || {};
-                renderProducts();
-            } catch (e) {
-                document.getElementById('productsGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">فشل تحميل المنتجات.</p>';
-            }
-        }
-
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
-            
-            const keys = Object.keys(productsData);
-            if(keys.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">لا توجد منتجات مضافة حالياً.</p>';
-                return;
-            }
-
-            keys.forEach(id => {
-                const p = productsData[id];
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="${p.image}" alt="${p.name}">
-                    <div class="product-details">
-                        <div>
-                            <div class="product-title">${p.name}</div>
-                            <div class="product-price">${p.price} ج.م</div>
-                            <div class="product-size">المقاس: ${p.size}</div>
-                        </div>
-                        <button class="btn-order" onclick="openOrderModal('${id}')">طلب المنتج 🛍️</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // هنا التعديل الجوهري: حماية زر الطلب بحيث يُجبر الزائر على تسجيل الدخول أولاً
-        function openOrderModal(prodId) {
-            // التحقق مما إذا كان المستخدم مسجلاً دخولاً أو مديراً
-            if (!currentUser && !isAdmin) {
-                // إظهار نافذة تسجيل الدخول فوراً وتنبيه الزائر
-                openModal('authModal');
-                alert('عذراً، يجب تسجيل الدخول أو إنشاء حساب جديد أولاً لكي تتمكن من طلب المنتجات.');
-                return;
-            }
-
-            selectedProduct = productsData[prodId];
-            if(!selectedProduct) return;
-
-            document.getElementById('modalProdTitle').innerText = selectedProduct.name;
-            document.getElementById('modalProdPrice').innerText = `سعر القطعة: ${selectedProduct.price} ج.م`;
-            document.getElementById('custQty').value = 1;
-            document.getElementById('orderProdName').value = selectedProduct.name;
-            document.getElementById('custSize').value = selectedProduct.size || '';
-            
-            // تعبئة البيانات تلقائياً إذا كان المستخدم مسجلاً
-            if(currentUser) {
-                document.getElementById('custName').value = currentUser.username || '';
-                document.getElementById('custPhone').value = currentUser.phone || '';
-                document.getElementById('custGmail').value = currentUser.gmail || '';
-                document.getElementById('custAddress').value = currentUser.address || '';
-            }
-
-            updateOrderTotalPrice();
-            openModal('orderModal');
-        }
-
-        function updateOrderTotalPrice() {
-            if(!selectedProduct) return;
-            const qty = parseInt(document.getElementById('custQty').value) || 1;
-            const total = qty * selectedProduct.price;
-            document.getElementById('modalProdQtySummary').innerText = `عدد القطع: ${qty} قطعة`;
-            document.getElementById('modalTotalPrice').innerText = `السعر النهائي: ${total} ج.م`;
-        }
-
-        async function doLogin() {
-            const userIn = document.getElementById('userIn').value.trim();
-            const passIn = document.getElementById('passIn').value.trim();
-
-            if(!userIn || !passIn) {
-                alert('الرجاء إدخال اسم المستخدم وكلمة المرور');
-                return;
-            }
-
-            // التحقق إذا كان المدير
-            if(userIn === 'admin' && passIn === '123456') {
-                isAdmin = true;
-                localStorage.setItem('m_s_admin', 'true');
-                closeModal('authModal');
-                showAdminUI();
-                alert('تم تسجيل الدخول بنجاح كمدير للمتجر');
-                return;
-            }
-
-            // التحقق من حسابات المستخدمين من قاعدة البيانات
-            try {
-                const res = await fetch(`${DB_URL}/users.json`);
-                const users = await res.json() || {};
-                let foundUser = null;
-
-                for(let id in users) {
-                    let u = users[id];
-                    if((u.username === userIn || u.gmail === userIn) && u.password === passIn) {
-                        foundUser = u;
-                        break;
-                    }
-                }
-
-                if(foundUser) {
-                    currentUser = foundUser;
-                    localStorage.setItem('m_s_user', JSON.stringify(currentUser));
-                    closeModal('authModal');
-                    showUserUI();
-                    alert(`مرحباً بك يا ${currentUser.username}`);
-                } else {
-                    alert('بيانات الدخول غير صحيحة أو الحساب غير موجود');
-                }
-            } catch(e) {
-                alert('حدث خطأ أثناء الاتصال بقاعدة البيانات');
-            }
-        }
-
-        async function doRegister() {
-            const gmail = document.getElementById('regGmail').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
-            const username = document.getElementById('regUser').value.trim();
-            const password = document.getElementById('regPass').value.trim();
-            const address = document.getElementById('regAddress').value.trim();
-
-            if(!gmail || !phone || !username || !password || !address) {
-                alert('الرجاء ملء كافة الحقول المطلوبة لإنشاء الحساب');
-                return;
-            }
-
-            if(!gmail.endsWith('@gmail.com')) {
-                alert('البريد الإلكتروني يجب أن ينتهي بـ @gmail.com');
-                return;
-            }
-
-            const newUser = { gmail, phone, username, password, address };
-
-            try {
-                const res = await fetch(`${DB_URL}/users.json`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newUser)
-                });
-                
-                if(res.ok) {
-                    currentUser = newUser;
-                    localStorage.setItem('m_s_user', JSON.stringify(currentUser));
-                    closeModal('authModal');
-                    showUserUI();
-                    alert('تم إنشاء الحساب بنجاح وتسجيل الدخول تلقائياً!');
-                } else {
-                    alert('فشل إنشاء الحساب، حاول مرة أخرى');
-                }
-            } catch(e) {
-                alert('حدث خطأ في الاتصال');
-            }
-        }
-
-        async function submitOrder(e) {
-            e.preventDefault();
-            const qty = document.getElementById('custQty').value;
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const gmail = document.getElementById('custGmail').value;
-            const address = document.getElementById('custAddress').value;
-            const size = document.getElementById('custSize').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
-            const totalPrice = qty * selectedProduct.price;
-
-            const orderData = {
-                productName: selectedProduct.name,
-                qty: qty,
-                totalPrice: totalPrice,
-                size: size,
-                customerName: name,
-                phone: phone,
-                gmail: gmail,
-                address: address,
-                paymentMethod: paymentMethod,
-                status: "قيد المراجعة",
-                date: new Date().toLocaleString()
-            };
-
-            try {
-                const res = await fetch(`${DB_URL}/orders.json`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
-                });
-
-                if(res.ok) {
-                    closeModal('orderModal');
-                    document.getElementById('successMsgText').innerHTML = `
-                        تم استلام طلبك بنجاح!<br>
-                        المنتج: ${selectedProduct.name} (${qty} قطعة)<br>
-                        السعر الإجمالي: ${totalPrice} ج.م<br>
-                        ${ADMIN_CONFIRM_MSG}
-                    `;
-                    openModal('successOrderModal');
-                } else {
-                    alert('حدث خطأ أثناء إرسال الطلب');
-                }
-            } catch(err) {
-                alert('فشل الاتصال بقاعدة البيانات');
-            }
-        }
-
-        async function fetchOrdersCount() {
-            try {
-                const res = await fetch(`${DB_URL}/orders.json`);
-                allOrdersData = await res.json() || {};
-                const count = Object.keys(allOrdersData).length;
-                document.getElementById('ordersCount').innerText = count;
-            } catch(e) {}
-        }
-
-        async function trackMyOrder() {
-            const query = document.getElementById('trackInput').value.trim();
-            const resultBox = document.getElementById('trackResult');
-            if(!query) {
-                alert('الرجاء إدخال رقم الموبايل أو الجيميل');
-                return;
-            }
-
-            resultBox.innerHTML = '<p style="color: #666;">جاري البحث عن الطلبات...</p>';
-
-            try {
-                const res = await fetch(`${DB_URL}/orders.json`);
-                const orders = await res.json() || {};
-                let found = [];
-
-                for(let id in orders) {
-                    let o = orders[id];
-                    if(o.phone === query || o.gmail === query) {
-                        found.push(o);
-                    }
-                }
-
-                if(found.length > 0) {
-                    let html = '<div style="margin-top: 10px; max-height: 200px; overflow-y: auto;">';
-                    found.forEach(o => {
-                        html += `
-                            <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #ddd; font-size: 0.85rem;">
-                                <b>المنتج:</b> ${o.productName} (${o.qty} قطعة)<br>
-                                <b>السعر النهائي:</b> ${o.totalPrice} ج.م<br>
-                                <b>الحالة:</b> <span style="color: green; font-weight: bold;">${o.status}</span>
-                            </div>
-                        `;
-                    });
-                    html += '</div>';
-                    resultBox.innerHTML = html;
-                } else {
-                    resultBox.innerHTML = '<p style="color: red; font-size: 0.9rem;">لم يتم العثور على أي طلبات مطابقة لهذا البيانات.</p>';
-                }
-            } catch(e) {
-                resultBox.innerHTML = '<p style="color: red;">حدث خطأ أثناء البحث.</p>';
-            }
-        }
-    </script>
-</body>
-</html>
+    <header>
+        <div class="header-left">
+            <div class="logo">🛍️ M&S Store</div>
+            <!-- زر متابعة طلبي في الأعلى خالص (بجوار اللوجو) ليكون متاحاً في كل مكان باستثناء حساب المدير -->
+            <button id="trackOrderHeaderBtn" class="btn btn-outline-gold" onclick="openTrackModal()" data-ar="🔍 متابعة طلبي" data-en="🔍 Track Order">🔍 متابعة طلبي</button>
+        </div>
+
+        <div class="header-btns">
+            <div id="userWelcomeContainer" class="user-welcome-box">
+                <span id="roleBadge" class="user-badge" data-ar="مستخدم" data-en="User">مستخدم</span>
+                <span id="userInfoDisplay" class="user-welcome">زائر</span>
+            </div>
+
+            <button id="adminPanelBtn" class="btn btn-gold" onclick="showAdminSection('control')" style="display:none;" data-ar="⚙️ لوحة التحكم" data-en="⚙️ Dashboard">⚙️ لوحة التحكم</button>
+            <button id="adminOrdersBtn" class="btn btn-outline-gold" onclick="showAdminSection('orders')" style="display:none;">
+                <span data-ar="📦 لوحة الطلبات" data-en="📦 Orders">📦 لوحة الطلبات</span> <span id="ordersCount" class="badge">0</span>
+            </button>
+
+            <button class="btn btn-outline-gold" id="langToggleBtn" onclick="toggleLanguage()" style="padding: 8px 12px;">English</button>
+
+            <button id="authBtn" class="btn btn-gold" onclick="handleAuthClick()" data-ar="دخول" data-en="Login">دخول</button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div id="adminControlPanel" class="card" style="display:none;">
+            <h2 style="margin-bottom: 15px; color: #111111;" data-ar="⚙️ لوحة التحكم - إضافة منتج جديد" data-en="⚙️ Dashboard - Add New Product">⚙️ لوحة التحكم - إضافة منتج جديد</h2>
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <div class="form-group">
+                    <label data-ar="اسم المنتج:" data-en="Product Name:">اسم المنتج:</label>
+                    <input type="text" id="pName" class="form-control" required placeholder="مثال: طقم بيتي رجالي">
+                </div>
+                <div class="form-group">
+                    <label data-ar="سعر القطعة الواحدة (بالجنيه):" data-en="Unit Price (EGP):">سعر القطعة الواحدة (بالجنيه):</label>
+                    <input type="number" id="pPrice" class="form-control" required placeholder="مثال: 450">
+                </div>
+                <div class="form-group">
+                    <label data-ar="المقاس الأساسي للمنتج:" data-en="Base Product Size:">المقاس الأساسي للمنتج:</label>
+                    <select id="pSize" class="form-control" required>
+                        <option value="">-- اختر المقاس --</option>
+                        <option value="6">مقاس 6 (أطفال)</option>
+                        <option value="8">مقاس 8 (أطفال)</option>
+                        <option value="10">مقاس 10 (أطفال)</option>
+                        <option value="12">مقاس 12 (أطفال)</option>
+                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
+                        <option value="16">مقاس 16 (شبابي)</option>
+                        <option value="S">S (صغير)</option>
+                        <option value="M">M (وسط)</option>
+                        <option value="L">L (كبير)</option>
+                        <option value="XL">XL (كبير جداً)</option>
+                        <option value="XXL">XXL (2 إكس)</option>
+                        <option value="XXXL">XXXL (3 إكس)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-ar="صورة المنتج (رفع صورة من الجهاز):" data-en="Product Image (Upload File):">صورة المنتج (رفع صورة من الجهاز Upload File):</label>
+                    <input type="file" id="pFile" class="form-control" accept="image/*" required>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="submit" class="btn btn-gold" style="flex: 1; padding: 12px; font-size: 1rem;" data-ar="إضافة المنتج (Submit)" data-en="Submit Product">إضافة المنتج (Submit)</button>
+                    <button type="button" class="btn btn-danger" style="padding: 12px 20px;" onclick="hideAdminControl()" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
+                </div>
+            </form>
+        </div>
+
+        <h2 style="margin-bottom: 15px; color: #111111;" data-ar="المنتجات المتاحة" data-en="Available Products">المنتجات المتاحة</h2>
+        <div id="productsGrid" class="products-grid">
+            <p style="grid-column: 1/-1; text-align: center; color: #888888;" data-ar="جاري تحميل المنتجات..." data-en="Loading products...">جاري تحميل المنتجات...</p>
+        </div>
+    </div>
+
+    <!-- نافذة تسجيل الدخول/إنشاء حساب -->
+    <div id="authModal" class="modal">
+        <div class="modal-content" style="max-width: 440px;">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('authModal')">&times;</span>
+            <div id="loginFormSection">
+                <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
+                
+                <div class="form-group">
+                    <label data-ar="اسم المستخدم أو الجيميل:" data-en="Username or Gmail:">اسم المستخدم أو الجيميل:</label>
+                    <input type="text" id="userIn" class="form-control" placeholder="أدخل اسم المستخدم">
+                </div>
+                
+                <div class="form-group">
+                    <label data-ar="كلمة المرور (الباسورد):" data-en="Password:">كلمة المرور (الباسورد):</label>
+                    <div class="input-eye-container">
+                        <input type="password" id="passIn" class="form-control" placeholder="أدخل كلمة المرور">
+                        <button type="button" class="eye-btn" onclick="togglePassword('passIn', this)">👁️</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</button>
+                
+                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد أو إنشاء مستخدم جديد</span>
+            </div>
+
+            <div id="registerFormSection" style="display:none;">
+                <h3 style="margin-bottom: 15px; color: #111111; text-align: center;" data-ar="إنشاء حساب جديد" data-en="Create New Account">إنشاء حساب جديد</h3>
+                
+                <div class="form-group">
+                    <label data-ar="البريد الإلكتروني (Gmail):" data-en="Gmail Address:">البريد الإلكتروني (Gmail):</label>
+                    <input type="email" id="regGmail" class="form-control" placeholder="example@gmail.com" oninput="validateGmailLive()">
+                    <span id="gmailStatus" class="status-msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label data-ar="رقم الهاتف (الموبايل):" data-en="Phone Number:">رقم الهاتف (الموبايل):</label>
+                    <input type="tel" id="regPhone" class="form-control" placeholder="01xxxxxxxxx">
+                </div>
+
+                <div class="form-group">
+                    <label data-ar="اسم المستخدم:" data-en="Username:">اسم المستخدم:</label>
+                    <input type="text" id="regUser" class="form-control" placeholder="أدخل اسم المستخدم الجديد">
+                </div>
+
+                <div class="form-group">
+                    <label data-ar="كلمة المرور (الباسورد):" data-en="Password:">كلمة المرور (الباسورد):</label>
+                    <div class="input-eye-container">
+                        <input type="password" id="regPass" class="form-control" placeholder="أنشئ كلمة مرور قوية">
+                        <button type="button" class="eye-btn" onclick="togglePassword('regPass', this)">👁️</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><span>عنوان التوصيل الثابت</span> <span class="gold-subtext">(هذا العنوان الذي سوف يتم توصيل إليه الطلب تلقائياً)</span>:</label>
+                    <input type="text" id="regAddress" class="form-control" placeholder="المحافظة - المدينة - اسم الشارع والمنزل" required>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button class="btn btn-gold" style="flex:1; padding: 12px; font-size: 1rem;" onclick="doRegister()">إنشاء حساب</button>
+                    <button class="btn btn-danger" style="padding: 12px 15px;" onclick="switchToLogin()">رجوع</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- باقي النوافذ -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('editProductModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">✏️ تعديل بيانات المنتج المسجل</h3>
+            <form onsubmit="saveEditedProduct(event)">
+                <input type="hidden" id="editProdId">
+                <div class="form-group">
+                    <label>اسم المنتج:</label>
+                    <input type="text" id="editPName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>سعر القطعة الواحدة (ج.م):</label>
+                    <input type="number" id="editPPrice" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>المقاس:</label>
+                    <select id="editPSize" class="form-control" required>
+                        <option value="">-- اختر المقاس --</option>
+                        <option value="6">مقاس 6 (أطفال)</option>
+                        <option value="8">مقاس 8 (أطفال)</option>
+                        <option value="10">مقاس 10 (أطفال)</option>
+                        <option value="12">مقاس 12 (أطفال)</option>
+                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
+                        <option value="16">مقاس 16 (شبابي)</option>
+                        <option value="S">S (صغير)</option>
+                        <option value="M">M (وسط)</option>
+                        <option value="L">L (كبير)</option>
+                        <option value="XL">XL (كبير جداً)</option>
+                        <option value="XXL">XXL (2 إكس)</option>
+                        <option value="XXXL">XXXL (3 إكس)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>تحديث صورة المنتج (اختياري):</label>
+                    <input type="file" id="editPFile" class="form-control" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">حفظ التعديلات ✏️</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('orderModal')">&times;</span>
+            
+            <div style="background: #fdf2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: bold; text-align: center; display: none;" id="warningTextAlert">
+                تحذير يجب عليك تسجيل الدخول أو إنشاء حساب جديد لاستخدام الموقع ولا يمكن استخدام الموقع إلا بإنشاء حساب
+            </div>
+
+            <h3 style="margin-bottom: 12px; color: #111111;" id="modalProdTitle">طلب المنتج</h3>
+
+            <div class="final-price-box">
+                <div style="color: #dddddd; font-size: 0.9rem;" id="modalProdPrice">سعر القطعة: 0 ج.م</div>
+                <div style="color: #dddddd; font-size: 0.9rem; margin-top: 3px;" id="modalProdQtySummary">عدد القطع: 1 قطعة</div>
+                <div style="border-top: 1px dashed #d4af37; margin: 8px 0;"></div>
+                <div style="color: #d4af37; font-weight: 900; font-size: 1.35rem;" id="modalTotalPrice">السعر النهائي: 0 ج.م</div>
+            </div>
+
+            <form onsubmit="submitOrder(event)">
+                <input type="hidden" id="orderProdName">
+                
+                <div class="form-group">
+                    <label>اختر الكمية المطلوبة <span class="gold-subtext">(أقصى عدد 50 قطعة)</span>:</label>
+                    <input type="number" id="custQty" class="form-control" value="1" min="1" max="50" required oninput="updateOrderTotalPrice()">
+                </div>
+
+                <div class="form-group">
+                    <label>اسمك بالكامل:</label>
+                    <input type="text" id="custName" class="form-control" required placeholder="مثال: أحمد محمد">
+                </div>
+
+                <div class="form-group">
+                    <label>رقم الموبايل:</label>
+                    <input type="tel" id="custPhone" class="form-control" required placeholder="01xxxxxxxxx">
+                </div>
+
+                <div class="form-group">
+                    <label>البريد الإلكتروني (Gmail):</label>
+                    <input type="email" id="custGmail" class="form-control" placeholder="example@gmail.com">
+                </div>
+
+                <div class="form-group">
+                    <label>عنوان التوصيل بالتفصيل:</label>
+                    <input type="text" id="custAddress" class="form-control" required placeholder="المحافظة - المدينة - الشارع - رقم المنزل">
+                </div>
+
+                <div class="form-group">
+                    <label>اختر المقاس المطلوب للطلب:</label>
+                    <select id="custSize" class="form-control" required style="background: #fff;">
+                        <option value="">-- اختر المقاس --</option>
+                        <option value="6">مقاس 6 (أطفال)</option>
+                        <option value="8">مقاس 8 (أطفال)</option>
+                        <option value="10">مقاس 10 (أطفال)</option>
+                        <option value="12">مقاس 12 (أطفال)</option>
+                        <option value="14">مقاس 14 (أطفال/شبابي)</option>
+                        <option value="16">مقاس 16 (شبابي)</option>
+                        <option value="S">S (صغير)</option>
+                        <option value="M">M (وسط)</option>
+                        <option value="L">L (كبير)</option>
+                        <option value="XL">XL (كبير جداً)</option>
+                        <option value="XXL">XXL (2 إكس)</option>
+                        <option value="XXXL">XXXL (3 إكس)</option>
+                    </select>
+                </div>
+
+                <div class="payment-method-box">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>طريقة الدفع:</label>
+                        <select id="paymentMethod" class="form-control" required style="background: #fff;">
+                            <option value="الدفع نقدا عند الاستلام">💵 الدفع نقدا عند الاستلام</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="submit" class="btn btn-gold" style="flex: 2; padding: 14px; font-size: 1.05rem;">تأكيد الطلب بالسعر النهائي 🛍️</button>
+                    <button type="button" class="btn btn-danger" style="flex: 1; padding: 14px; font-size: 1.05rem;" onclick="closeModal('orderModal')">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="successOrderModal" class="modal">
+        <div class="modal-content" style="text-align: center; max-width: 440px;">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
+            <h3 style="color: #111111; margin-bottom: 12px;">تم تأكيد طلبك بنجاح!</h3>
+            <div style="background: #fdfbf7; border: 2px solid #d4af37; padding: 16px; border-radius: 12px; margin-bottom: 20px; font-weight: bold; color: #111; font-size: 1.05rem; line-height: 1.8; text-align: right;" id="successMsgText"></div>
+            <button class="btn btn-gold" style="width: 100%; padding: 12px; font-size: 1rem;" onclick="closeModal('successOrderModal')">حسناً</button>
+        </div>
+    </div>
+
+    <div id="editOrderModal" class="modal">
+        <div class="modal-content">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('editOrderModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">✏️ تعديل بيانات الطلب</h3>
+            <form onsubmit="saveEditedOrder(event)">
+                <input type="hidden" id="editOrderId">
+                <div class="form-group"><label>اسم المنتج:</label><input type="text" id="editProdName" class="form-control" required></div>
+                <div class="form-group"><label>الكمية (عدد القطع):</label><input type="number" id="editProdQty" class="form-control" min="1" max="50" required></div>
+                <div class="form-group"><label>السعر الإجمالي النهائي (ج.م):</label><input type="number" id="editProdPrice" class="form-control" required></div>
+                <div class="form-group"><label>المقاس:</label><input type="text" id="editProdSize" class="form-control" required></div>
+                <div class="form-group"><label>اسم العميل:</label><input type="text" id="editCustName" class="form-control" required></div>
+                <div class="form-group"><label>الجيميل:</label><input type="email" id="editCustGmail" class="form-control" required></div>
+                <div class="form-group"><label>رقم الموبايل:</label><input type="tel" id="editCustPhone" class="form-control" required></div>
+                <div class="form-group"><label>العنوان:</label><input type="text" id="editCustAddress" class="form-control" required></div>
+                <div class="form-group"><label>طريقة الدفع:</label><input type="text" id="editPaymentMethod" class="form-control" required></div>
+                <div class="form-group"><label>حالة الطلب:</label><input type="text" id="editCustStatus" class="form-control" required></div>
+                <button type="submit" class="btn btn-gold" style="width:100%; padding: 12px; font-size: 1rem;">حفظ التعديلات</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="ordersModal" class="modal">
+        <div class="modal-content" style="max-width: 650px;">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('ordersModal')">&times;</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 style="color: #111111;">📦 لوحة الطلبات الواردة</h3>
+                <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearAllOrders()">🗑️ مسح كافة الطلبات</button>
+            </div>
+            <div id="ordersList"><p style="text-align:center; color:#888;">جاري تحميل الطلبات...</p></div>
+        </div>
+    </div>
+
+    <div id="trackModal" class="modal">
+        <div class="modal-content">
+            <span style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; cursor: pointer; color: #888;" onclick="closeModal('trackModal')">&times;</span>
+            <h3 style="margin-bottom: 15px; color: #111111;">🔍 متابعة حالة الطلب والسعر النهائي</h3>
+            <div class="form-group">
+                <label>أدخل رقم الموبايل أو الجيميل الخاص بك:</label>
+                <input type="text" id="trackInput" class="form-control" placeholder="01xxxxxxxxx أو name@gmail.com">
+            </div>
+            <button class="btn btn-gold" style="width:100%; padding: 12px;" onclick="trackMyOrder()">بحث عن طلبي</button>
+            <div id="trackResult" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <script>
+        const DB_URL = "https://ms-store-26105-default-rtdb.firebaseio.com";
+        let isAdmin = false;
+        let currentUser = null;
+        let productsData = {};
+        let allOrdersData = {};
+        let selectedProduct = null;
+        let currentLang = 'ar';
+
+        const ADMIN_CONFIRM_MSG = "يتم تنفيذ طلبك وسوف يتم التواصل معك خلال أقرب وقت";
+
+        window.onload = function() {
+            checkSavedUser();
+            fetchProducts();
+        };
+
+        function toggleLanguage() {
+            const htmlRoot = document.getElementById('htmlRoot');
+            const langBtn = document.getElementById('langToggleBtn');
+
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                htmlRoot.setAttribute('lang', 'en');
+                htmlRoot.setAttribute('dir', 'ltr');
+                langBtn.innerText = 'عربي';
+            } else {
+                currentLang = 'ar';
+                htmlRoot.setAttribute('lang', 'ar');
+                htmlRoot.setAttribute('dir', 'rtl');
+                langBtn.innerText = 'English';
+            }
+
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                const text = el.getAttribute(`data-${currentLang}`);
+                if (text) el.innerText = text;
+            });
+        }
+
+        function checkSavedUser() {
+            const savedAdmin = localStorage.getItem('m_s_admin');
+            const savedUser = localStorage.getItem('m_s_user');
+
+            if(savedAdmin === 'true') {
+                isAdmin = true;
+                showAdminUI();
+            } else if(savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showUserUI();
+            } else {
+                showGuestUI();
+            }
+        }
+
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.innerText = '🙈';
+            } else {
+                input.type = 'password';
+                btn.innerText = '👁️';
+            }
+        }
+
+        function handleAuthClick() {
+            if(isAdmin || currentUser) {
+                if(confirm('هل تريد تسجيل الخروج؟')) {
+                    isAdmin = false;
+                    currentUser = null;
+                    localStorage.removeItem('m_s_admin');
+                    localStorage.removeItem('m_s_user');
+                    showGuestUI();
