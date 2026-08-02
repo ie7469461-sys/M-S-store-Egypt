@@ -227,22 +227,6 @@
             opacity: 0.9;
         }
 
-        .product-thumbnails {
-            display: flex;
-            gap: 5px;
-            padding: 8px 12px 0;
-            overflow-x: auto;
-        }
-
-        .product-thumbnails img {
-            width: 45px;
-            height: 45px;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            cursor: pointer;
-        }
-
         .product-details {
             padding: 16px;
             display: flex;
@@ -466,8 +450,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>صور المنتج <span class="gold-subtext">(يمكنك اختيار صورة واحدة أو عدة صور معاً)</span>:</label>
-                    <input type="file" id="pFiles" class="form-control" accept="image/*" multiple required>
+                    <label>صورة المنتج:</label>
+                    <input type="file" id="pImage" class="form-control" accept="image/*" required>
                 </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 15px;">
@@ -516,7 +500,7 @@
 
                 <button class="btn btn-gold" style="width:100%; padding: 12px; margin-top: 10px; font-size: 1rem;" onclick="doLogin()">تسجيل الدخول</button>
                 
-                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد أو إنشاء مستخدم جديد</span>
+                <span class="link-blue" onclick="switchToRegister()">أليس لديك حساب؟ اضغط هنا لإنشاء حساب جديد</span>
             </div>
 
             <div id="registerFormSection" style="display:none;">
@@ -818,27 +802,21 @@
             const name = document.getElementById('pName').value.trim();
             const price = parseFloat(document.getElementById('pPrice').value);
             const size = document.getElementById('pSize').value;
-            const fileInput = document.getElementById('pFiles');
+            const fileInput = document.getElementById('pImage');
 
             if(!name || !price || !size || fileInput.files.length === 0) {
-                alert('الرجاء إدخال كافة بيانات المنتج واختيار صورة واحدة على الأقل');
+                alert('الرجاء إدخال كافة بيانات المنتج واختيار صورة');
                 return;
             }
 
-            const imagePromises = [];
-            for(let i = 0; i < fileInput.files.length; i++) {
-                imagePromises.push(toBase64(fileInput.files[i]));
-            }
-
             try {
-                const base64Images = await Promise.all(imagePromises);
+                const base64Image = await toBase64(fileInput.files[0]);
                 
                 const newProduct = {
                     name: name,
                     price: price,
                     size: size,
-                    images: base64Images,
-                    image: base64Images[0]
+                    image: base64Image
                 };
 
                 const res = await fetch(`${DB_URL}/products.json`, {
@@ -856,7 +834,7 @@
                     alert('فشل حفظ المنتج');
                 }
             } catch(err) {
-                alert('حدث خطأ أثناء معالجة الصور');
+                alert('حدث خطأ أثناء معالجة الصورة');
             }
         }
 
@@ -891,25 +869,10 @@
 
             keys.forEach(id => {
                 const p = productsData[id];
-                const imagesList = p.images || [p.image];
-                const mainImg = imagesList[0];
-
-                let thumbnailsHTML = '';
-                if(imagesList.length > 1) {
-                    thumbnailsHTML = `<div class="product-thumbnails">`;
-                    imagesList.forEach((imgUrl, idx) => {
-                        thumbnailsHTML += `<img src="${imgUrl}" onclick="changeMainImage('${id}', ${idx})" alt="صورة مصغرة">`;
-                    });
-                    thumbnailsHTML += `</div>`;
-                }
-
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <div id="imgContainer_${id}">
-                        <img id="mainImg_${id}" src="${mainImg}" alt="${p.name}" onclick="openImageZoom('${mainImg}')" title="اضغط لتكبير ورؤية تفاصيل الصورة">
-                    </div>
-                    ${thumbnailsHTML}
+                    <img src="${p.image}" alt="${p.name}" onclick="openImageZoom('${p.image}')" title="اضغط لتكبير ورؤية تفاصيل الصورة">
                     <div class="product-details">
                         <div>
                             <div class="product-title">${p.name}</div>
@@ -921,16 +884,6 @@
                 `;
                 grid.appendChild(card);
             });
-        }
-
-        function changeMainImage(prodId, index) {
-            const p = productsData[prodId];
-            const imagesList = p.images || [p.image];
-            const mainImgElem = document.getElementById(`mainImg_${prodId}`);
-            if(mainImgElem && imagesList[index]) {
-                mainImgElem.src = imagesList[index];
-                mainImgElem.setAttribute('onclick', `openImageZoom('${imagesList[index]}')`);
-            }
         }
 
         function openImageZoom(imgUrl) {
