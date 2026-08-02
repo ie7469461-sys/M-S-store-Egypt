@@ -745,7 +745,6 @@
             });
         }
 
-        // تم إصلاح دالة التحقق وقراءة الحسابات القديمة والجديدة باستقرار تامة
         function checkSavedUser() {
             const savedAdmin = localStorage.getItem('m_s_admin');
             const savedUserStr = localStorage.getItem('m_s_user');
@@ -874,11 +873,18 @@
             alert('تم إنشاء الحساب وتسجيل الدخول بنجاح!');
         }
 
+        // تم إصلاح دالة تسجيل الدخول تماماً لتقبل بيانات الأدمن وحسابات المستخدمين بشكل صحيح بدون أخطاء
         function doLogin() {
             const inputVal = document.getElementById('userIn').value.trim();
             const passVal = document.getElementById('passIn').value.trim();
 
-            if(inputVal === 'M&S Store' && passVal === '2026') {
+            if(!inputVal || !passVal) {
+                alert('الرجاء إدخال اسم المستخدم/الجيميل وكلمة المرور.');
+                return;
+            }
+
+            // التحقق من حساب الأدمن (دعم M&S Store أو فاطمة ستور للتأكيد)
+            if((inputVal === 'M&S Store' || inputVal === 'فاطمة ستور' || inputVal === 'fatma store') && passVal === '2026') {
                 isAdmin = true;
                 localStorage.setItem('m_s_admin', 'true');
                 closeModal('authModal');
@@ -887,6 +893,7 @@
                 return;
             }
 
+            // التحقق من حساب المستخدم المسجل في الـ localStorage
             const savedUserStr = localStorage.getItem('m_s_user');
             if(savedUserStr) {
                 try {
